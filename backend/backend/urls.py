@@ -25,6 +25,7 @@ urlpatterns = [
     path('weather/', WeatherView.as_view(), name='weather-list'),
     path('water-quality/', WaterQualityView.as_view(), name='water-quality-list'),
     path('reports/', CommunityReportView.as_view(), name='community-report-list'),
-    path('profiles/', UserProfileView.as_view(), name='user-profile-list'),
+    path('user-profiles/', UserProfileView.as_view(), name='user-profiles'),
+    path('admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),
 ]
  

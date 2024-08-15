@@ -40,9 +40,29 @@ class CommunityReport(models.Model):
     def __str__(self):
         return f"Report by {self.user} on {self.beach.name}"
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+class Person(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
 
+    class Meta:
+        abstract = True  # This makes Person an abstract class, so no database table will be created.
+
     def __str__(self):
-        return self.user.username
+        return f"{self.first_name} {self.last_name}"
+
+class UserProfile(Person):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+
+    def __str__(self):
+        return f"UserProfile: {self.user.username}"
+
+class AdminProfile(Person):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin_profile')
+    admin_level = models.CharField(max_length=50)  # Additional field specific to admins.
+
+    def __str__(self):
+        return f"AdminProfile: {self.user.username} (Level: {self.admin_level})"
+

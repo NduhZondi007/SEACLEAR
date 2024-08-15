@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile
+from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile
 
 
 class WeatherSerializer(serializers.ModelSerializer):
@@ -41,4 +41,10 @@ class CommunityReportSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user', 'bio']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'user']
+
+class AdminProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminProfile
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'admin_level', 'user']
+

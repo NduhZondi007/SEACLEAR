@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, UserProfileSerializer
+from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile
+from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, UserProfileSerializer, AdminProfileSerializer
 
 class BeachView(APIView):
     def get(self, request):
@@ -59,12 +59,25 @@ class CommunityReportView(APIView):
 
 class UserProfileView(APIView):
     def get(self, request):
-        profiles = UserProfile.objects.all()
-        serializer = UserProfileSerializer(profiles, many=True)
+        user_profiles = UserProfile.objects.all()
+        serializer = UserProfileSerializer(user_profiles, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         serializer = UserProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AdminProfileView(APIView):
+    def get(self, request):
+        admin_profiles = AdminProfile.objects.all()
+        serializer = AdminProfileSerializer(admin_profiles, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = AdminProfileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
