@@ -8,7 +8,7 @@ class App extends React.Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:8000')
+      .get('http://localhost:8000/beaches')
       .then((res) => {
         const data = res.data;
         this.setState({
@@ -30,8 +30,7 @@ class App extends React.Component {
             <div key={id}>
               <div>
                 <p>Name: {output.name}</p>
-                <p>Latitude: {output.latitude}</p>
-                <p>Longitude: {output.longitude}</p>
+                <p>Latitude: {output.location}</p>
                 <hr />
               </div>
             </div>
