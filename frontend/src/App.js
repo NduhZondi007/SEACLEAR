@@ -1,5 +1,8 @@
-import axios from 'axios';
 import React from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import Newpage from './Newpage';
 
 class App extends React.Component {
   state = {
@@ -24,7 +27,7 @@ class App extends React.Component {
     return (
       <div>
         <header>
-          azikhale
+          Data from backend
           <hr />
           {this.state.details.map((output, id) => (
             <div key={id}>
