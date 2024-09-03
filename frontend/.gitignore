@@ -24,3 +24,4 @@ yarn-error.log*
 
 /backend/app/__pycache__/
 /backend/backend/__pycache__/
+node_modules/
