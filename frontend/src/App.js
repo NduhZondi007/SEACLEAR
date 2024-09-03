@@ -24,7 +24,7 @@ class App extends React.Component {
     return (
       <div>
         <header>
-          Data from backend
+          azikhale
           <hr />
           {this.state.details.map((output, id) => (
             <div key={id}>
