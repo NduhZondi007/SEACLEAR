@@ -41,9 +41,9 @@ class CommunityReport(models.Model):
         return f"Report by {self.user} on {self.beach.name}"
 
 class Person(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=50, default="guestFirstname")
+    last_name = models.CharField(max_length=50, default="guestLastname")
+    email = models.EmailField(unique=True, default="guest@gmail.com")
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
 
