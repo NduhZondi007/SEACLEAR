@@ -1,5 +1,8 @@
-import axios from 'axios';
 import React from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import Newpage from './Newpage';
 
 class App extends React.Component {
   state = {
@@ -22,21 +25,32 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <header>
-          Data from backend
-          <hr />
-          {this.state.details.map((output, id) => (
-            <div key={id}>
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={(
               <div>
-                <p>Name: {output.name}</p>
-                <p>Latitude: {output.location}</p>
-                <hr />
+                <header>
+                  Data from backend
+                  <hr />
+                  {this.state.details.map((output, id) => (
+                    <div key={id}>
+                      <div>
+                        <p>Name: {output.name}</p>
+                        <p>Latitude: {output.location}</p>
+                        <hr />
+                      </div>
+                    </div>
+                  ))}
+                </header>
+                <button onClick={() => window.location.href = '/newpage'}>New page</button>
               </div>
-            </div>
-          ))}
-        </header>
-      </div>
+            )} />
+            <Route path="/newpage" element={<Newpage />} />
+            {/* Add other routes here */}
+          </Routes>
+        </div>
+      </Router>
     );
   }
 }
