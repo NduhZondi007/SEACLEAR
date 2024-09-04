@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Weather from './Weather';
+import Amenities from './Amenities';
 
 class Beach extends React.Component {
     state = {
@@ -11,9 +13,7 @@ class Beach extends React.Component {
             .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;
-                console.log("Data", data);
                 data = data.find(beach => beach.name === this.props.params.name);
-                console.log("Weather", data.weather);
                 this.setState({
                     details: data,
                 });
@@ -25,27 +25,19 @@ class Beach extends React.Component {
 
     render() {
         const { details } = this.state;
-    
-        if (!details || !details.weather) {
+
+        if (!details) {
             return <div>Loading beach details...</div>; // Handle loading or no data
         }
-    
+
         return (
             <div>
                 <header>
                     <hr />
                     <p>Name: {details.name}</p>
                     <p>Location: {details.location}</p>
-                    <p>Temperature: {details.weather.temperature}°C</p>
-                    <p>Wind Speed: {details.weather.windSpeed} km/h</p>
-                    <p>Humidity: {details.weather.humidity}%</p>
-                    <p>Forecast: {details.weather.forecast}</p>
-                    <h3>Amenities:</h3>
-                    <ul>
-                        {details.amenities.map((amenity, index) => (
-                            <li key={index}>{amenity}</li>
-                        ))}
-                    </ul>
+                    <Weather weather={details.weather} />
+                    <Amenities amenities={details.amenities} />
                 </header>
             </div>
         );
