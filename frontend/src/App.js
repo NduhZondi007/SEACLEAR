@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Newpage from './Newpage';
+import Adminpage from './Adminpage';
 
 class App extends React.Component {
   state = {
@@ -44,9 +45,11 @@ class App extends React.Component {
                   ))}
                 </header>
                 <button onClick={() => window.location.href = '/newpage'}>New page</button>
+                <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
               </div>
             )} />
             <Route path="/newpage" element={<Newpage />} />
+            <Route path="/adminpage" element={<Adminpage />} />
             {/* Add other routes here */}
           </Routes>
         </div>
