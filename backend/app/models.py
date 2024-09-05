@@ -66,3 +66,15 @@ class AdminProfile(Person):
     def __str__(self):
         return f"AdminProfile: {self.user.username} (Level: {self.admin_level})"
 
+class BeachSpecificChat(models.Model):
+    messages = models.ManyToManyField('Message', blank=True)
+    beach_name = models.CharField(max_length=100)
+    def __str__(self):
+        return f"BeachSpecificChat for Beach: {self.beach_name}"
+
+class Message(models.Model):
+    sender = models.CharField(max_length=100)
+    content = models.TextField()
+
+    def __str__(self):
+        return f"Message by {self.sender}"

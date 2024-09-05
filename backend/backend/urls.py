@@ -27,5 +27,6 @@ urlpatterns = [
     path('reports/', CommunityReportView.as_view(), name='community-report-list'),
     path('user-profiles/', UserProfileView.as_view(), name='user-profiles'),
     path('admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),
+    path('beachSpecific-chat/', BeachSpecificChatView.as_view(), name='beach-specific-chat'),
 ]
  
