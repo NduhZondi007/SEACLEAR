@@ -3,8 +3,9 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Newpage from './Newpage';
-import Adminpage from './Adminpage';
+import AdminPage from './AdminPage';
 import Beach from './Beach';
+import AddBeach from './AddBeach';
 
 class App extends React.Component {
   state = {
@@ -66,7 +67,8 @@ export default function AppWrapper() {
       <Routes>
         <Route path="/" element={<AppWithNavigate />} />
         <Route path="/newpage" element={<Newpage />} />
-        <Route path="/adminpage" element={<Adminpage />} />
+        <Route path="/adminpage" element={<AdminPage />} />
+        <Route path="/admin/addBeach" element={<AddBeach />} />
         <Route path="/beach/:name" element={<Beach />} />
       </Routes>
     </Router>
