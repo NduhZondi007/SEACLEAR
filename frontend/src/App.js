@@ -30,9 +30,11 @@ class App extends React.Component {
       });
   }
 
+
   render() {
     return (
       <div>
+        {/*
         <header>
           Data from backend
           <hr />
@@ -51,6 +53,7 @@ class App extends React.Component {
         <button onClick={() => window.location.href = '/generalChat'}>Chat</button>
         <button onClick={() => this.handleBeachClick("ManjeSekuLate")}>BeachOne</button>
         <button onClick={() => this.handleBeachClick("Beach Name")}>BeachName</button>
+        */}
       </div>
     );
   }
@@ -64,6 +67,7 @@ function AppWithNavigate(props) {
 
 export default function AppWrapper() {
   return (
+    
     <Router>
       <Routes>
         <Route path="/" element={<AppWithNavigate />} />
@@ -73,5 +77,6 @@ export default function AppWrapper() {
         <Route path="/beach/:name" element={<Beach />} />
       </Routes>
     </Router>
+    
   );
 }
