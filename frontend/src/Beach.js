@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Weather from './Weather';
 import Amenities from './Amenities';
 import MessageBox from './MessageBox';
+import ConversationWindow from './ConversationWindow';
 
 class Beach extends React.Component {
     state = {
@@ -40,6 +41,7 @@ class Beach extends React.Component {
                     <Weather weather={details.weather} />
                     <Amenities amenities={details.amenities} />
                     <h3>Messages</h3>
+                    <ConversationWindow conversationWindow={details.name}></ConversationWindow>
                     <MessageBox messageBox={details.name}></MessageBox>
                 </header>
             </div>
