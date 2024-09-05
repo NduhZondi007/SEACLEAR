@@ -47,8 +47,8 @@ class App extends React.Component {
         </header>
         <button onClick={() => window.location.href = '/newpage'}>New page</button>
         <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
-        <button onClick={() => this.handleBeachClick("ManjeSekuLate")}>BeachOne</button>
-        <button onClick={() => this.handleBeachClick("Beach Name")}>BeachName</button>
+        <button onClick={() => this.handleBeachClick("Camps Bay")}>Camps Bay</button>
+        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button>
       </div>
     );
   }
