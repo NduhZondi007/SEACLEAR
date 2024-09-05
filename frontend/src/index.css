@@ -10740,9 +10740,7 @@ textarea.form-control-lg {
   .d-print-inline-flex {
     display: inline-flex !important;
   }
-  .d-print-none {
-    display: none !important;
-  }
+  
 }
 html {
   height: 100%;
