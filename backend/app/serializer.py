@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile
+from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile, BeachSpecificChat, Message
 
 
 class WeatherSerializer(serializers.ModelSerializer):
@@ -48,3 +48,33 @@ class AdminProfileSerializer(serializers.ModelSerializer):
         model = AdminProfile
         fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'admin_level', 'user']
 
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['sender', 'content']
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['sender', 'content']
+
+class BeachSpecificChatSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True)
+
+    class Meta:
+        model = BeachSpecificChat
+        fields = ['beach_name', 'messages']
+
+    def create(self, validated_data):
+        messages_data = validated_data.pop('messages')
+        beach_name = validated_data.get('beach_name')
+        
+        # Try to find an existing chat with the same beach_name
+        beach_chat, created = BeachSpecificChat.objects.get_or_create(beach_name=beach_name)
+        
+        # If the chat already exists, append the new messages
+        for message_data in messages_data:
+            message = Message.objects.create(**message_data)
+            beach_chat.messages.add(message)
+        
+        return beach_chat

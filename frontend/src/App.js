@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import Newpage from './Newpage';
 import Adminpage from './Adminpage';
 import Beach from './Beach';
+import GeneralChat from './GeneralChat';
 
 class App extends React.Component {
   state = {
@@ -47,8 +48,9 @@ class App extends React.Component {
         </header>
         <button onClick={() => window.location.href = '/newpage'}>New page</button>
         <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
+        <button onClick={() => window.location.href = '/generalChat'}>Chat</button>
         <button onClick={() => this.handleBeachClick("ManjeSekuLate")}>BeachOne</button>
-        <button onClick={() => this.handleBeachClick("Beach Znom")}>BeachTwo</button>
+        <button onClick={() => this.handleBeachClick("Beach Name")}>BeachName</button>
       </div>
     );
   }
@@ -67,6 +69,7 @@ export default function AppWrapper() {
         <Route path="/" element={<AppWithNavigate />} />
         <Route path="/newpage" element={<Newpage />} />
         <Route path="/adminpage" element={<Adminpage />} />
+        <Route path="/generalChat" element={<GeneralChat />} />
         <Route path="/beach/:name" element={<Beach />} />
       </Routes>
     </Router>

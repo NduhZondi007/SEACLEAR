@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, UserProfileSerializer, AdminProfileSerializer
+from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile, BeachSpecificChat, Message
+from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, UserProfileSerializer, AdminProfileSerializer, BeachSpecificChatSerializer,MessageSerializer
 
 class BeachView(APIView):
     def get(self, request):
@@ -78,6 +78,32 @@ class AdminProfileView(APIView):
 
     def post(self, request):
         serializer = AdminProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BeachSpecificChatView(APIView):
+    def get(self, request):
+        beach_specific_chats = BeachSpecificChat.objects.all()
+        serializer = BeachSpecificChatSerializer(beach_specific_chats, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = BeachSpecificChatSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class MessageView(APIView):
+    def get(self, request):
+        messages = Message.objects.all()
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
