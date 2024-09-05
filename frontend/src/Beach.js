@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Weather from './Weather';
 import Amenities from './Amenities';
+import MessageBox from './MessageBox';
 
 class Beach extends React.Component {
     state = {
@@ -38,6 +39,8 @@ class Beach extends React.Component {
                     <p>Location: {details.location}</p>
                     <Weather weather={details.weather} />
                     <Amenities amenities={details.amenities} />
+                    <h3>Messages</h3>
+                    <MessageBox messageBox={details.name}></MessageBox>
                 </header>
             </div>
         );
