@@ -17,10 +17,6 @@ let enterBtn = (event) => {
             "forecast": forcast
         }
     )
-
-    console.log(reponse);
-
-
 }
 
 class Adminpage extends React.Component {
