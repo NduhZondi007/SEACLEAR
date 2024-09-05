@@ -3,15 +3,25 @@ import axios from 'axios';
 
 class ConversationWindow extends React.Component {
     state = {
-        details: null, // Initialize with null to handle loading state
+        details: null,
     };
 
-    fetchMessages = (name) => {
+    componentDidMount() {
+        this.fetchMessages();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.conversationWindow !== this.props.conversationWindow) {
+            this.fetchMessages();
+        }
+    }
+
+    fetchMessages = () => {
+        const { conversationWindow: name } = this.props;
         axios.get('http://localhost:8000/beachSpecific-chat/')
             .then((res) => {
-                console.log("Response data:", res.data);
-                let data = res.data.find(beachChat => beachChat.beach_name === name);
-                console.log("Filtered data:", data);
+                let data = res.data;
+                data = data.find(beachChat => beachChat.beach_name === name);
                 this.setState({
                     details: data,
                 });
@@ -21,32 +31,17 @@ class ConversationWindow extends React.Component {
             });
     };
 
-    componentDidMount() {
-        const { conversationWindow: name } = this.props;
-        if (name) {
-            this.fetchMessages(name);
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        const { conversationWindow: prevName } = prevProps;
-        const { conversationWindow: currentName } = this.props;
-        if (currentName !== prevName) {
-            this.fetchMessages(currentName);
-        }
-    }
-
     render() {
         const { details } = this.state;
-
-        if (!details) {
+    
+        if (!details || !details.messages) { 
             return <div>Loading Messages details...</div>;
         }
-
+    
         return (
             <div>
                 <header>
-                    {details.messages && details.messages.length > 0 ? (
+                    {details.messages.length > 0 ? (
                         details.messages.map((message, index) => (
                             <div key={index}>
                                 <strong>{message.sender}:</strong> {message.content}

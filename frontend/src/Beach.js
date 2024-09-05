@@ -9,7 +9,9 @@ import ConversationWindow from './ConversationWindow';
 class Beach extends React.Component {
     state = {
         details: [],
+        refreshConversation: false,
     };
+
     componentDidMount() {
         axios
             .get('http://localhost:8000/beaches')
@@ -25,11 +27,17 @@ class Beach extends React.Component {
             });
     }
 
+    refreshConversation = () => {
+        this.setState((prevState) => ({
+            refreshConversation: !prevState.refreshConversation
+        }));
+    };
+
     render() {
-        const { details } = this.state;
+        const { details, refreshConversation } = this.state;
 
         if (!details) {
-            return <div>Loading beach details...</div>; // Handle loading or no data
+            return <div>Loading beach details...</div>;
         }
 
         return (
@@ -41,8 +49,14 @@ class Beach extends React.Component {
                     <Weather weather={details.weather} />
                     <Amenities amenities={details.amenities} />
                     <h3>Messages</h3>
-                    <ConversationWindow conversationWindow={details.name}></ConversationWindow>
-                    <MessageBox messageBox={details.name}></MessageBox>
+                    <ConversationWindow
+                        conversationWindow={details.name}
+                        key={refreshConversation}
+                    />
+                    <MessageBox
+                        messageBox={details.name}
+                        refreshConversation={this.refreshConversation}
+                    />
                 </header>
             </div>
         );
