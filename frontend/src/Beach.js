@@ -5,10 +5,11 @@ import Weather from './Weather';
 import Amenities from './Amenities';
 import MessageBox from './MessageBox';
 import ConversationWindow from './ConversationWindow';
+import { useNavigate } from 'react-router-dom';
 
 class Beach extends React.Component {
     state = {
-        details: [],
+        details: null, 
         refreshConversation: false,
     };
 
@@ -35,6 +36,7 @@ class Beach extends React.Component {
 
     render() {
         const { details, refreshConversation } = this.state;
+        const { navigate } = this.props;
 
         if (!details) {
             return <div>Loading beach details...</div>;
@@ -57,16 +59,20 @@ class Beach extends React.Component {
                         messageBox={details.name}
                         refreshConversation={this.refreshConversation}
                     />
+
+                    <button onClick={() => navigate('/writeReport')}>Write Report</button>
+
                 </header>
             </div>
         );
     }
 }
 
-// Wrapper component to inject params
-function BeachWithParams(props) {
+
+function BeachWithParamsAndNavigate(props) {
     const params = useParams();
-    return <Beach {...props} params={params} />;
+    const navigate = useNavigate();
+    return <Beach {...props} params={params} navigate={navigate} />;
 }
 
-export default BeachWithParams;
+export default BeachWithParamsAndNavigate;

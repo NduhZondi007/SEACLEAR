@@ -32,12 +32,33 @@ class BeachSerializer(serializers.ModelSerializer):
         return beach
 
 class CommunityReportSerializer(serializers.ModelSerializer):
-    beach = BeachSerializer()
+    beach = BeachSerializer()  # Nested serializer for Beach
 
     class Meta:
         model = CommunityReport
-        fields = ['user', 'reportType', 'beach', 'problemType', 'status', 'additionlInfo', 'urgency']
+        fields = ['user', 'reportType', 'beach', 'problemType', 'status', 'additionalInfo', 'urgency']
 
+    def create(self, validated_data):
+        beach_data = validated_data.pop('beach')
+        beach, created = Beach.objects.get_or_create(**beach_data)
+        report = CommunityReport.objects.create(beach=beach, **validated_data)
+        return report
+
+    def update(self, instance, validated_data):
+        beach_data = validated_data.pop('beach', None)
+        if beach_data:
+            beach, created = Beach.objects.get_or_create(**beach_data)
+            instance.beach = beach
+        
+        instance.user = validated_data.get('user', instance.user)
+        instance.reportType = validated_data.get('reportType', instance.reportType)
+        instance.problemType = validated_data.get('problemType', instance.problemType)
+        instance.status = validated_data.get('status', instance.status)
+        instance.additionalInfo = validated_data.get('additionalInfo', instance.additionalInfo)
+        instance.urgency = validated_data.get('urgency', instance.urgency)
+        instance.save()
+        return instance
+    
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
