@@ -6,6 +6,7 @@ import Newpage from './Newpage';
 import AdminPage from './AdminPage';
 import Beach from './Beach';
 import AddBeach from './AddBeach';
+import HeroVideo from './components/HomePage/Hero';
 
 class App extends React.Component {
   state = {
