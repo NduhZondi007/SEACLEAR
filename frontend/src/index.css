@@ -42,6 +42,7 @@ nav{
   display: flex;
   align-items: center;
 }
+
 .nav-item{
   list-style: none;
 }
@@ -86,3 +87,14 @@ b,
 strong {
   font-weight: bolder;
 }
+
+/* Masthead styling */
+header.masthead {
+  position: relative;
+  height: 100vh;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
