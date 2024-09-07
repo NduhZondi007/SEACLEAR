@@ -7,6 +7,7 @@ import AdminPage from './AdminPage';
 import Beach from './Beach';
 import AddBeach from './AddBeach';
 import WriteReport from './WriteReport';
+import HeroVideo from './components/HomePage/Hero';
 
 class App extends React.Component {
   state = {
