@@ -3,9 +3,9 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Newpage from './Newpage';
-import Adminpage from './Adminpage';
+import AdminPage from './AdminPage';
 import Beach from './Beach';
-import GeneralChat from './GeneralChat';
+import AddBeach from './AddBeach';
 
 class App extends React.Component {
   state = {
@@ -50,10 +50,8 @@ class App extends React.Component {
         </header>
         <button onClick={() => window.location.href = '/newpage'}>New page</button>
         <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
-        <button onClick={() => window.location.href = '/generalChat'}>Chat</button>
-        <button onClick={() => this.handleBeachClick("ManjeSekuLate")}>BeachOne</button>
-        <button onClick={() => this.handleBeachClick("Beach Name")}>BeachName</button>
-        */}
+        <button onClick={() => this.handleBeachClick("Camps Bay")}>Camps Bay</button>
+        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button>
       </div>
     );
   }
@@ -72,8 +70,8 @@ export default function AppWrapper() {
       <Routes>
         <Route path="/" element={<AppWithNavigate />} />
         <Route path="/newpage" element={<Newpage />} />
-        <Route path="/adminpage" element={<Adminpage />} />
-        <Route path="/generalChat" element={<GeneralChat />} />
+        <Route path="/adminpage" element={<AdminPage />} />
+        <Route path="/admin/addBeach" element={<AddBeach />} />
         <Route path="/beach/:name" element={<Beach />} />
       </Routes>
     </Router>
