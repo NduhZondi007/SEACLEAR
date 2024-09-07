@@ -7,13 +7,12 @@ import AdminPage from './AdminPage';
 import Beach from './Beach';
 import AddBeach from './AddBeach';
 import WriteReport from './WriteReport';
-import HeroVideo from './components/HomePage/Hero';
 
 class App extends React.Component {
   state = {
     details: [],
   };
-  
+
   handleBeachClick = (name) => {
     this.props.navigate(`/beach/${name}`);
   }
@@ -67,7 +66,7 @@ function AppWithNavigate(props) {
 
 export default function AppWrapper() {
   return (
-    
+
     <Router>
       <Routes>
         <Route path="/" element={<AppWithNavigate />} />
@@ -78,6 +77,6 @@ export default function AppWrapper() {
         <Route path="/writeReport" element={<WriteReport />} />
       </Routes>
     </Router>
-    
+
   );
 }

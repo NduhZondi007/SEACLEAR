@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 class Beach extends React.Component {
     state = {
-        details: null, 
+        details: null,
         refreshConversation: false,
     };
 
