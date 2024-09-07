@@ -6,6 +6,7 @@ import Newpage from './Newpage';
 import AdminPage from './AdminPage';
 import Beach from './Beach';
 import AddBeach from './AddBeach';
+import WriteReport from './WriteReport';
 import HeroVideo from './components/HomePage/Hero';
 
 class App extends React.Component {
@@ -74,6 +75,7 @@ export default function AppWrapper() {
         <Route path="/adminpage" element={<AdminPage />} />
         <Route path="/admin/addBeach" element={<AddBeach />} />
         <Route path="/beach/:name" element={<Beach />} />
+        <Route path="/writeReport" element={<WriteReport />} />
       </Routes>
     </Router>
     

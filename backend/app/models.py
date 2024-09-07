@@ -29,17 +29,28 @@ class WaterQuality(models.Model):
         return f"pH: {self.phLevel}, Pollution: {self.pollutionLevel}, Safe: {self.isSafe}"
 
 class CommunityReport(models.Model):
-    user = models.CharField(max_length=100)
-    reportType = models.CharField(max_length=100)
-    beach = models.ForeignKey(Beach, on_delete=models.CASCADE)
-    problemType = models.TextField()
+    REPORT_TYPE_CHOICES = [
+        ('Pollution', 'Pollution'),
+        ('Safety', 'Safety'),
+        ('Other', 'Other'),
+    ]
+
+    URGENCY_CHOICES = [
+        ('Low', 'Low'),
+        ('Medium', 'Medium'),
+        ('High', 'High'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  
+    reportType = models.CharField(max_length=100, choices=REPORT_TYPE_CHOICES)  
+    beach = models.CharField(max_length=100) 
+    problemType = models.TextField()  
     status = models.CharField(max_length=50, default="Pending")
-    additionlInfo = models.TextField()
-    urgency = models.TextField()
+    additionalInfo = models.TextField(blank=True, null=True) 
+    urgency = models.CharField(max_length=10, choices=URGENCY_CHOICES, default='Low')  
 
     def __str__(self):
-        return f"Report by {self.user} on {self.beach.name}"
-
+        return f"Report by {self.user.username} on {self.beach.name}"
 class Person(models.Model):
     first_name = models.CharField(max_length=50, default="guestFirstname")
     last_name = models.CharField(max_length=50, default="guestLastname")
