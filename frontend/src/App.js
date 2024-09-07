@@ -30,9 +30,11 @@ class App extends React.Component {
       });
   }
 
+
   render() {
     return (
       <div>
+        {/*
         <header>
           Data from backend
           <hr />
@@ -49,7 +51,7 @@ class App extends React.Component {
         <button onClick={() => window.location.href = '/newpage'}>New page</button>
         <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
         <button onClick={() => this.handleBeachClick("Camps Bay")}>Camps Bay</button>
-        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button>
+        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button>*/}
       </div>
     );
   }
@@ -63,6 +65,7 @@ function AppWithNavigate(props) {
 
 export default function AppWrapper() {
   return (
+    
     <Router>
       <Routes>
         <Route path="/" element={<AppWithNavigate />} />
@@ -72,5 +75,6 @@ export default function AppWrapper() {
         <Route path="/beach/:name" element={<Beach />} />
       </Routes>
     </Router>
+    
   );
 }
