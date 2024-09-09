@@ -1,4 +1,3 @@
-// AddBeach.js
 import React from 'react';
 import axios from 'axios';
 
@@ -12,10 +11,12 @@ class AddBeach extends React.Component {
       Lifeguard: false,
       BeachChairs: false
     },
-    temperature: '',
-    windSpeed: '',
-    humidity: '',
-    forecast: 'Sunny',
+    weather: {
+      temperature: '',
+      windSpeed: '',
+      humidity: '',
+      forecast: 'Sunny'
+    },
     waterQuality: {
       phLevel: '',
       pollutionLevel: '',
@@ -39,6 +40,13 @@ class AddBeach extends React.Component {
           [id]: value
         }
       }));
+    } else if (id in this.state.weather) {
+      this.setState(prevState => ({
+        weather: {
+          ...prevState.weather,
+          [id]: value
+        }
+      }));
     } else {
       this.setState({ [id]: value });
     }
@@ -47,7 +55,7 @@ class AddBeach extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const { name, location, amenities, temperature, windSpeed, humidity, forecast, waterQuality } = this.state;
+    const { name, location, amenities, weather, waterQuality } = this.state;
 
     const selectedAmenities = Object.keys(amenities).filter(amenity => amenities[amenity]);
 
@@ -56,10 +64,10 @@ class AddBeach extends React.Component {
       location,
       amenities: selectedAmenities,
       weather: {
-        temperature,
-        windSpeed,
-        humidity,
-        forecast
+        temperature: weather.temperature,
+        windSpeed: weather.windSpeed,
+        humidity: weather.humidity,
+        forecast: weather.forecast
       },
       waterQuality: {
         phLevel: waterQuality.phLevel,
@@ -78,10 +86,12 @@ class AddBeach extends React.Component {
             Lifeguard: false,
             BeachChairs: false
           },
-          temperature: '',
-          windSpeed: '',
-          humidity: '',
-          forecast: 'Sunny',
+          weather: {
+            temperature: '',
+            windSpeed: '',
+            humidity: '',
+            forecast: 'Sunny'
+          },
           waterQuality: {
             phLevel: '',
             pollutionLevel: '',
@@ -95,7 +105,7 @@ class AddBeach extends React.Component {
   }
 
   render() {
-    const { name, location, amenities, temperature, windSpeed, humidity, forecast, waterQuality } = this.state;
+    const { name, location, amenities, weather, waterQuality } = this.state;
 
     return (
       <div>
@@ -126,19 +136,19 @@ class AddBeach extends React.Component {
           <h3>Weather</h3>
           <label>
             Temp
-            <input id="temperature" type="number" value={temperature} onChange={this.handleInputChange} />
+            <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} />
           </label>
           <label>
-            WindSpeed
-            <input id="windSpeed" type="number" value={windSpeed} onChange={this.handleInputChange} />
+            Wind Speed
+            <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} />
           </label>
           <label>
             Humidity
-            <input id="humidity" type="number" value={humidity} onChange={this.handleInputChange} />
+            <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} />
           </label>
           <label>
             Forecast
-            <select id="forecast" value={forecast} onChange={this.handleInputChange}>
+            <select id="forecast" value={weather.forecast} onChange={this.handleInputChange}>
               <option value="Sunny">Sunny</option>
               <option value="Cloudy">Cloudy</option>
               <option value="Overcast">Overcast</option>
