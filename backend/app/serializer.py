@@ -18,7 +18,7 @@ class BeachSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Beach
-        fields = ['name', 'location', 'amenities', 'weather', 'waterQuality']
+        fields = ['id', 'name', 'location', 'amenities', 'weather', 'waterQuality']
 
     def create(self, validated_data):
         weather_data = validated_data.pop('weather')
@@ -30,6 +30,32 @@ class BeachSerializer(serializers.ModelSerializer):
         beach = Beach.objects.create(weather=weather, waterQuality=water_quality, **validated_data)
         
         return beach
+    
+    def update(self, instance, validated_data):
+        weather_data = validated_data.pop('weather', None)
+        if weather_data:
+            weather = instance.weather
+            if weather:
+                Weather.objects.filter(pk=weather.pk).update(**weather_data)
+            else:
+                weather = Weather.objects.create(**weather_data)
+                instance.weather = weather
+
+        water_quality_data = validated_data.pop('waterQuality', None)
+        if water_quality_data:
+            water_quality = instance.waterQuality
+            if water_quality:
+                WaterQuality.objects.filter(pk=water_quality.pk).update(**water_quality_data)
+            else:
+                water_quality = WaterQuality.objects.create(**water_quality_data)
+                instance.waterQuality = water_quality
+
+        instance.name = validated_data.get('name', instance.name)
+        instance.location = validated_data.get('location', instance.location)
+        instance.amenities = validated_data.get('amenities', instance.amenities)
+        
+        instance.save()
+        return instance
 
 class CommunityReportSerializer(serializers.ModelSerializer):
     beach = BeachSerializer()  # Nested serializer for Beach

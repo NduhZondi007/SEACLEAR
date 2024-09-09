@@ -17,6 +17,17 @@ class BeachView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk):
+        try:
+            beach = Beach.objects.get(pk=pk)
+        except Beach.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = BeachSerializer(beach, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class WeatherView(APIView):
     def get(self, request):

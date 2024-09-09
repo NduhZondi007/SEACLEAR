@@ -8,6 +8,7 @@ function AdminPage() {
     <div>
       <h1>Admin Page</h1>
       <button onClick={() => navigate('/admin/addBeach')}>Add Beach</button>
+      <button onClick={() => navigate('/admin/updateBeach')}>Update Beach</button>
     </div>
   );
 }

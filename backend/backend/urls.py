@@ -22,6 +22,7 @@ from app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('beaches/', BeachView.as_view(), name='beach-list'),
+    path('beaches/<int:pk>/', BeachView.as_view(), name='beach-detail'),
     path('weather/', WeatherView.as_view(), name='weather-list'),
     path('water-quality/', WaterQualityView.as_view(), name='water-quality-list'),
     path('reports/', CommunityReportView.as_view()),  

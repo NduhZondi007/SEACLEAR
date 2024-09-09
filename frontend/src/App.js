@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import AdminPage from './components/AdminPage/AdminPage.js';
 import Beach from './components/BeachPage/Beach.js';
 import AddBeach from './components/AdminPage/AddBeach.js';
+import UpdateBeach from './components/AdminPage/UpdateBeach.js';
 import WriteReport from './components/ReportPage/WriteReport.js';
 
 class App extends React.Component {
@@ -34,7 +35,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {/*
+        {<>
         <header>
           Data from backend
           <hr />
@@ -51,7 +52,7 @@ class App extends React.Component {
         <button onClick={() => window.location.href = '/newpage'}>New page</button>
         <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
         <button onClick={() => this.handleBeachClick("Camps Bay")}>Camps Bay</button>
-        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button>*/}
+        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button></>}
       </div>
     );
   }
@@ -71,6 +72,7 @@ export default function AppWrapper() {
         <Route path="/" element={<AppWithNavigate />} />
         <Route path="/adminpage" element={<AdminPage />} />
         <Route path="/admin/addBeach" element={<AddBeach />} />
+        <Route path="/admin/updateBeach" element={<UpdateBeach />} />
         <Route path="/beach/:name" element={<Beach />} />
         <Route path="/writeReport" element={<WriteReport />} />
       </Routes>
