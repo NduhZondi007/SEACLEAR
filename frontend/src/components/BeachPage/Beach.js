@@ -18,6 +18,7 @@ class Beach extends React.Component {
             .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;
+                console.log("data", data)
                 data = data.find(beach => beach.name === this.props.params.name);
                 this.setState({
                     details: data,
