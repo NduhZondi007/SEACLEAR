@@ -31,7 +31,6 @@ class UpdateBeach extends React.Component {
             .then((res) => {
                 let data = res.data;
                 data = data.find(beach => beach.name === "Camps Bay");
-
                 this.setState({
                     id: data.id,
                     name: data.name,
@@ -96,9 +95,9 @@ class UpdateBeach extends React.Component {
                 isSafe: waterQuality.isSafe
             }
         })
-        .catch(error => {
-            console.error("There was an error adding the beach!", error);
-        });
+            .catch(error => {
+                console.error("There was an error adding the beach!", error);
+            });
     }
 
     render() {
@@ -162,15 +161,23 @@ class UpdateBeach extends React.Component {
                         <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} />
                     </label>
                     <label>
-                        Pollution Level
-                        <input id="pollutionLevel" type="text" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} />
+                        Pollution
+                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange}>
+                            <option value="High">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
                     </label>
                     <label>
-                        Is Safe
-                        <input id="isSafe" type="text" value={waterQuality.isSafe} onChange={this.handleInputChange} />
+                        Risk
+                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange}>
+                            <option value="Safe">Safe</option>
+                            <option value="medium">Medium</option>
+                            <option value="Not Safe">Not Safe</option>
+                        </select>
                     </label>
 
-                    <button type="submit">Add Beach</button>
+                    <button type="submit">Update Beach</button>
                 </form>
             </div>
         );
