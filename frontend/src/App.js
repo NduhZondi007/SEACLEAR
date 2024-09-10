@@ -7,6 +7,7 @@ import Beach from './components/BeachPage/Beach.js';
 import AddBeach from './components/AdminPage/AddBeach.js';
 import UpdateBeach from './components/AdminPage/UpdateBeach.js';
 import WriteReport from './components/ReportPage/WriteReport.js';
+import BeachList from './components/AdminPage/BeachList.js';
 
 class App extends React.Component {
   state = {
@@ -72,7 +73,8 @@ export default function AppWrapper() {
         <Route path="/" element={<AppWithNavigate />} />
         <Route path="/adminpage" element={<AdminPage />} />
         <Route path="/admin/addBeach" element={<AddBeach />} />
-        <Route path="/admin/updateBeach" element={<UpdateBeach />} />
+        <Route path="/admin/updateBeach" element={<BeachList />} />
+        <Route path="/admin/updateBeach/:name" element={<UpdateBeach />} />
         <Route path="/beach/:name" element={<Beach />} />
         <Route path="/writeReport" element={<WriteReport />} />
       </Routes>
