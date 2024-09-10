@@ -6,7 +6,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div className="container">
                 <a className="navbar-brand" href="#page-top">
-                    <img src="%PUBLIC_URL%/images/seaclearlogo.png" alt="SeaClear Logo" />
+                    <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
                     SEACLEAR
                 </a>
                 <div className="collapse navbar-collapse" id="navbarResponsive">

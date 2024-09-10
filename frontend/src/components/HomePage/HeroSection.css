@@ -1,0 +1,112 @@
+/* Video container */
+
+a {
+    text-decoration: none;
+    position: relative;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: currentColor;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-in;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    mask-repeat: no-repeat;
+    object-fit: cover;
+    z-index: -10000;
+    /* Ensures the video stays behind the content */
+    opacity: 0.7;
+    /*  adjust the opacity for better text visibility */
+}
+
+/* Styling the content inside the hero section */
+.masthead {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    z-index: -10;
+    /* Ensures content is above the video */
+}
+
+.masthead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Dark overlay */
+    z-index: -1;
+    /* Behind the content, but still above the video */
+}
+
+/* The heading in the hero section */
+.masthead h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.masthead p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.75);
+    /* White with transparency */
+}
+
+.masthead .btn-primary {
+    background-color: blue;
+    border-color: blue;
+    height: 40px;
+    width: 120px;
+    z-index: 100;
+}
+
+.btn-primary:hover {
+    background-color: white;
+    border-color: #004085;
+    font-style: black;
+}
+
+/* Adjusting the hero section for larger screens */
+@media (min-width: 992px) {
+    .masthead {
+        height: 100vh;
+        min-height: 40rem;
+        padding-top: 4.5rem;
+        padding-bottom: 0;
+    }
+
+    .masthead p {
+        font-size: 1.15rem;
+    }
+
+    .masthead h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .masthead h1 {
+        font-size: 3.5rem;
+    }
+}
