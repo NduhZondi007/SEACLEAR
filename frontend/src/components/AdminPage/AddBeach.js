@@ -2,30 +2,34 @@ import React from 'react';
 import axios from 'axios';
 
 class AddBeach extends React.Component {
+  // Initial state includes fields for beach name, location, amenities, weather, and water quality
   state = {
     name: '',
     location: '',
-    amenities: {
+    amenities: { // Amenities are stored as boolean values (checked/unchecked)
       Restaurants: false,
       Parking: false,
       Lifeguard: false,
       BeachChairs: false
     },
-    weather: {
+    weather: { // Weather details include temperature, wind speed, humidity, and forecast
       temperature: '',
       windSpeed: '',
       humidity: '',
       forecast: 'Sunny'
     },
-    waterQuality: {
+    waterQuality: { // Water quality fields include pH level, pollution level, and safety status
       phLevel: '',
       pollutionLevel: '',
       isSafe: ''
     }
   };
 
+  // Generic handler to capture input changes for text fields, select dropdowns, and checkboxes
   handleInputChange = (event) => {
     const { id, value, type, checked } = event.target;
+
+    // Update amenities (checkboxes)
     if (type === 'checkbox') {
       this.setState(prevState => ({
         amenities: {
@@ -33,32 +37,41 @@ class AddBeach extends React.Component {
           [id]: checked
         }
       }));
-    } else if (id in this.state.waterQuality) {
+    } 
+    // Update water quality fields
+    else if (id in this.state.waterQuality) {
       this.setState(prevState => ({
         waterQuality: {
           ...prevState.waterQuality,
           [id]: value
         }
       }));
-    } else if (id in this.state.weather) {
+    } 
+    // Update weather fields
+    else if (id in this.state.weather) {
       this.setState(prevState => ({
         weather: {
           ...prevState.weather,
           [id]: value
         }
       }));
-    } else {
+    } 
+    // Update general fields like name and location
+    else {
       this.setState({ [id]: value });
     }
   }
 
+  // Form submission handler to send data to the backend using axios
   handleSubmit = (event) => {
     event.preventDefault();
 
     const { name, location, amenities, weather, waterQuality } = this.state;
 
+    // Filter out selected amenities (those checked as true)
     const selectedAmenities = Object.keys(amenities).filter(amenity => amenities[amenity]);
 
+    // Axios POST request to add a new beach, including amenities, weather, and water quality data
     axios.post("http://127.0.0.1:8000/beaches/", {
       name,
       location,
@@ -75,33 +88,35 @@ class AddBeach extends React.Component {
         isSafe: waterQuality.isSafe
       }
     })
-      .then(response => {
-        console.log("Beach added successfully:", response.data);
-        this.setState({
-          name: '',
-          location: '',
-          amenities: {
-            Restaurants: false,
-            Parking: false,
-            Lifeguard: false,
-            BeachChairs: false
-          },
-          weather: {
-            temperature: '',
-            windSpeed: '',
-            humidity: '',
-            forecast: 'Sunny'
-          },
-          waterQuality: {
-            phLevel: '',
-            pollutionLevel: '',
-            isSafe: ''
-          }
-        });
-      })
-      .catch(error => {
-        console.error("There was an error adding the beach!", error);
+    .then(response => {
+      console.log("Beach added successfully:", response.data);
+
+      // Reset form fields to their initial state after a successful submission
+      this.setState({
+        name: '',
+        location: '',
+        amenities: {
+          Restaurants: false,
+          Parking: false,
+          Lifeguard: false,
+          BeachChairs: false
+        },
+        weather: {
+          temperature: '',
+          windSpeed: '',
+          humidity: '',
+          forecast: 'Sunny'
+        },
+        waterQuality: {
+          phLevel: '',
+          pollutionLevel: '',
+          isSafe: ''
+        }
       });
+    })
+    .catch(error => {
+      console.error("There was an error adding the beach!", error);
+    });
   }
 
   render() {

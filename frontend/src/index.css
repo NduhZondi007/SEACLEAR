@@ -1,100 +1,112 @@
+/* Apply box-sizing to all elements and pseudo-elements to include padding and border in element's total width and height */
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Smooth scroll behavior for better user experience, applied only if user prefers reduced motion is not set */
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
   }
 }
 
-body{
+/* Reset margin and set a base font-family for the body */
+body {
   margin: 0;
   font-family: "Helvetica", "Arial", sans-serif;
 }
 
-nav{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-bottom: 0;
-  overflow: hidden;
-  background-color: blue;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  z-index: 1000px;
-  
+/* Navigation styling */
+nav {
+  display: flex; /* Flexbox layout for nav items */
+  align-items: center; /* Center align items vertically */
+  justify-content: space-between; /* Space items evenly */
+  padding: 0 20px; /* Horizontal padding */
+  margin-bottom: 0; /* Remove default margin at the bottom */
+  overflow: hidden; /* Hide overflowing content */
+  background-color: blue; /* Background color */
+  position: fixed; /* Fix the position to the top of the viewport */
+  top: 0; /* Align to the top */
+  width: 100%; /* Full width */
+  height: 60px; /* Fixed height */
+  z-index: 1000; /* Ensure nav is above other content */
 }
 
-.container{
-  display: flex;
-  justify-content:space-around;
-  align-items: center;
-  width: 100%;
-  margin-right: 40px;
+/* Container styling within the nav for spacing and alignment */
+.container {
+  display: flex; /* Flexbox layout for container items */
+  justify-content: space-around; /* Space items evenly */
+  align-items: center; /* Center align items vertically */
+  width: 100%; /* Full width */
+  margin-right: 40px; /* Margin on the right side */
 }
 
-.collapse{
-  display: flex;
-  align-items: center;
+/* Collapse styling for nav items */
+.collapse {
+  display: flex; /* Flexbox layout for collapse items */
+  align-items: center; /* Center align items vertically */
 }
 
-.nav-item{
+/* Remove default list styling for nav items */
+.nav-item {
   list-style: none;
 }
 
-/*SEACLEAR LOGO*/
-.navbar-brand{
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  gap: 7px;
+/* Styling for the SEACLEAR logo in the navbar */
+.navbar-brand {
+  font-size: 24px; /* Font size */
+  display: flex; /* Flexbox layout */
+  align-items: center; /* Center align items vertically */
+  text-decoration: none; /* Remove default underline from links */
+  color: white; /* Text color */
+  font-weight: bold; /* Bold font weight */
+  gap: 7px; /* Space between logo text and image */
 }
 
+/* Hover and focus states for navbar brand */
 .navbar-brand:hover, .navbar-brand:focus {
-  color: black;
+  color: black; /* Change text color on hover/focus */
 }
 
-.navbar-brand img{
-  width: 40px;
+/* Styling for the logo image in the navbar */
+.navbar-brand img {
+  width: 40px; /* Fixed width for logo image */
 }
 
-.nav-link{
-  display: block;
-  text-decoration: none;
-  color: white;
+/* Styling for navigation links */
+.nav-link {
+  display: block; /* Block display for full clickable area */
+  text-decoration: none; /* Remove default underline */
+  color: white; /* Text color */
 }
 
+/* Hover and focus states for navigation links */
 .nav-link:hover, .nav-link:focus {
-  color: black;
+  color: black; /* Change text color on hover/focus */
 }
 
-.navbar-nav{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  gap: 30px;
+/* Navbar navigation styling */
+.navbar-nav {
+  display: flex; /* Flexbox layout for nav items */
+  align-items: center; /* Center align items vertically */
+  justify-content: center; /* Center align items horizontally */
+  font-size: 18px; /* Font size */
+  gap: 30px; /* Space between nav items */
 }
+
+/* Apply bolder font weight to bold and strong elements */
 b,
 strong {
   font-weight: bolder;
 }
 
-/* Masthead styling */
+/* Styling for the masthead section of the header */
 header.masthead {
-  position: relative;
-  height: 100vh;
-  background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative; /* Relative positioning for the masthead */
+  height: 100vh; /* Full viewport height */
+  background: none; /* Remove background if any */
+  display: flex; /* Flexbox layout */
+  align-items: center; /* Center align items vertically */
+  justify-content: center; /* Center align items horizontally */
 }
-

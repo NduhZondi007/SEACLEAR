@@ -1,38 +1,44 @@
+/* Styles for the App component */
 .App {
-  text-align: center;
+  text-align: center; /* Center-aligns text inside the .App container */
 }
 
+/* Styles for the App logo */
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  height: 40vmin; /* Sets the height of the logo to 40% of the viewport's smaller dimension (height or width) */
+  pointer-events: none; /* Disables mouse interactions with the logo (e.g., clicks) */
 }
 
+/* Animation for the App logo when reduced motion is not preferred */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 20s linear; /* Applies continuous spinning animation to the logo */
   }
 }
 
+/* Styles for the header section of the App */
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #282c34; /* Sets a dark background color for the header */
+  min-height: 100vh; /* Ensures the header takes up at least the full height of the viewport */
+  display: flex; /* Uses flexbox for layout */
+  flex-direction: column; /* Arranges children elements in a column */
+  align-items: center; /* Horizontally centers children elements */
+  justify-content: center; /* Vertically centers children elements */
+  font-size: calc(10px + 2vmin); /* Responsive font size based on viewport dimensions */
+  color: white; /* Sets text color to white */
 }
 
+/* Styles for links inside the App */
 .App-link {
-  color: #61dafb;
+  color: #61dafb; /* Sets link color to a light blue */
 }
 
+/* Keyframes for the spinning animation */
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg); /* Starts the rotation at 0 degrees */
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg); /* Ends the rotation at 360 degrees, completing one full turn */
   }
 }
