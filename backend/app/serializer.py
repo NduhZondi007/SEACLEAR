@@ -1,26 +1,29 @@
 from rest_framework import serializers
 from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile, BeachSpecificChat, Message
 
-
 class WeatherSerializer(serializers.ModelSerializer):
+    # Serializer for the Weather model
     class Meta:
         model = Weather
-        fields = ['temperature', 'windSpeed', 'humidity', 'forecast']
+        fields = ['temperature', 'windSpeed', 'humidity', 'forecast']  # Fields to be included in the serialized output
 
 class WaterQualitySerializer(serializers.ModelSerializer):
+    # Serializer for the WaterQuality model
     class Meta:
         model = WaterQuality
-        fields = ['phLevel', 'pollutionLevel', 'isSafe']
+        fields = ['phLevel', 'pollutionLevel', 'isSafe']  # Fields to be included in the serialized output
 
 class BeachSerializer(serializers.ModelSerializer):
-    weather = WeatherSerializer()
-    waterQuality = WaterQualitySerializer()
+    # Serializer for the Beach model
+    weather = WeatherSerializer()  # Nested serializer for Weather
+    waterQuality = WaterQualitySerializer()  # Nested serializer for WaterQuality
 
     class Meta:
         model = Beach
-        fields = ['id', 'name', 'location', 'amenities', 'weather', 'waterQuality']
+        fields = ['id', 'name', 'location', 'amenities', 'weather', 'waterQuality']  # Fields to be included in the serialized output
 
     def create(self, validated_data):
+        # Override create method to handle nested Weather and WaterQuality
         weather_data = validated_data.pop('weather')
         water_quality_data = validated_data.pop('waterQuality')
         
@@ -32,6 +35,7 @@ class BeachSerializer(serializers.ModelSerializer):
         return beach
     
     def update(self, instance, validated_data):
+        # Override update method to handle nested Weather and WaterQuality
         weather_data = validated_data.pop('weather', None)
         if weather_data:
             weather = instance.weather
@@ -58,19 +62,22 @@ class BeachSerializer(serializers.ModelSerializer):
         return instance
 
 class CommunityReportSerializer(serializers.ModelSerializer):
+    # Serializer for the CommunityReport model
     beach = BeachSerializer()  # Nested serializer for Beach
 
     class Meta:
         model = CommunityReport
-        fields = ['user', 'reportType', 'beach', 'problemType', 'status', 'additionalInfo', 'urgency']
+        fields = ['user', 'reportType', 'beach', 'problemType', 'status', 'additionalInfo', 'urgency']  # Fields to be included in the serialized output
 
     def create(self, validated_data):
+        # Override create method to handle nested Beach data
         beach_data = validated_data.pop('beach')
         beach, created = Beach.objects.get_or_create(**beach_data)
         report = CommunityReport.objects.create(beach=beach, **validated_data)
         return report
 
     def update(self, instance, validated_data):
+        # Override update method to handle nested Beach data
         beach_data = validated_data.pop('beach', None)
         if beach_data:
             beach, created = Beach.objects.get_or_create(**beach_data)
@@ -86,40 +93,40 @@ class CommunityReportSerializer(serializers.ModelSerializer):
         return instance
     
 class UserProfileSerializer(serializers.ModelSerializer):
+    # Serializer for the UserProfile model
     class Meta:
         model = UserProfile
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'user']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'user']  # Fields to be included in the serialized output
 
 class AdminProfileSerializer(serializers.ModelSerializer):
+    # Serializer for the AdminProfile model
     class Meta:
         model = AdminProfile
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'admin_level', 'user']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'bio', 'admin_level', 'user']  # Fields to be included in the serialized output
 
 class MessageSerializer(serializers.ModelSerializer):
+    # Serializer for the Message model
     class Meta:
         model = Message
-        fields = ['sender', 'content']
-
-class MessageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Message
-        fields = ['sender', 'content']
+        fields = ['sender', 'content']  # Fields to be included in the serialized output
 
 class BeachSpecificChatSerializer(serializers.ModelSerializer):
-    messages = MessageSerializer(many=True)
+    # Serializer for the BeachSpecificChat model
+    messages = MessageSerializer(many=True)  # Nested serializer for Message
 
     class Meta:
         model = BeachSpecificChat
-        fields = ['beach_name', 'messages']
+        fields = ['beach_name', 'messages']  # Fields to be included in the serialized output
 
     def create(self, validated_data):
+        # Override create method to handle nested Message data
         messages_data = validated_data.pop('messages')
         beach_name = validated_data.get('beach_name')
         
         # Try to find an existing chat with the same beach_name
         beach_chat, created = BeachSpecificChat.objects.get_or_create(beach_name=beach_name)
         
-        # If the chat already exists, append the new messages
+        # Create new messages and add them to the chat
         for message_data in messages_data:
             message = Message.objects.create(**message_data)
             beach_chat.messages.add(message)
