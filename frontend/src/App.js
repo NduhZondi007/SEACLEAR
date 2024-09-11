@@ -10,6 +10,9 @@ import WriteReport from './components/ReportPage/WriteReport.js';
 import BeachList from './components/AdminPage/BeachList.js';
 import HeroSection from './components/HomePage/HeroSection.js';
 import Navbar from './components/HomePage/Navbar.js';
+import ReportList from './components/AdminPage/ReportList.js';
+import ViewReport from './components/AdminPage/ViewReport.js';
+import BeachListHome from './components/HomePage/BeachListHome.js';
 
 // Main App component
 class App extends React.Component {
@@ -43,26 +46,7 @@ class App extends React.Component {
       <div>
         <Navbar />
         <HeroSection />
-        {<>
-        <header>
-          Data from backend
-          <hr />
-          {/* Displays the list of beaches */}
-          {this.state.details.map((output, id) => (
-            <div key={id}>
-              <div>
-                <p>Name: {output.name}</p>
-                <p>Latitude: {output.location}</p>
-                <hr />
-              </div>
-            </div>
-          ))}
-        </header>
-        {/* Navigation buttons */}
-        <button onClick={() => window.location.href = '/newpage'}>New page</button>
-        <button onClick={() => window.location.href = '/adminpage'}>Admin</button>
-        <button onClick={() => this.handleBeachClick("Camps Bay")}>Camps Bay</button>
-        <button onClick={() => this.handleBeachClick("Strand Beach")}>Strand Beach</button></>}
+        <BeachListHome/>
       </div>
     );
   }
@@ -84,6 +68,8 @@ export default function AppWrapper() {
         <Route path="/admin/addBeach" element={<AddBeach />} /> {/* Add Beach route */}
         <Route path="/admin/updateBeach" element={<BeachList />} /> {/* Beach List route */}
         <Route path="/admin/updateBeach/:name" element={<UpdateBeach />} /> {/* Update Beach route */}
+        <Route path="/admin/report" element={<ReportList />} /> {/* Report List route */}
+        <Route path="/admin/report/:reportId" element={<ViewReport />} /> {/* View Report route */}
         <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
         <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
       </Routes>

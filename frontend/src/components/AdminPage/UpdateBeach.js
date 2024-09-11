@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios'; // Import axios for making HTTP requests
+import { useParams } from 'react-router-dom';
 
 class UpdateBeach extends React.Component {
     // Define the initial state with fields for beach details, including amenities, weather, and water quality
@@ -29,12 +30,13 @@ class UpdateBeach extends React.Component {
     // Component lifecycle method that runs when the component mounts
     componentDidMount() {
         // Fetch beach details by making an API request
+        const { name } = this.props.params;
         axios
             .get('http://localhost:8000/beaches') // Replace with your actual API endpoint
             .then((res) => {
                 let data = res.data;
                 // Find the specific beach by name (e.g., "Camps Bay")
-                data = data.find(beach => beach.name === "Camps Bay");
+                data = data.find(beach => beach.name === name);
                 // Update the component's state with the fetched beach data
                 this.setState({
                     id: data.id, // Set the ID of the beach
@@ -210,4 +212,9 @@ class UpdateBeach extends React.Component {
     }
 }
 
-export default UpdateBeach;
+function UpdateBeachWithParams() {
+    const params = useParams();  // Hook to access URL parameters
+    return <UpdateBeach params={params}/>;  // Pass params as prop to ViewReport
+}
+
+export default UpdateBeachWithParams;

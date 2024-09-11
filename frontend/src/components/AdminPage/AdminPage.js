@@ -14,6 +14,9 @@ function AdminPage() {
       
       {/* Button to navigate to the "Update Beach" page when clicked */}
       <button onClick={() => navigate('/admin/updateBeach')}>Update Beach</button>
+
+      {/* Button to navigate to the "reports" page when clicked */}
+      <button onClick={() => navigate('/admin/report')}>View Reports</button>
     </div>
   );
 }
