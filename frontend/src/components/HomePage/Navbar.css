@@ -100,3 +100,24 @@ header.masthead {
     align-items: center;
     justify-content: center;
 }
+
+/* On hover nav-links*/
+.nav-link {
+    text-decoration: none;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: currentColor;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-in;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}

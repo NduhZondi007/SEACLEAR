@@ -1,112 +1,97 @@
 /* Video container */
 
-a {
-    text-decoration: none;
-    position: relative;
-}
 
-a::after {
-    content: '';
+
+/* HeroSection.css */
+
+/* The container for the video */
+.video-container {
     position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: currentColor;
-    bottom: 0;
+    top: 0;
     left: 0;
-    transition: width 0.3s ease-in;
-}
-
-a:hover::after {
+    height: 100%;
     width: 100%;
+    z-index: -1;  /* Ensures the video stays behind the content */
+    overflow: hidden;
+    background:black;
 }
 
-.background-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    mask-repeat: no-repeat;
-    object-fit: cover;
-    z-index: -10000;
-    /* Ensures the video stays behind the content */
-    opacity: 0.7;
-    /*  adjust the opacity for better text visibility */
-}
-
-/* Styling the content inside the hero section */
-.masthead {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    z-index: -10;
-    /* Ensures content is above the video */
-}
-
-.masthead::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Video settings to ensure it covers the background */
+.video-container video {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    /* Dark overlay */
-    z-index: -1;
-    /* Behind the content, but still above the video */
+    object-fit: cover;  /* Ensures the video covers the area without distorting */
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+
 }
 
-/* The heading in the hero section */
+/* The rest of the hero section content */
+.masthead {
+    position: relative;
+    height: 100vh; /* Full height of the viewport */
+    min-height: 500px;  /* Minimum height for smaller screens */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Text color for visibility */
+    z-index: 1; /* Make sure text appears above the video */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Ensuring the content stays in the center */
+.masthead .container {
+    z-index: 2; /* Ensures content is on top of the video */
+    position: relative;
+}
+
 .masthead h1 {
-    font-size: 2.25rem;
+    font-size: 3.5rem;
     font-weight: bold;
-    color: #fff;
 }
 
 .masthead p {
     font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.75);
-    /* White with transparency */
+    color: rgba(255, 255, 255, 0.75); /* White with slight transparency */
 }
 
 .masthead .btn-primary {
+    width: 120px;
+    height: 40px;
     background-color: blue;
     border-color: blue;
-    height: 40px;
-    width: 120px;
-    z-index: 100;
+    color: #ffffff;/*Textcolor*/
+    font-size: 16px;/*Fontsizeforthebutton*/
+    font-weight: bold;/*Makethetextbold*/
+    border: none;/*Removeborder*/
+    border-radius: 8px;/*Roundedcorners*/
+    cursor: pointer;/*Changecursortopointeronhover*/
+    transition: background-color 0.3s ease, transform 0.3s ease;/*Smoothtransitionforbackgroundandtransform*/
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+    -webkit-transition: background-color 0.3s ease, transform 0.3s ease;
+    -moz-transition: background-color 0.3s ease, transform 0.3s ease;
+    -ms-transition: background-color 0.3s ease, transform 0.3s ease;
+    -o-transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.btn-primary:hover {
+.masthead .btn-primary:hover {
     background-color: white;
-    border-color: #004085;
-    font-style: black;
+    color: black;
+    border-color: blue;
+    transform: scale(1.05); /* Slightly increase the size on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Add a bigger shadow on hover */
 }
 
-/* Adjusting the hero section for larger screens */
-@media (min-width: 992px) {
-    .masthead {
-        height: 100vh;
-        min-height: 40rem;
-        padding-top: 4.5rem;
-        padding-bottom: 0;
-    }
 
-    .masthead p {
-        font-size: 1.15rem;
-    }
-
-    .masthead h1 {
-        font-size: 3rem;
-    }
+.btn-primary:active {
+    transform: scale(0.98); /* Scale down the button when clicked */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
 }
 
-@media (min-width: 1200px) {
-    .masthead h1 {
-        font-size: 3.5rem;
-    }
+.hero-text{
+    text-decoration: #ffffff;
 }
