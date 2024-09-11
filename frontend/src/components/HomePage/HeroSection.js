@@ -12,10 +12,10 @@ const HeroSection = () => {
             </div>
             <div className="container">
                 <div className="">
-                    <h1 className="text-header">SEACLEAR - Real-Time Water Quality Monitoring</h1>
+                    <h1 className="text-header"> Real-Time Water Quality Monitoring</h1>
                     <hr className="divider" />
                     <p className='hero-text'>We help you stay informed about beach water quality for safer seaside activities.</p>
-                    <button className="btn btn-primary btn-xl" onClick={() => window.location.href = '#about'}>Learn More</button>
+                    <button className="btn btn-primary btn-xl" onClick={() => window.location.href = '#about'}>Discover More</button>
                 </div>
             </div>
         </header>
