@@ -63,34 +63,9 @@ class BeachSerializer(serializers.ModelSerializer):
 
 class CommunityReportSerializer(serializers.ModelSerializer):
     # Serializer for the CommunityReport model
-    beach = BeachSerializer()  # Nested serializer for Beach
-
     class Meta:
         model = CommunityReport
-        fields = ['user', 'reportType', 'beach', 'problemType', 'status', 'additionalInfo', 'urgency']  # Fields to be included in the serialized output
-
-    def create(self, validated_data):
-        # Override create method to handle nested Beach data
-        beach_data = validated_data.pop('beach')
-        beach, created = Beach.objects.get_or_create(**beach_data)
-        report = CommunityReport.objects.create(beach=beach, **validated_data)
-        return report
-
-    def update(self, instance, validated_data):
-        # Override update method to handle nested Beach data
-        beach_data = validated_data.pop('beach', None)
-        if beach_data:
-            beach, created = Beach.objects.get_or_create(**beach_data)
-            instance.beach = beach
-        
-        instance.user = validated_data.get('user', instance.user)
-        instance.reportType = validated_data.get('reportType', instance.reportType)
-        instance.problemType = validated_data.get('problemType', instance.problemType)
-        instance.status = validated_data.get('status', instance.status)
-        instance.additionalInfo = validated_data.get('additionalInfo', instance.additionalInfo)
-        instance.urgency = validated_data.get('urgency', instance.urgency)
-        instance.save()
-        return instance
+        fields = ['id', 'user', 'reportType', 'beach', 'problemType', 'status', 'additionalInfo', 'urgency']  # Fields to be included in the serialized output
     
 class UserProfileSerializer(serializers.ModelSerializer):
     # Serializer for the UserProfile model
