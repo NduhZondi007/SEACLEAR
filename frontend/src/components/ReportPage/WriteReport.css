@@ -1,43 +1,48 @@
+/* Container for the report form */
 .report-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f7f7f7;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .report-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .report-form label {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .report-form input,
-  .report-form select,
-  .report-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .report-form button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .report-form button:hover {
-    background-color: #0056b3;
-  }
-  
+  max-width: 600px; /* Sets the maximum width of the container */
+  margin: 0 auto; /* Centers the container horizontally */
+  padding: 20px; /* Adds padding inside the container */
+  border-radius: 10px; /* Rounds the corners of the container */
+  background-color: #f7f7f7; /* Sets a light gray background color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+}
+
+/* Styles for the form within the container */
+.report-form {
+  display: flex; /* Uses flexbox for layout */
+  flex-direction: column; /* Arranges form elements in a vertical stack */
+}
+
+/* Styles for labels within the form */
+.report-form label {
+  margin-bottom: 10px; /* Adds space below each label */
+  font-weight: bold; /* Makes the label text bold */
+}
+
+/* Styles for input fields, select boxes, and textareas */
+.report-form input,
+.report-form select,
+.report-form textarea {
+  width: 100%; /* Makes the form elements span the full width of the container */
+  padding: 10px; /* Adds padding inside the elements */
+  margin-top: 5px; /* Adds space above each element */
+  border: 1px solid #ddd; /* Adds a light gray border */
+  border-radius: 5px; /* Rounds the corners of the elements */
+}
+
+/* Styles for the submit button */
+.report-form button {
+  margin-top: 20px; /* Adds space above the button */
+  padding: 10px; /* Adds padding inside the button */
+  background-color: #007bff; /* Sets a blue background color */
+  color: white; /* Sets the text color to white */
+  border: none; /* Removes the default border */
+  border-radius: 5px; /* Rounds the corners of the button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+}
+
+/* Styles for the button on hover */
+.report-form button:hover {
+  background-color: #0056b3; /* Changes the background color to a darker blue when hovered */
+}
