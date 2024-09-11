@@ -2,33 +2,37 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Beach(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.CharField(max_length=255, default="camps bay")
-    amenities = models.JSONField(default=list)  # Storing amenities as a list of strings
-    weather = models.OneToOneField('Weather', on_delete=models.SET_NULL, null=True, blank=True)
-    waterQuality = models.OneToOneField('WaterQuality', on_delete=models.SET_NULL, null=True, blank=True)
+    # Represents a beach with various attributes
+    name = models.CharField(max_length=100)  # Name of the beach
+    location = models.CharField(max_length=255, default="camps bay")  # Location of the beach
+    amenities = models.JSONField(default=list)  # Amenities available at the beach, stored as a list of strings
+    weather = models.OneToOneField('Weather', on_delete=models.SET_NULL, null=True, blank=True)  # Weather information for the beach
+    waterQuality = models.OneToOneField('WaterQuality', on_delete=models.SET_NULL, null=True, blank=True)  # Water quality information for the beach
 
     def __str__(self):
-        return self.name
+        return self.name  # Return the name of the beach for a readable representation
 
 class Weather(models.Model):
-    temperature = models.FloatField()
-    windSpeed = models.FloatField()
-    humidity = models.FloatField()
-    forecast = models.CharField(max_length=50)
+    # Represents the weather conditions at a beach
+    temperature = models.FloatField()  # Current temperature in Celsius
+    windSpeed = models.FloatField()  # Wind speed in km/h
+    humidity = models.FloatField()  # Humidity percentage
+    forecast = models.CharField(max_length=50)  # Weather forecast description
 
     def __str__(self):
-        return f"{self.forecast} - {self.temperature}°C"
+        return f"{self.forecast} - {self.temperature}°C"  # Return a string with the forecast and temperature
 
 class WaterQuality(models.Model):
-    phLevel = models.FloatField()
-    pollutionLevel = models.CharField(max_length=50)
-    isSafe = models.CharField(max_length=50)
+    # Represents the water quality at a beach
+    phLevel = models.FloatField()  # pH level of the water
+    pollutionLevel = models.CharField(max_length=50)  # Level of pollution in the water
+    isSafe = models.CharField(max_length=50)  # Safety status of the water
 
     def __str__(self):
-        return f"pH: {self.phLevel}, Pollution: {self.pollutionLevel}, Safe: {self.isSafe}"
+        return f"pH: {self.phLevel}, Pollution: {self.pollutionLevel}, Safe: {self.isSafe}"  # Return a string describing the water quality
 
 class CommunityReport(models.Model):
+    # Represents a report submitted by a user about a beach
     REPORT_TYPE_CHOICES = [
         ('Pollution', 'Pollution'),
         ('Safety', 'Safety'),
@@ -41,51 +45,58 @@ class CommunityReport(models.Model):
         ('High', 'High'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  
-    reportType = models.CharField(max_length=100, choices=REPORT_TYPE_CHOICES)  
-    beach = models.CharField(max_length=100) 
-    problemType = models.TextField()  
-    status = models.CharField(max_length=50, default="Pending")
-    additionalInfo = models.TextField(blank=True, null=True) 
-    urgency = models.CharField(max_length=10, choices=URGENCY_CHOICES, default='Low')  
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who submitted the report
+    reportType = models.CharField(max_length=100, choices=REPORT_TYPE_CHOICES)  # Type of the report
+    beach = models.CharField(max_length=100)  # Beach where the issue was observed
+    problemType = models.TextField()  # Detailed description of the problem
+    status = models.CharField(max_length=50, default="Pending")  # Status of the report
+    additionalInfo = models.TextField(blank=True, null=True)  # Additional information about the report
+    urgency = models.CharField(max_length=10, choices=URGENCY_CHOICES, default='Low')  # Urgency level of the report
 
     def __str__(self):
-        return f"Report by {self.user.username} on {self.beach.name}"
+        return f"Report by {self.user.username} on {self.beach.name}"  # Return a string with the report's details
+
 class Person(models.Model):
-    first_name = models.CharField(max_length=50, default="guestFirstname")
-    last_name = models.CharField(max_length=50, default="guestLastname")
-    email = models.EmailField(unique=True, default="guest@gmail.com")
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
+    # Abstract base class for user profiles with common fields
+    first_name = models.CharField(max_length=50, default="guestFirstname")  # First name of the person
+    last_name = models.CharField(max_length=50, default="guestLastname")  # Last name of the person
+    email = models.EmailField(unique=True, default="guest@gmail.com")  # Email address
+    phone_number = models.CharField(max_length=20, blank=True, null=True)  # Phone number (optional)
+    bio = models.TextField(blank=True, null=True)  # Short biography (optional)
 
     class Meta:
-        abstract = True  # This makes Person an abstract class, so no database table will be created.
+        abstract = True  # Make this class abstract so no database table is created
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}"  # Return the full name of the person
 
 class UserProfile(Person):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    # User-specific profile extending Person
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')  # User associated with this profile
 
     def __str__(self):
-        return f"UserProfile: {self.user.username}"
+        return f"UserProfile: {self.user.username}"  # Return a string with the user's profile information
 
 class AdminProfile(Person):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin_profile')
-    admin_level = models.CharField(max_length=50)  # Additional field specific to admins.
+    # Admin-specific profile extending Person
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin_profile')  # User associated with this admin profile
+    admin_level = models.CharField(max_length=50)  # Additional field for admin level
 
     def __str__(self):
-        return f"AdminProfile: {self.user.username} (Level: {self.admin_level})"
+        return f"AdminProfile: {self.user.username} (Level: {self.admin_level})"  # Return a string with the admin's profile information
 
 class BeachSpecificChat(models.Model):
-    messages = models.ManyToManyField('Message', blank=True)
-    beach_name = models.CharField(max_length=100)
+    # Represents a chat for a specific beach
+    messages = models.ManyToManyField('Message', blank=True)  # Messages related to this chat
+    beach_name = models.CharField(max_length=100)  # Name of the beach for which the chat is maintained
+
     def __str__(self):
-        return f"BeachSpecificChat for Beach: {self.beach_name}"
+        return f"BeachSpecificChat for Beach: {self.beach_name}"  # Return a string describing the chat
 
 class Message(models.Model):
-    sender = models.CharField(max_length=100)
-    content = models.TextField()
+    # Represents a message in a chat
+    sender = models.CharField(max_length=100)  # Sender of the message
+    content = models.TextField()  # Content of the message
 
     def __str__(self):
-        return f"Message by {self.sender}"
+        return f"Message by {self.sender}"  # Return a string with the sender's name

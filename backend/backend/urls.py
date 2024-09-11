@@ -3,32 +3,57 @@ URL configuration for backend project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
+
 Examples:
-Function views
+Function views:
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
+
+Class-based views:
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
+
+Including another URLconf:
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path, include
 from django.urls import path
-from app.views import *
+from app.views import (
+    BeachView, 
+    WeatherView, 
+    WaterQualityView, 
+    CommunityReportView, 
+    UserProfileView, 
+    AdminProfileView, 
+    BeachSpecificChatView
+)
 
 urlpatterns = [
+    # Admin panel
     path('admin/', admin.site.urls),
-    path('beaches/', BeachView.as_view(), name='beach-list'),
-    path('beaches/<int:pk>/', BeachView.as_view(), name='beach-detail'),
-    path('weather/', WeatherView.as_view(), name='weather-list'),
-    path('water-quality/', WaterQualityView.as_view(), name='water-quality-list'),
-    path('reports/', CommunityReportView.as_view()),  
-    path('reports/<int:pk>/', CommunityReportView.as_view()),  
-    path('user-profiles/', UserProfileView.as_view(), name='user-profiles'),
-    path('admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),
-    path('beachSpecific-chat/', BeachSpecificChatView.as_view(), name='beach-specific-chat'),
+
+    # Beach endpoints
+    path('beaches/', BeachView.as_view(), name='beach-list'),  # List all beaches or create a new beach
+    path('beaches/<int:pk>/', BeachView.as_view(), name='beach-detail'),  # Retrieve, update, or delete a specific beach by pk
+
+    # Weather endpoints
+    path('weather/', WeatherView.as_view(), name='weather-list'),  # List all weather records or create a new weather record
+
+    # Water Quality endpoints
+    path('water-quality/', WaterQualityView.as_view(), name='water-quality-list'),  # List all water quality records or create a new water quality record
+
+    # Community Report endpoints
+    path('reports/', CommunityReportView.as_view()),  # List all community reports or create a new report
+    path('reports/<int:pk>/', CommunityReportView.as_view()),  # Retrieve, update, or delete a specific community report by pk
+
+    # User Profile endpoints
+    path('user-profiles/', UserProfileView.as_view(), name='user-profiles'),  # List all user profiles or create a new profile
+
+    # Admin Profile endpoints
+    path('admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),  # List all admin profiles or create a new profile
+
+    # Beach Specific Chat endpoints
+    path('beachSpecific-chat/', BeachSpecificChatView.as_view(), name='beach-specific-chat'),  # List all beach-specific chats or create a new chat
 ]
- 
