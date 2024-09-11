@@ -20,7 +20,7 @@ class BeachSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Beach
-        fields = ['id', 'name', 'location', 'amenities', 'weather', 'waterQuality']  # Fields to be included in the serialized output
+        fields = ['id', 'name', 'location', 'latitude', 'longitude','amenities', 'weather', 'waterQuality']  # Fields to be included in the serialized output
 
     def create(self, validated_data):
         # Override create method to handle nested Weather and WaterQuality
