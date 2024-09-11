@@ -8,6 +8,8 @@ import AddBeach from './components/AdminPage/AddBeach.js';
 import UpdateBeach from './components/AdminPage/UpdateBeach.js';
 import WriteReport from './components/ReportPage/WriteReport.js';
 import BeachList from './components/AdminPage/BeachList.js';
+import HeroSection from './components/HomePage/HeroSection.js';
+import Navbar from './components/HomePage/Navbar.js';
 
 // Main App component
 class App extends React.Component {
@@ -39,6 +41,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Navbar />
+        <HeroSection />
         {<>
         <header>
           Data from backend
