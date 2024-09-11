@@ -3,63 +3,75 @@ import "./Map.css"
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import { Icon, dIcon, point } from "leaflet";
+import { Icon} from "leaflet";
+import axios from 'axios';
 
 // Create custom icon
 const beachIcon = new Icon({
-  iconUrl: require("./../../assets/images/happyFace.png"),
-  iconSize: [38, 38] // Size of the icon
+    iconUrl: require("./../../assets/images/happyFace.png"),
+    iconSize: [38, 38]
 });
 
 // Custom cluster icon
-const createClusterIcon = function (cluster) {
+const createClusterIcon = function () {
     return new Icon({
-      iconUrl: require("./../../assets/images/blueCircle.png"),
-      iconSize: [40, 40], // Same size as the beach icons
-      iconAnchor: [19, 38], // Anchor icon to the bottom center
-      popupAnchor: [0, -38] // Anchor popup to the top center
+        iconUrl: require("./../../assets/images/blueCircle.png"),
+        iconSize: [40, 40],
+        iconAnchor: [19, 38],
+        popupAnchor: [0, -38]
     });
-  };
+};
 
-// Markers
-const markers = [
-  {
-    position: [-33.9507, 18.3776],
-    beachName: "Camps Bay"
-  },
-  {
-    position: [-33.9469, 18.3777],
-    beachName: "Geln Beach"
-  },
-  {
-    position: [-33.9406, 18.3751],
-    beachName: "Clifton Beach"
-  }
-];
 
-function doNothing(){}
+function doNothing() { }
 
 class Map extends React.Component {
-  render() {
-    return (
-      <MapContainer id="mapCanvas" center={[-33.918861, 18.423300]} zoom={9}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+    state = {
+        details: [],  
+    };
 
-        <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon} onClick={doNothing}>
+    componentDidMount() {
+        axios
+            .get('http://localhost:8000/beaches')
+            .then((res) => {
+                let data = res.data; 
+                console.log("data", data)
+                this.setState({
+                    details: data,
+                });
+            })
+            .catch((err) => {
+                console.error('There was an error fetching the data!', err);
+            });
+    }
 
-          {markers.map((marker, index) => (
-            <Marker key={index} position={marker.position} icon={beachIcon}>
-              <Popup>{marker.beachName}</Popup>
-            </Marker>
-          ))}
+    render() {
+        const { details } = this.state;
 
-        </MarkerClusterGroup>
-      </MapContainer>
-    );
-  }
+        if (details.length === 0) {
+            return <div>Loading...</div>;
+        }
+
+        const firstLocation = details[0];
+
+        return (
+            <MapContainer id="mapCanvas" center={[firstLocation.latitude, firstLocation.longitude]} zoom={9}>
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+
+                <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon} onClick={doNothing}>
+
+                    {this.state.details.map((marker, index) => (
+                        <Marker key={index} position={[marker.latitude, marker.longitude]} icon={beachIcon}>
+                            <Popup>{marker.name}</Popup>
+                        </Marker>
+                    ))}
+
+                </MarkerClusterGroup>
+            </MapContainer>
+        );
+    }
 }
 
 export default Map;
