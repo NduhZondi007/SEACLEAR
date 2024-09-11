@@ -34,6 +34,11 @@ class WaterQuality(models.Model):
 class CommunityReport(models.Model):
     # Represents a report submitted by a user about a beach
     REPORT_TYPE_CHOICES = [
+        ('Beach Specific', 'Beach Specific'),
+        ('General', 'General'),
+    ]
+
+    PROBLEM_TYPE_CHOICES = [
         ('Pollution', 'Pollution'),
         ('Safety', 'Safety'),
         ('Other', 'Other'),
@@ -45,10 +50,10 @@ class CommunityReport(models.Model):
         ('High', 'High'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who submitted the report
+    user = models.CharField(max_length=50, default="user")  # Username of person who posted
     reportType = models.CharField(max_length=100, choices=REPORT_TYPE_CHOICES)  # Type of the report
     beach = models.CharField(max_length=100)  # Beach where the issue was observed
-    problemType = models.TextField()  # Detailed description of the problem
+    problemType =models.CharField(max_length=100, choices=PROBLEM_TYPE_CHOICES)  # Detailed description of the problem
     status = models.CharField(max_length=50, default="Pending")  # Status of the report
     additionalInfo = models.TextField(blank=True, null=True)  # Additional information about the report
     urgency = models.CharField(max_length=10, choices=URGENCY_CHOICES, default='Low')  # Urgency level of the report
