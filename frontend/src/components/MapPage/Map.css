@@ -1,0 +1,6 @@
+#mapCanvas {
+    height: 900vh; /* Fixed height for testing */
+    width: 90vw;  /* Fixed width for testing */
+    border-radius: 2rem;
+  }
+  
