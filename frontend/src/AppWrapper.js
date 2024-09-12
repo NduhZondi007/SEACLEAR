@@ -10,6 +10,7 @@ import WriteReport from './components/ReportPage/WriteReport.js';
 import BeachList from './components/AdminPage/BeachList.js';
 import ReportList from './components/AdminPage/ReportList.js';
 import ViewReport from './components/AdminPage/ViewReport.js';
+import Map from './components/MapPage/Map.js';
 
 // Main entry point for routing
 export default function AppWrapper() {
@@ -25,6 +26,7 @@ export default function AppWrapper() {
         <Route path="/admin/report/:reportId" element={<ViewReport />} /> {/* View Report route */}
         <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
         <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
+        <Route path="/map" element={<Map />} /> {/* View Map */}
       </Routes>
     </Router>
   );
