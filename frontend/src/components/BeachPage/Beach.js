@@ -56,6 +56,7 @@ class Beach extends React.Component {
                     {/* Display beach name and location */}
                     <p>Name: {details.name}</p>
                     <p>Location: {details.location}</p>
+                    <p>Safety : {details.waterQuality.isSafe}</p>
 
                     {/* Display weather details using the Weather component */}
                     <Weather weather={details.weather} />
