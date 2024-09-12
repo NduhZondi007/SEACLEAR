@@ -11,7 +11,6 @@ import BeachList from './components/AdminPage/BeachList.js';
 import ReportList from './components/AdminPage/ReportList.js';
 import ViewReport from './components/AdminPage/ViewReport.js';
 import Map from './components/MapPage/Map.js';
-import WeatherContext from './WeatherContex.js';
 
 import { UserProvider } from './UserContext.js';
 import { WeatherProvider } from './WeatherContex.js';

@@ -36,6 +36,9 @@ const MessageBox = (props) => {
     };
 
     const sendMessage = (name, message, refreshConversation) => {
+        if(message===""){
+            return;
+        }
         axios.post("http://127.0.0.1:8000/beachSpecific-chat/", {
             "beach_name": name,
             "messages": [

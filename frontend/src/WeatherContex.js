@@ -58,9 +58,6 @@ export const WeatherProvider = ({ children }) => {
         weather,
         waterQuality,
       })
-      .then(response => {
-        console.log(`Updated weather for beach ${name}:`, response.data);
-      })
       .catch(error => {
         console.error(`Error updating beach ${name}:`, error);
       });
