@@ -55,6 +55,8 @@ class BeachSerializer(serializers.ModelSerializer):
                 instance.waterQuality = water_quality
 
         instance.name = validated_data.get('name', instance.name)
+        instance.latitude = validated_data.get('latitude', instance.latitude)
+        instance.longitude = validated_data.get('longitude', instance.longitude)
         instance.location = validated_data.get('location', instance.location)
         instance.amenities = validated_data.get('amenities', instance.amenities)
         

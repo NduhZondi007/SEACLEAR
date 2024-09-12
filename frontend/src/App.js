@@ -2,6 +2,7 @@ import React from 'react';
 
 import HomePage from './components/HomePage/Home.js';
 import Map from './components/MapPage/Map.js';
+import AdminPage from './components/AdminPage/AdminPage.js'
 
 // Main App component
 class App extends React.Component {
@@ -9,7 +10,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Map />
+        <HomePage/>
       </div>
     );
   }
