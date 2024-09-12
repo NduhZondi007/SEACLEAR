@@ -5,7 +5,7 @@ class WeatherSerializer(serializers.ModelSerializer):
     # Serializer for the Weather model
     class Meta:
         model = Weather
-        fields = ['temperature', 'windSpeed', 'humidity', 'forecast']  # Fields to be included in the serialized output
+        fields = ['temperature', 'windSpeed', 'humidity', 'seaLevel', 'forecast']  # Fields to be included in the serialized output
 
 class WaterQualitySerializer(serializers.ModelSerializer):
     # Serializer for the WaterQuality model

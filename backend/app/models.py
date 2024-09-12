@@ -19,6 +19,7 @@ class Weather(models.Model):
     temperature = models.FloatField()  # Current temperature in Celsius
     windSpeed = models.FloatField()  # Wind speed in km/h
     humidity = models.FloatField()  # Humidity percentage
+    seaLevel = models.FloatField(default=1019)  # Level
     forecast = models.CharField(max_length=50)  # Weather forecast description
 
     def __str__(self):
