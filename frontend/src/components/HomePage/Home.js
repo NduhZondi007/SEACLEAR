@@ -4,6 +4,7 @@ import HeroSection from './HeroSection';
 import BeachListHome from './BeachListHome';
 import CountUpSection from './CountUpSection';
 import MapIcon from '../MapPage/MapIcon';
+import UpdateWeather from '../AdminPage/UpdateWeather';
 
 class HomePage extends React.Component {
 
