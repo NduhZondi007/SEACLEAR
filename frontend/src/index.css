@@ -39,7 +39,8 @@ nav {
   justify-content: space-around; /* Space items evenly */
   align-items: center; /* Center align items vertically */
   width: 100%; /* Full width */
-  margin-right: 40px; /* Margin on the right side */
+  margin-right: clear
+  40px; /* Margin on the right side */
 }
 
 /* Collapse styling for nav items */
