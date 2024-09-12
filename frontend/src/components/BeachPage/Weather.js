@@ -16,6 +16,7 @@ class Weather extends Component {
                     <li>Wind Speed: {weather.windSpeed} km/h</li>
                     <li>Humidity: {weather.humidity}%</li>
                     <li>Forecast: {weather.forecast}</li>
+                    <li>Sea Level: {weather.seaLevel}hPa</li>
                 </ul>
                 </div>
         );
