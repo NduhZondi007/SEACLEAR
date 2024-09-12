@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import HeroSection from './HeroSection';
-import BeachList from '../AdminPage/BeachList';
+import BeachListHome from './BeachListHome';
 import CountUpSection from './CountUpSection';
 import MapIcon from '../MapPage/MapIcon';
 
@@ -13,7 +13,7 @@ class HomePage extends React.Component {
         <Navbar />
         <HeroSection />
         <CountUpSection/>
-        <BeachList/>
+        <BeachListHome/>
         <MapIcon/>
       </div>
     );

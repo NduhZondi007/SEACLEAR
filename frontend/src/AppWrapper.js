@@ -12,22 +12,26 @@ import ReportList from './components/AdminPage/ReportList.js';
 import ViewReport from './components/AdminPage/ViewReport.js';
 import Map from './components/MapPage/Map.js';
 
+import { UserProvider } from './UserContext.js';
+
 // Main entry point for routing
 export default function AppWrapper() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<App />} /> {/* Main app route */}
-        <Route path="/adminpage" element={<AdminPage />} /> {/* Admin page route */}
-        <Route path="/admin/addBeach" element={<AddBeach />} /> {/* Add Beach route */}
-        <Route path="/admin/updateBeach" element={<BeachList />} /> {/* Beach List route */}
-        <Route path="/admin/updateBeach/:name" element={<UpdateBeach />} /> {/* Update Beach route */}
-        <Route path="/admin/report" element={<ReportList />} /> {/* Report List route */}
-        <Route path="/admin/report/:reportId" element={<ViewReport />} /> {/* View Report route */}
-        <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
-        <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
-        <Route path="/map" element={<Map />} /> {/* View Map */}
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<App />} /> {/* Main app route */}
+          <Route path="/adminpage" element={<AdminPage />} /> {/* Admin page route */}
+          <Route path="/admin/addBeach" element={<AddBeach />} /> {/* Add Beach route */}
+          <Route path="/admin/updateBeach" element={<BeachList />} /> {/* Beach List route */}
+          <Route path="/admin/updateBeach/:name" element={<UpdateBeach />} /> {/* Update Beach route */}
+          <Route path="/admin/report" element={<ReportList />} /> {/* Report List route */}
+          <Route path="/admin/report/:reportId" element={<ViewReport />} /> {/* View Report route */}
+          <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
+          <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
+          <Route path="/map" element={<Map />} /> {/* View Map */}
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
