@@ -6,7 +6,7 @@ import { UserContext } from '../../UserContext';
 
 const MessageBox = (props) => {
     const { username, setUsername } = useContext(UserContext);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [usernameTextArea, setUsernameTextAreaVisibility] = useState(false);
     const [inputUsername, setInputUsername] = useState('');
 
     const sendBtn = () => {
@@ -19,7 +19,7 @@ const MessageBox = (props) => {
         }
 
         if (!username) {
-            setModalVisible(true); // Show modal if username is not set
+            setUsernameTextAreaVisibility(true); // Show modal if username is not set
         } else {
             sendMessage(name, message, refreshConversation);
         }
@@ -29,7 +29,7 @@ const MessageBox = (props) => {
         if (inputUsername.trim() !== "") {
             localStorage.setItem('username', inputUsername.trim()); // Save username to localStorage
             setUsername(inputUsername.trim());
-            setModalVisible(false);
+            setUsernameTextAreaVisibility(false);
         } else {
             alert("Username is required.");
         }
@@ -59,7 +59,7 @@ const MessageBox = (props) => {
             <input id="textBoxId" />
             <button onClick={sendBtn}>Submit</button>
 
-            {modalVisible && (
+            {usernameTextArea && (
                 <div className="modal">
                     <div className="modal-content">
                         <label>
@@ -71,7 +71,7 @@ const MessageBox = (props) => {
                                 placeholder="Username"
                             />
                             <button onClick={handleUsernameSubmit}>Submit</button>
-                            <button onClick={() => setModalVisible(false)}>Cancel</button>
+                            <button onClick={() => setUsernameTextAreaVisibility(false)}>Cancel</button>
                         </label>
                     </div>
                 </div>
