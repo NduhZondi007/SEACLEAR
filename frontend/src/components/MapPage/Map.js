@@ -26,7 +26,6 @@ const createClusterIcon = function () {
     });
 };
 
-function doNothing() {}
 
 // Functional component for Map
 const Map = () => {
@@ -63,7 +62,7 @@ const Map = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon} onClick={doNothing}>
+            <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
                 {details.map((marker, index) => {
                     const safetyStatus = marker.waterQuality.isSafe.replace(" ", '');
                     const icon = createIcon(safetyStatus);

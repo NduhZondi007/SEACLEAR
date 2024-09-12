@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import HeroSection from './HeroSection';
 import BeachList from '../AdminPage/BeachList';
+import MapIcon from '../MapPage/MapIcon';
 
 class HomePage extends React.Component {
 
@@ -11,6 +12,7 @@ class HomePage extends React.Component {
         <Navbar />
         <HeroSection />
         <BeachList/>
+        <MapIcon/>
       </div>
     );
   }
