@@ -32,3 +32,5 @@ node_modules/
 
 env
 .vscode/
+backend/static/
+frontend/build/

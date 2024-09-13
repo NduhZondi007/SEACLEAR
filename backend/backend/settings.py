@@ -63,6 +63,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://seaclear-8.cs.uct.ac.za",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -136,6 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = '/localhome/nkbmnq002/seaclearteam173/backend/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
