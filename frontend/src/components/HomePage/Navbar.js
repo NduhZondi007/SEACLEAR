@@ -12,8 +12,8 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav">
                         <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#services">Services</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#portfolio">Portfolio</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#services">Beach Finder</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#portfolio">Forum</a></li>
                         <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
