@@ -29,13 +29,13 @@
 }
 
 i {
-    color: blue;
+    color: midnightblue;
     font-size: 2.5em;
     text-align: center;
 }
 
 span.num {
-    color: blue;
+    color: midnightblue;
     display: grid;
     place-items: center;
     font-weight: 600;
@@ -43,7 +43,7 @@ span.num {
 }
 
 span.text {
-    color: blue;
+    color: midnightblue;
     font-size: 1em;
     text-align: center;
     pad: 0.7em 0;
