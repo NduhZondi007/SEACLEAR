@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import './Navbar.css'; // Import custom CSS if needed
+import { IoClose, IoMenu } from "react-icons/io5";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleNavbar = () => {
-        setIsOpen(!isOpen);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
             <div className="container">
                 <a className="navbar-brand" href="#page-top">
                     <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
                     SEACLEAR
                 </a>
-                <button className={`navbar-toggler ${isOpen ? 'open' : ''}`} type="button" onClick={toggleNavbar}>
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarResponsive">
+                
+                <div className={`navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarResponsive">
                     <ul className="navbar-nav">
                         <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
                         <li className="nav-item"><a className="nav-link" href="#services">Beach Finder</a></li>
@@ -26,7 +25,23 @@ const Navbar = () => {
                         <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
+
+                <button className="mobile-menu-icon" onClick={toggleMenu}>
+                    {isMenuOpen ? <IoClose size={28} color="white" /> : <IoMenu size={28} color="white" />}
+                </button>
             </div>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div className="mobile-menu">
+                    <ul className="mobile-nav-links">
+                        <li className="mobile-nav-item"><a href="#about" onClick={toggleMenu}>About</a></li>
+                        <li className="mobile-nav-item"><a href="#services" onClick={toggleMenu}>Beach Finder</a></li>
+                        <li className="mobile-nav-item"><a href="#portfolio" onClick={toggleMenu}>Forum</a></li>
+                        <li className="mobile-nav-item"><a href="#contact" onClick={toggleMenu}>Contact</a></li>
+                    </ul>
+                </div>
+            )}
         </nav>
     );
 };
