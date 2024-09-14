@@ -1,46 +1,86 @@
-import React from 'react';
+// src/components/MessageBox.js
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import { Filter } from 'bad-words';  // Import the bad-words filter to detect and filter out profanity
+import { Filter } from 'bad-words';
+import { UserContext } from '../../UserContext';
 
-class MessageBox extends React.Component {
-    // Function to handle the message sending when the button is clicked
-    sendBtn = (event) => {
-        const { messageBox: name, refreshConversation } = this.props;  // Destructure props for the beach name and refreshConversation function
-        let message = document.getElementById("textBoxId").value;  // Get the message input value from the text box
+const MessageBox = (props) => {
+    const { username, setUsername } = useContext(UserContext);
+    const [usernameTextArea, setUsernameTextAreaVisibility] = useState(false);
+    const [inputUsername, setInputUsername] = useState('');
 
-        const filter = new Filter();  // Create an instance of the Filter to filter out profanity
-        if(filter.isProfane(message)){  // Check if the input message contains profane language
-            message = filter.clean(message);  // If profanity is detected, clean it (replace bad words with asterisks)
+    const sendBtn = () => {
+        const { messageBox: name, refreshConversation } = props;
+        let message = document.getElementById("textBoxId").value;
+
+        const filter = new Filter();
+        if (filter.isProfane(message)) {
+            message = filter.clean(message);
         }
 
-        // Send a POST request to the backend to add the new message to the chat
+        if (!username) {
+            setUsernameTextAreaVisibility(true); // Show modal if username is not set
+        } else {
+            sendMessage(name, message, refreshConversation);
+        }
+    };
+
+    const handleUsernameSubmit = () => {
+        if (inputUsername.trim() !== "") {
+            localStorage.setItem('username', inputUsername.trim()); // Save username to localStorage
+            setUsername(inputUsername.trim());
+            setUsernameTextAreaVisibility(false);
+        } else {
+            alert("Username is required.");
+        }
+    };
+
+    const sendMessage = (name, message, refreshConversation) => {
+        if(message===""){
+            return;
+        }
         axios.post("http://127.0.0.1:8000/beachSpecific-chat/", {
-            "beach_name": name,  // Include the beach name (from props) to identify the chat
+            "beach_name": name,
             "messages": [
                 {
-                    "sender": "Mnqobi",  // Set the sender of the message (this could be dynamically set later)
-                    "content": message   // Include the message content (filtered if necessary)
+                    "sender": username,
+                    "content": message
                 }
             ]
         })
         .then(() => {
-            document.getElementById("textBoxId").value = "";  // Clear the input field after successful message submission
-            refreshConversation();  // Refresh the conversation window to display the new message
+            document.getElementById("textBoxId").value = "";
+            refreshConversation();
         })
         .catch((err) => {
-            console.error('There was an error sending the message!', err);  // Handle any errors that occur during the API request
+            console.error('Error sending message!', err);
         });
-    }
+    };
 
-    // Render the input text box and the submit button
-    render() {
-        return (
-            <div>
-                <input id="textBoxId" />  {/* Input field for the user to type their message */}
-                <button onClick={this.sendBtn}>Submit</button>  {/* Submit button triggers the sendBtn function */}
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <input id="textBoxId" />
+            <button onClick={sendBtn}>Submit</button>
 
-export default MessageBox;  // Export the component for use in other parts of the application
+            {usernameTextArea && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <label>
+                            Enter Your Username
+                            <input
+                                type="text"
+                                value={inputUsername}
+                                onChange={(e) => setInputUsername(e.target.value)}
+                                placeholder="Username"
+                            />
+                            <button onClick={handleUsernameSubmit}>Submit</button>
+                            <button onClick={() => setUsernameTextAreaVisibility(false)}>Cancel</button>
+                        </label>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default MessageBox;

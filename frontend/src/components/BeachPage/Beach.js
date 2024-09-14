@@ -6,6 +6,7 @@ import Amenities from './Amenities';  // Importing an Amenities component
 import MessageBox from './MessageBox';  // Importing a MessageBox component for sending messages
 import ConversationWindow from './ConversationWindow';  // Importing a ConversationWindow component to display messages
 import { useNavigate } from 'react-router-dom';  // Importing a hook for navigation
+import MapIcon from '../MapPage/MapIcon';
 
 class Beach extends React.Component {
     state = {
@@ -20,7 +21,6 @@ class Beach extends React.Component {
             .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;  // Retrieve the data from the API response
-                console.log("data", data)
                 // Find the beach that matches the name passed in the URL params
                 data = data.find(beach => beach.name === this.props.params.name);
                 this.setState({
@@ -56,6 +56,7 @@ class Beach extends React.Component {
                     {/* Display beach name and location */}
                     <p>Name: {details.name}</p>
                     <p>Location: {details.location}</p>
+                    <p>Safety : {details.waterQuality.isSafe}</p>
 
                     {/* Display weather details using the Weather component */}
                     <Weather weather={details.weather} />
@@ -78,6 +79,7 @@ class Beach extends React.Component {
 
                     {/* Button to navigate to the "Write Report" page */}
                     <button onClick={() => navigate('/writeReport')}>Write Report</button>
+                    <MapIcon/>
 
                 </header>
             </div>

@@ -1,107 +1,97 @@
 import React from 'react';
-import axios from 'axios'; // Import axios for making HTTP requests
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 class UpdateBeach extends React.Component {
-    // Define the initial state with fields for beach details, including amenities, weather, and water quality
     state = {
-        id: 0, // Stores the ID of the beach being updated
-        name: '', // Name of the beach (read-only)
-        location: '', // Location of the beach
-        amenities: { // Amenities available at the beach
+        id: 0,
+        name: '',
+        location: '',
+        latitude: '',  // Added latitude field
+        longitude: '', // Added longitude field
+        amenities: {
             Restaurants: false,
             Parking: false,
             Lifeguard: false,
             BeachChairs: false
         },
-        weather: { // Weather details at the beach
+        weather: {
             temperature: '',
             windSpeed: '',
             humidity: '',
             forecast: 'Sunny'
         },
-        waterQuality: { // Water quality details at the beach
+        waterQuality: {
             phLevel: '',
             pollutionLevel: '',
             isSafe: ''
         }
     };
 
-    // Component lifecycle method that runs when the component mounts
     componentDidMount() {
-        // Fetch beach details by making an API request
         const { name } = this.props.params;
         axios
-            .get('http://localhost:8000/beaches') // Replace with your actual API endpoint
+            .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;
-                // Find the specific beach by name (e.g., "Camps Bay")
                 data = data.find(beach => beach.name === name);
-                // Update the component's state with the fetched beach data
                 this.setState({
-                    id: data.id, // Set the ID of the beach
-                    name: data.name, // Set the name of the beach
-                    location: data.location, // Set the location of the beach
-                    weather: data.weather, // Set the weather details
-                    waterQuality: data.waterQuality // Set the water quality details
+                    id: data.id,
+                    name: data.name,
+                    location: data.location,
+                    latitude: data.latitude,  // Set the latitude from the fetched data
+                    longitude: data.longitude, // Set the longitude from the fetched data
+                    weather: data.weather,
+                    waterQuality: data.waterQuality
                 });
             })
             .catch((err) => {
-                console.error('There was an error fetching the data!', err); // Log any errors encountered during the API request
+                console.error('There was an error fetching the data!', err);
             });
     }
 
-    // Handle input changes in the form fields
     handleInputChange = (event) => {
         const { id, value, type, checked } = event.target;
         
-        // Handle checkbox input (for amenities)
         if (type === 'checkbox') {
             this.setState(prevState => ({
                 amenities: {
                     ...prevState.amenities,
-                    [id]: checked // Update the specific amenity based on its ID
+                    [id]: checked
                 }
             }));
-        } 
-        // Handle inputs related to water quality
-        else if (id in this.state.waterQuality) {
+        } else if (id in this.state.waterQuality) {
             this.setState(prevState => ({
                 waterQuality: {
                     ...prevState.waterQuality,
-                    [id]: value // Update the specific water quality field based on its ID
+                    [id]: value
                 }
             }));
-        } 
-        // Handle inputs related to weather
-        else if (id in this.state.weather) {
+        } else if (id in this.state.weather) {
             this.setState(prevState => ({
                 weather: {
                     ...prevState.weather,
-                    [id]: value // Update the specific weather field based on its ID
+                    [id]: value
                 }
             }));
-        } 
-        // Handle other fields (e.g., location)
-        else {
+        } else {
             this.setState({ [id]: value });
         }
     }
 
-    // Handle form submission to update the beach data
     handleSubmit = (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault();
 
-        const { id, name, location, amenities, weather, waterQuality } = this.state;
+        const { id, name, location, latitude, longitude, amenities, weather, waterQuality } = this.state;
 
-        // Filter out the selected amenities (those that are checked)
         const selectedAmenities = Object.keys(amenities).filter(amenity => amenities[amenity]);
 
-        // Send an HTTP PUT request to update the beach details
-        axios.put(`http://127.0.0.1:8000/beaches/${id}/`, { // Replace with your actual API endpoint
+        axios.put(`http://127.0.0.1:8000/beaches/${id}/`, {
             name,
             location,
-            amenities: selectedAmenities, // Send only the selected amenities
+            latitude,  // Include latitude in the PUT request
+            longitude, // Include longitude in the PUT request
+            amenities: selectedAmenities,
             weather: {
                 temperature: weather.temperature,
                 windSpeed: weather.windSpeed,
@@ -114,31 +104,38 @@ class UpdateBeach extends React.Component {
                 isSafe: waterQuality.isSafe
             }
         })
-            .catch(error => {
-                console.error("There was an error updating the beach!", error); // Log any errors during the update process
-            });
+        .catch(error => {
+            console.error("There was an error updating the beach!", error);
+        });
     }
 
     render() {
-        const { name, location, amenities, weather, waterQuality } = this.state;
+        const { name, location, latitude, longitude, amenities, weather, waterQuality } = this.state;
 
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <h3>Beach Details</h3>
-                    {/* Display the beach name as a read-only field */}
                     <label>
                         Name
                         <input id="name" type="text" value={name} readOnly />
                     </label>
-                    {/* Input field for updating the location */}
                     <label>
                         Location
                         <input id="location" type="text" value={location} onChange={this.handleInputChange} />
                     </label>
+                    {/* Input field for updating the latitude */}
+                    <label>
+                        Latitude
+                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} />
+                    </label>
+                    {/* Input field for updating the longitude */}
+                    <label>
+                        Longitude
+                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} />
+                    </label>
 
                     <h3>Amenities</h3>
-                    {/* Display checkboxes for amenities */}
                     {Object.keys(amenities).map(amenity => (
                         <label key={amenity}>
                             <input
@@ -152,7 +149,6 @@ class UpdateBeach extends React.Component {
                     ))}
 
                     <h3>Weather</h3>
-                    {/* Input fields for weather details */}
                     <label>
                         Temp
                         <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} />
@@ -168,7 +164,6 @@ class UpdateBeach extends React.Component {
                     <label>
                         Forecast
                         <select id="forecast" value={weather.forecast} onChange={this.handleInputChange}>
-                            {/* Dropdown menu for selecting weather forecast */}
                             <option value="Sunny">Sunny</option>
                             <option value="Cloudy">Cloudy</option>
                             <option value="Overcast">Overcast</option>
@@ -180,7 +175,6 @@ class UpdateBeach extends React.Component {
                     </label>
 
                     <h3>Water Quality</h3>
-                    {/* Input fields for water quality details */}
                     <label>
                         pH Level
                         <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} />
@@ -188,7 +182,6 @@ class UpdateBeach extends React.Component {
                     <label>
                         Pollution
                         <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange}>
-                            {/* Dropdown menu for selecting pollution level */}
                             <option value="High">High</option>
                             <option value="medium">Medium</option>
                             <option value="Low">Low</option>
@@ -197,14 +190,12 @@ class UpdateBeach extends React.Component {
                     <label>
                         Risk
                         <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange}>
-                            {/* Dropdown menu for selecting safety status */}
                             <option value="Safe">Safe</option>
                             <option value="medium">Medium</option>
                             <option value="Not Safe">Not Safe</option>
                         </select>
                     </label>
 
-                    {/* Submit button to update the beach */}
                     <button type="submit">Update Beach</button>
                 </form>
             </div>
@@ -213,8 +204,8 @@ class UpdateBeach extends React.Component {
 }
 
 function UpdateBeachWithParams() {
-    const params = useParams();  // Hook to access URL parameters
-    return <UpdateBeach params={params}/>;  // Pass params as prop to ViewReport
+    const params = useParams();
+    return <UpdateBeach params={params} />;
 }
 
 export default UpdateBeachWithParams;

@@ -5,6 +5,8 @@ class Beach(models.Model):
     # Represents a beach with various attributes
     name = models.CharField(max_length=100)  # Name of the beach
     location = models.CharField(max_length=255, default="camps bay")  # Location of the beach
+    latitude = models.FloatField(default=-33.3875)
+    longitude = models.FloatField(default=18.4110)  
     amenities = models.JSONField(default=list)  # Amenities available at the beach, stored as a list of strings
     weather = models.OneToOneField('Weather', on_delete=models.SET_NULL, null=True, blank=True)  # Weather information for the beach
     waterQuality = models.OneToOneField('WaterQuality', on_delete=models.SET_NULL, null=True, blank=True)  # Water quality information for the beach
@@ -17,6 +19,7 @@ class Weather(models.Model):
     temperature = models.FloatField()  # Current temperature in Celsius
     windSpeed = models.FloatField()  # Wind speed in km/h
     humidity = models.FloatField()  # Humidity percentage
+    seaLevel = models.FloatField(default=1019)  # Level
     forecast = models.CharField(max_length=50)  # Weather forecast description
 
     def __str__(self):
