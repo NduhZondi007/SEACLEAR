@@ -18,7 +18,7 @@ class Beach extends React.Component {
     componentDidMount() {
         // Fetching data from the backend API
         axios
-            .get('http://localhost:8000/beaches')
+            .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
             .then((res) => {
                 let data = res.data;  // Retrieve the data from the API response
                 // Find the beach that matches the name passed in the URL params

@@ -19,7 +19,7 @@ const WriteReport = () => {
 
   // useEffect hook to fetch beach data when the component mounts
   useEffect(() => {
-    axios.get('http://localhost:8000/beaches')
+    axios.get('https://seaclear-8.cs.uct.ac.za/api/beaches')
       .then(response => {
         setBeaches(response.data);  // Set fetched beach data to state
         setLoading(false);  // Set loading to false after data is fetched
@@ -43,7 +43,7 @@ const WriteReport = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:8000/community-reports/', reportDetails)
+    axios.post('https://seaclear-8.cs.uct.ac.za/api/community-reports/', reportDetails)
       .then(response => {
         console.log('Report submitted successfully:', response.data);
         // Reset form fields to default values after successful submission

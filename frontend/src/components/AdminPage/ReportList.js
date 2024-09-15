@@ -12,7 +12,7 @@ const ReportList = () => {
     // useEffect hook to fetch the list of reports from the API when the component mounts
     useEffect(() => {
         axios
-            .get('http://localhost:8000/reports/') // Send a GET request to the API to retrieve reports
+            .get('https://seaclear-8.cs.uct.ac.za/api/reports/') // Send a GET request to the API to retrieve reports
             .then((res) => {
                 const data = res.data; // Store the retrieved data in a variable
                 setDetails(data); // Update the state with the fetched data
