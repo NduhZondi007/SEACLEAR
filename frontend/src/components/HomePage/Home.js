@@ -12,8 +12,8 @@ class HomePage extends React.Component {
       <div>
         <Navbar />
         <HeroSection />
-        <CountUpSection/>
         <TrendingBeaches/>
+        <CountUpSection/>
         <MapIcon/>
       </div>
     );
