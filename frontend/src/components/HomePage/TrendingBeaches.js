@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import './TrendingBeaches.css';
+import axios from 'axios'; // Import axios for making API requests
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const TrendingBeaches = () => {
     const sliderRef = useRef(null);
@@ -7,7 +9,22 @@ const TrendingBeaches = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const [velX, setVelX] = useState(0);
+    const [details, setDetails] = useState([]); // State to store beach details
     const momentumID = useRef(null);
+    const navigate = useNavigate(); // Hook to programmatically navigate
+
+    // Fetch beach details from the API when component mounts
+    useEffect(() => {
+        axios
+            .get('http://localhost:8000/beaches') // Send a GET request to the API to retrieve beach details
+            .then((res) => {
+                const data = res.data; // Store the retrieved data in a variable
+                setDetails(data); // Update the state with the fetched data
+            })
+            .catch((err) => {
+                console.error('There was an error fetching the data!', err); // Log any error that occurs during the API call
+            });
+    }, []);
 
     useEffect(() => {
         const slider = sliderRef.current;
@@ -79,12 +96,26 @@ const TrendingBeaches = () => {
         };
     }, [isDown, startX, scrollLeft, velX]);
 
+    // Handle beach click to navigate to a specific beach's page
+    const handleBeachClick = (name) => {
+        navigate(`/beach/${name}`); // Navigate to the update page for the selected beach using its name as a URL parameter
+    };
+
     return (
         <div className="grid-container">
             <main className="grid-item main">
                 <div ref={sliderRef} className="items">
-                    {[...Array(10).keys()].map((i) => (
-                        <div key={i} className={`item item${i + 1}`}></div>
+                    {details.map((output, id) => (
+                        <div key={id} className={`item item${id + 1}`}> {/* Use 'id' as the key for each beach element */}
+                            <button onClick={() => handleBeachClick(output.name)}> {/* Button that navigates to the update page when clicked */}
+                                <div>
+                                    {/* Display beach name and location */}
+                                    <p>Name: {output.name}</p>
+                                    <p>Location: {output.location}</p>
+                                    <hr /> {/* Horizontal line separator between beach details */}
+                                </div>
+                            </button>
+                        </div>
                     ))}
                 </div>
             </main>
