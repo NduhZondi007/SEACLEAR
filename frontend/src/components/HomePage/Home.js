@@ -4,6 +4,7 @@ import HeroSection from './HeroSection';
 import CountUpSection from './CountUpSection';
 import TrendingBeaches from './TrendingBeaches';
 import MapIcon from '../MapPage/MapIcon';
+import WriteReport from '../ReportPage/WriteReport'
 
 class HomePage extends React.Component {
 
