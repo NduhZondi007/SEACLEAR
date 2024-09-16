@@ -3,10 +3,10 @@ import axios from 'axios';
 import { UserContext } from '../../UserContext';
 
 const WriteReport = () => {
-    const { username, setUsername } = useContext(UserContext); // Get username from context
-    const [beaches, setBeaches] = useState([]); // To store the list of beaches
+    const { username, setUsername } = useContext(UserContext);
+    const [beaches, setBeaches] = useState([]);
     const [details, setDetails] = useState({
-        usernameInput: '', // Temporarily store the username input for form before submission
+        usernameInput: '',
         reportType: '',
         beach: '',
         problemType: '',
@@ -17,15 +17,15 @@ const WriteReport = () => {
     useEffect(() => {
         if (details.reportType === 'Beach Specific') {
             axios
-                .get('http://localhost:8000/beaches') // Send a GET request to the API to retrieve beach details
+                .get('http://localhost:8000/beaches')
                 .then((res) => {
-                    setBeaches(res.data); // Store the retrieved beach list in the state
+                    setBeaches(res.data); 
                 })
                 .catch((err) => {
-                    console.error('There was an error fetching the data!', err); // Log any error that occurs during the API call
+                    console.error('There was an error fetching the data!', err);
                 });
         }
-    }, [details.reportType]); // Fetch beaches only if the report type is "Beach Specific"
+    }, [details.reportType]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -34,35 +34,47 @@ const WriteReport = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        const { usernameInput, reportType, beach, problemType, additionalInfo, urgency } = details;
-
-        // Use username from context if available, otherwise use the typed usernameInput
+    
+        let { usernameInput, reportType, beach, problemType, additionalInfo, urgency } = details;
+    
         const finalUsername = username || usernameInput;
-
-        // Check if the username is missing and ask for it if necessary
+    
         if (!finalUsername) {
             alert('Please provide a username.');
             return;
         }
-
+    
         if (!reportType || (reportType === 'Beach Specific' && !beach) || !problemType || !additionalInfo || !urgency) {
             alert('Please fill out all fields before submitting.');
-            return; // Stop form submission if any field is empty
+            return;
         }
-
-        // Set the username in context once the user presses submit
+    
         if (!username) {
-            setUsername(usernameInput); // Update the context with the input username
+            setUsername(usernameInput);
         }
 
+        if(reportType==='General'){
+            beach = "General";
+        }
+    
         axios.post(`http://127.0.0.1:8000/reports/`, {
-            user: finalUsername, // Use username from context or the entered username
+            user: finalUsername,
             reportType,
             beach,
             problemType,
             additionalInfo,
             urgency
+        })
+        .then((response) => {
+            alert('Report successfully submitted!');
+            setDetails({
+                usernameInput: '',
+                reportType: '',
+                beach: '',
+                problemType: '',
+                additionalInfo: '',
+                urgency: ''
+            });
         })
         .catch((error) => {
             console.error('There was an error updating the report!', error);
@@ -74,7 +86,6 @@ const WriteReport = () => {
             <form onSubmit={handleSubmit}>
                 <h3>Report Details</h3>
 
-                {/* If no username is set in the context, display the input field */}
                 {!username && (
                     <label>
                         Username
@@ -82,7 +93,7 @@ const WriteReport = () => {
                             name="usernameInput"
                             type="text"
                             value={details.usernameInput}
-                            onChange={handleInputChange} // Store username in local state temporarily
+                            onChange={handleInputChange}
                         />
                     </label>
                 )}
@@ -100,7 +111,6 @@ const WriteReport = () => {
                     </select>
                 </label>
 
-                {/* Conditionally render beach selection only if reportType is "Beach Specific" */}
                 {details.reportType === 'Beach Specific' && (
                     <label>
                         Beach Name
