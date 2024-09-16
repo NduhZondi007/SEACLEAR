@@ -1,128 +1,90 @@
-import React, { useState, useEffect } from 'react';  // Importing React and hooks for state and lifecycle management
-import axios from 'axios';  // Importing axios for making HTTP requests
-import './WriteReport.css';  // Importing CSS for styling
+import React from 'react';
+import axios from 'axios';
 
-const WriteReport = () => {
-  // State for handling report details, initialized with default values
-  const [reportDetails, setReportDetails] = useState({
-    beachName: '',
-    reportText: '',
-    reportCategory: 'General',
-    urgencyLevel: 'Low',
-  });
+class WriteReport extends React.Component {
+    state = {
+        user: '',
+        reportType: '',
+        beach: '',
+        problemType: '',
+        additionalInfo: '',
+        urgency: ''
+    };
 
-  // State for handling fetched beach data
-  const [beaches, setBeaches] = useState([]);
-  // State for loading and error handling
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    handleSubmit = (event) => {
+        event.preventDefault();
 
-  // useEffect hook to fetch beach data when the component mounts
-  useEffect(() => {
-    axios.get('http://localhost:8000/beaches')
-      .then(response => {
-        setBeaches(response.data);  // Set fetched beach data to state
-        setLoading(false);  // Set loading to false after data is fetched
-      })
-      .catch(error => {
-        setError('Error fetching beach data');  // Set error message if fetching fails
-        setLoading(false);  // Set loading to false after error
-      });
-  }, []);  // Empty dependency array means this runs once after the initial render
+        const { user, reportType, beach, problemType, additionalInfo, urgency } = this.state;
+        console.log(user, reportType, beach, problemType, additionalInfo, urgency);
 
-  // Handler for input field changes
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setReportDetails(prevDetails => ({
-      ...prevDetails,
-      [id]: value
-    }));
-  };
+        if (!user || !reportType || !beach || !problemType || !additionalInfo || !urgency) {
+            alert("Please fill out all fields before submitting.");
+            return;  // Stop form submission if any field is empty
+        }
 
-  // Handler for form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    axios.post('http://localhost:8000/community-reports/', reportDetails)
-      .then(response => {
-        console.log('Report submitted successfully:', response.data);
-        // Reset form fields to default values after successful submission
-        setReportDetails({
-          beachName: '',
-          reportText: '',
-          reportCategory: 'General',
-          urgencyLevel: 'Low',
+        axios.post(`http://127.0.0.1:8000/reports/`, {
+            user,
+            reportType,
+            beach,
+            problemType,
+            additionalInfo,
+            urgency
+        })
+        .catch(error => {
+            console.error("There was an error updating the report!", error);
         });
-      })
-      .catch(error => {
-        console.error('Error submitting the report:', error);
-        setError('Failed to submit the report. Please try again.');  // Set error message if submission fails
-      });
-  };
+    }
 
-  // Display loading message while fetching data
-  if (loading) {
-    return <p>Loading beaches...</p>;
-  }
+    handleInputChange = (event) => {
+        const { name, value } = event.target;
+        console.log(`Field updated: ${name}, Value: ${value}`);  // Debugging
+        this.setState({ [name]: value });
+    }
 
-  return (
-    <div className="report-container">
-      <h2>Submit a Community Report</h2>
-      {/* Display error messages if there's an error */}
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit} className="report-form">
-        <label>
-          Beach Name
-          {/* Dropdown for selecting a beach */}
-          <select id="beachName" value={reportDetails.beachName} onChange={handleChange} required>
-            <option value="">Select a Beach</option>
-            {beaches.map(beach => (
-              <option key={beach.id} value={beach.name}>
-                {beach.name}
-              </option>
-            ))}
-          </select>
-        </label>
+    render() {
+        const { user, reportType, beach, problemType, additionalInfo, urgency } = this.state;
 
-        <label>
-          Report Category
-          {/* Dropdown for selecting the report category */}
-          <select id="reportCategory" value={reportDetails.reportCategory} onChange={handleChange} required>
-            <option value="General">General</option>
-            <option value="Water Quality">Water Quality</option>
-            <option value="Pollution">Pollution</option>
-            <option value="Safety">Safety</option>
-          </select>
-        </label>
-
-        <label>
-          Urgency Level
-          {/* Dropdown for selecting the urgency level */}
-          <select id="urgencyLevel" value={reportDetails.urgencyLevel} onChange={handleChange} required>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </label>
-
-        <label>
-          Report Details
-          {/* Textarea for entering report details */}
-          <textarea
-            id="reportText"
-            value={reportDetails.reportText}
-            onChange={handleChange}
-            placeholder="Describe the issue..."
-            rows="5"
-            required
-          ></textarea>
-        </label>
-
-        {/* Submit button for the form */}
-        <button type="submit">Submit Report</button>
-      </form>
-    </div>
-  );
-};
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <h3>Report Details</h3>
+                    <label>
+                        User
+                        <input name="user" type="text" value={user} onChange={this.handleInputChange} />
+                    </label>
+                    <label>
+                        Beach Name
+                        <input name="beach" type="text" value={beach} onChange={this.handleInputChange} />
+                    </label>
+                    <label>
+                        Report Type
+                        <input name="reportType" type="text" value={reportType} onChange={this.handleInputChange} />
+                    </label>
+                    <label>
+                        Urgency
+                        <select name="urgency" value={urgency || "Low"} onChange={this.handleInputChange}>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </label>
+                    <label>
+                        Problem Type
+                        <select name="problemType" value={problemType || "Pollution"} onChange={this.handleInputChange}>
+                            <option value="Pollution">Pollution</option>
+                            <option value="Safety">Safety</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+                    <label>
+                        Additional Info
+                        <textarea name="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} />
+                    </label>
+                    <button type="submit">Update Report</button>
+                </form>
+            </div>
+        );
+    }
+}
 
 export default WriteReport;
