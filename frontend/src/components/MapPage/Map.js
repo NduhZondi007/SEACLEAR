@@ -6,6 +6,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { Icon } from "leaflet";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import Navbar from '../Navbar';
 
 // Function to create custom icons dynamically based on safety status
 const createIcon = (safetyStatus) => {
@@ -57,11 +58,12 @@ const Map = () => {
 
 
     return (
+        <>
+        <Navbar/>
         <MapContainer id="mapCanvas" center={[firstLocation.latitude, firstLocation.longitude]} zoom={9}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
             <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
                 {details.map((marker, index) => {
                     const safetyStatus = marker.waterQuality.isSafe.replace(" ", '');
@@ -75,6 +77,7 @@ const Map = () => {
                 })}
             </MarkerClusterGroup>
         </MapContainer>
+        </>
     );
 };
 
