@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 import HeroSection from './HeroSection';
 import CountUpSection from './CountUpSection';
 import TrendingBeaches from './TrendingBeaches';
