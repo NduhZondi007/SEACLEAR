@@ -9,63 +9,55 @@ class ConversationWindow extends React.Component {
 
     static contextType = UserContext;  // Declare the contextType to access UserContext in class components
 
-    // Lifecycle method: fetches messages when the component is first mounted
     componentDidMount() {
-        this.fetchMessages();  // Call the function to fetch the messages
+        this.fetchMessages();
     }
 
-    // Lifecycle method: fetches messages when there is a change in the conversationWindow prop (beach name)
     componentDidUpdate(prevProps) {
-        // Check if the conversationWindow prop has changed before re-fetching messages
         if (prevProps.conversationWindow !== this.props.conversationWindow) {
-            this.fetchMessages();  // Fetch new messages if the beach name changes
+            this.fetchMessages();
         }
     }
 
-    // Function to fetch messages from the backend API
     fetchMessages = () => {
-        const { conversationWindow: name } = this.props;  // Extract the beach name from props
-        axios.get('http://localhost:8000/beachSpecific-chat/')  // Make an API request to get beach-specific chats
+        const { conversationWindow: name } = this.props;
+        axios.get('http://localhost:8000/beachSpecific-chat/')
             .then((res) => {
-                let data = res.data;  // Get the response data
-                // Find the chat specific to the current beach (based on beach name)
-                data = data.find(beachChat => beachChat.beach_name === name);  
+                let data = res.data;
+                data = data.find(beachChat => beachChat.beach_name === name);
                 this.setState({
-                    details: data,  // Update the state with the chat details
+                    details: data,
                 });
             })
             .catch((err) => {
-                console.error('There was an error fetching the data!', err);  // Log any errors that occur during data fetching
+                console.error('There was an error fetching the data!', err);
             });
     };
 
-    // Render method to display the component UI
     render() {
-        const { details } = this.state;  // Destructure the details from state
+        const { details } = this.state;
         const { username } = this.context;  // Access the username from UserContext
 
-        // Display a loading message if the chat details or messages are not yet loaded
-        if (!details || !details.messages) { 
-            return <div>Loading Messages details...</div>;
+        if (!details || !details.messages) {
+            return <div style={styles.loading}>Loading Messages details...</div>;
         }
 
         return (
-            <div>
-                <header>
-                    {/* Check if there are any messages in the chat and display them */}
+            <div style={styles.container}>
+                <header style={styles.header}>
                     {details.messages.length > 0 ? (
-                        // Map through the messages array and display each message
                         details.messages.map((message, index) => (
-                            <div key={index}>
+                            <div
+                                key={index}
+                                style={message.sender === username ? styles.userMessage : styles.otherMessage}
+                            >
                                 <strong>{message.sender}:</strong> {message.content}
-                                {/* If the sender matches the current user and username is defined, append the message */}
                                 {username && message.sender === username && (
-                                    <span> (You)</span>
+                                    <span style={styles.youTag}> (You)</span>
                                 )}
                             </div>
                         ))
                     ) : (
-                        // If there are no messages, display a placeholder text
                         <p>No messages yet.</p>
                     )}
                 </header>
@@ -74,4 +66,47 @@ class ConversationWindow extends React.Component {
     }
 }
 
-export default ConversationWindow;  // Export the component for use in other parts of the application
+// Define inline styles
+const styles = {
+    container: {
+        padding: '20px',
+        maxWidth: '600px',
+        margin: '0 auto',
+    },
+    header: {
+        paddingBottom: '10px',
+        borderBottom: '1px solid #ccc',
+    },
+    userMessage: {
+        backgroundColor: '#daf1da',
+        padding: '10px',
+        margin: '10px 0',
+        borderRadius: '10px',
+        textAlign: 'right',
+        color: '#333',
+        fontSize: '1rem',
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
+    },
+    otherMessage: {
+        backgroundColor: '#f1f1f1',
+        padding: '10px',
+        margin: '10px 0',
+        borderRadius: '10px',
+        textAlign: 'left',
+        color: '#333',
+        fontSize: '1rem',
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
+    },
+    youTag: {
+        fontStyle: 'italic',
+        color: '#555',
+        marginLeft: '5px',
+    },
+    loading: {
+        textAlign: 'center',
+        padding: '20px',
+        fontSize: '1.2rem',
+    },
+};
+
+export default ConversationWindow;
