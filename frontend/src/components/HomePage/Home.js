@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../Navbar';
+import Footer from '../Footer';
 import HeroSection from './HeroSection';
 import CountUpSection from './CountUpSection';
 import TrendingBeaches from './TrendingBeaches';
@@ -16,6 +17,7 @@ class HomePage extends React.Component {
         <CountUpSection/>
         <TrendingBeaches/>
         <MapIcon/>
+        <Footer/>
       </div>
     );
   }

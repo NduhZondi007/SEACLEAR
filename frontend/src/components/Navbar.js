@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Navbar.css'; // Import custom CSS if needed
 import { IoClose, IoMenu } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,17 +13,17 @@ const Navbar = () => {
     return (
         <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
             <div className="container">
-                <a className="navbar-brand" href="home">
+                <Link className="navbar-brand" to="/">
                     <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
                     SEACLEAR
-                </a>
-                
+                </Link>
+
                 <div className={`navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarResponsive">
                     <ul className="navbar-nav">
-                        <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#services">Beach Finder</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#portfolio">Forum</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
+                        <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="#About">About</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="#contact">Submit Report</Link></li>
                     </ul>
                 </div>
 
