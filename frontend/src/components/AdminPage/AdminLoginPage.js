@@ -12,7 +12,7 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post('https://seaclear-8.cs.uct.ac.za/api/adminLogin/', {
+    axios.post('http://localhost:8000/adminLogin/', {
       username,
       password
     })

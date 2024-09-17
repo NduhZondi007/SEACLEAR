@@ -72,7 +72,7 @@ class AddBeach extends React.Component {
     const selectedAmenities = Object.keys(amenities).filter(amenity => amenities[amenity]);
 
     // Axios POST request to add a new beach, including amenities, weather, and water quality data
-    axios.post("https://seaclear-8.cs.uct.ac.za/api/beaches/", {
+    axios.post("http://127.0.0.1:8000/beaches/", {
       name,
       location,
       amenities: selectedAmenities,

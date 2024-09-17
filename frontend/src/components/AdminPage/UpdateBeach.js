@@ -31,7 +31,7 @@ class UpdateBeach extends React.Component {
     componentDidMount() {
         const { name } = this.props.params;
         axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
+            .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;
                 data = data.find(beach => beach.name === name);
@@ -86,7 +86,7 @@ class UpdateBeach extends React.Component {
 
         const selectedAmenities = Object.keys(amenities).filter(amenity => amenities[amenity]);
 
-        axios.put(`https://seaclear-8.cs.uct.ac.za/api/beaches/${id}/`, {
+        axios.put(`http://127.0.0.1:8000/beaches/${id}/`, {
             name,
             location,
             latitude,  // Include latitude in the PUT request
