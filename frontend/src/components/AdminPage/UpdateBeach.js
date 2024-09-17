@@ -111,59 +111,58 @@ class UpdateBeach extends React.Component {
 
     render() {
         const { name, location, latitude, longitude, amenities, weather, waterQuality } = this.state;
-
+    
         return (
-            <div>
+            <div style={styles.formContainer}>
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Beach Details</h3>
-                    <label>
+                    <h3 style={styles.sectionTitle}>Beach Details</h3>
+                    <label style={styles.label}>
                         Name
-                        <input id="name" type="text" value={name} readOnly />
+                        <input id="name" type="text" value={name} readOnly style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Location
-                        <input id="location" type="text" value={location} onChange={this.handleInputChange} />
+                        <input id="location" type="text" value={location} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    {/* Input field for updating the latitude */}
-                    <label>
+                    <label style={styles.label}>
                         Latitude
-                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} />
+                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    {/* Input field for updating the longitude */}
-                    <label>
+                    <label style={styles.label}>
                         Longitude
-                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} />
+                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-
-                    <h3>Amenities</h3>
+    
+                    <h3 style={styles.sectionTitle}>Amenities</h3>
                     {Object.keys(amenities).map(amenity => (
-                        <label key={amenity}>
+                        <label key={amenity} style={styles.checkboxLabel}>
                             <input
                                 type="checkbox"
                                 id={amenity}
                                 checked={amenities[amenity]}
                                 onChange={this.handleInputChange}
+                                style={styles.checkbox}
                             />
                             {amenity}
                         </label>
                     ))}
-
-                    <h3>Weather</h3>
-                    <label>
+    
+                    <h3 style={styles.sectionTitle}>Weather</h3>
+                    <label style={styles.label}>
                         Temp
-                        <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} />
+                        <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Wind Speed
-                        <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} />
+                        <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Humidity
-                        <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} />
+                        <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Forecast
-                        <select id="forecast" value={weather.forecast} onChange={this.handleInputChange}>
+                        <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} style={styles.select}>
                             <option value="Sunny">Sunny</option>
                             <option value="Cloudy">Cloudy</option>
                             <option value="Overcast">Overcast</option>
@@ -173,35 +172,100 @@ class UpdateBeach extends React.Component {
                             <option value="Hail">Hail</option>
                         </select>
                     </label>
-
-                    <h3>Water Quality</h3>
-                    <label>
+    
+                    <h3 style={styles.sectionTitle}>Water Quality</h3>
+                    <label style={styles.label}>
                         pH Level
-                        <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} />
+                        <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Pollution
-                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange}>
+                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} style={styles.select}>
                             <option value="High">High</option>
-                            <option value="medium">Medium</option>
+                            <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
                         </select>
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Risk
-                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange}>
+                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange} style={styles.select}>
                             <option value="Safe">Safe</option>
-                            <option value="medium">Medium</option>
+                            <option value="Medium">Medium</option>
                             <option value="Not Safe">Not Safe</option>
                         </select>
                     </label>
-
-                    <button type="submit">Update Beach</button>
+    
+                    <button type="submit" style={styles.button}>Update Beach</button>
                 </form>
             </div>
         );
     }
+    
 }
+
+const styles = {
+    formContainer: {
+      padding: '20px',
+      margin: '0 auto',
+      maxWidth: '600px',
+      textAlign: 'left',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '8px',
+      boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    },
+    sectionTitle: {
+      fontSize: '1.5rem',
+      marginBottom: '10px',
+      color: '#333',
+    },
+    label: {
+      display: 'block',
+      marginBottom: '8px',
+      fontSize: '1rem',
+      fontWeight: '500',
+      color: '#555',
+    },
+    input: {
+      width: '100%',
+      padding: '10px',
+      marginBottom: '15px',
+      fontSize: '1rem',
+      borderRadius: '5px',
+      border: '1px solid #ddd',
+      boxSizing: 'border-box',
+    },
+    select: {
+      width: '100%',
+      padding: '10px',
+      marginBottom: '15px',
+      fontSize: '1rem',
+      borderRadius: '5px',
+      border: '1px solid #ddd',
+    },
+    checkboxLabel: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '10px',
+    },
+    checkbox: {
+      marginRight: '8px',
+    },
+    button: {
+      padding: '10px 20px',
+      fontSize: '1rem',
+      backgroundColor: '#007BFF',
+      color: '#fff',
+      borderRadius: '5px',
+      border: 'none',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease',
+    },
+  };
+  
+  styles.button[':hover'] = {
+    backgroundColor: '#0056b3',
+  };
+  
 
 function UpdateBeachWithParams() {
     const params = useParams();

@@ -1,50 +1,98 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios for making API requests
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for programmatic navigation
+import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const ReportList = () => {
-    // State to store the list of reports fetched from the API
+    // State to store the list of reports and error state
     const [details, setDetails] = useState([]);
+    const [error, setError] = useState(null);
     
-    // useNavigate hook to navigate between routes
     const navigate = useNavigate();
 
-    // useEffect hook to fetch the list of reports from the API when the component mounts
+    // Fetch the list of reports from the API
     useEffect(() => {
         axios
-            .get('http://localhost:8000/reports/') // Send a GET request to the API to retrieve reports
+            .get('http://localhost:8000/reports/')
             .then((res) => {
-                const data = res.data; // Store the retrieved data in a variable
-                setDetails(data); // Update the state with the fetched data
+                setDetails(res.data);
             })
             .catch((err) => {
-                console.error('There was an error fetching the data!', err); // Log any errors during the API call
+                setError('There was an error fetching the data. Please try again.');
+                console.error('Error fetching data:', err);
             });
-    }, []); // Empty dependency array ensures this effect runs only once when the component is mounted
+    }, []);
 
-    // Function to handle the click event on a specific report
-    // It navigates to the update page for the selected report
+    // Function to handle report click and navigate to the report details page
     const handleReportClick = (reportId) => {
-        navigate(`/admin/report/${reportId}`); // Navigate to the update page for the selected report using its ID as a URL parameter
+        navigate(`/admin/report/${reportId}`);
     }
 
     return (
-        <div>
-            {/* Map over the list of reports and create a button for each report */}
-            {details.map((output, id) => (
-                <div key={id}> {/* Use 'id' as the key for each report element */}
-                    <button onClick={() => handleReportClick(output.id)}> {/* Button that navigates to the update page when clicked */}
-                        <div>
-                            {/* Display report beach and type */}
-                            <p>Name: {output.beach}</p>
-                            <p>Type: {output.reportType}</p>
-                            <hr /> {/* Horizontal line separator between report details */}
-                        </div>
-                    </button>
-                </div>
-            ))}
+        <div style={styles.container}>
+            {error ? (
+                <p style={styles.errorMessage}>{error}</p> // Show error message if data fetching fails
+            ) : (
+                details.map((output, index) => (
+                    <div key={index} style={styles.reportItem}>
+                        <button 
+                            style={styles.button} 
+                            onClick={() => handleReportClick(output.id)}
+                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.button.backgroundColor}
+                        >
+                            <div style={styles.textContainer}>
+                                <p style={styles.text}>Beach: {output.beach}</p>
+                                <p style={styles.text}>Type: {output.reportType}</p>
+                            </div>
+                            <hr style={styles.separator} />
+                        </button>
+                    </div>
+                ))
+            )}
         </div>
     );
 }
+
+// Styles for the report list
+const styles = {
+    container: {
+        maxWidth: '800px',
+        margin: '0 auto',
+        padding: '20px',
+        textAlign: 'center',
+    },
+    reportItem: {
+        marginBottom: '10px',
+    },
+    button: {
+        width: '100%',
+        padding: '15px',
+        borderRadius: '10px',
+        border: '1px solid #ccc',
+        backgroundColor: '#007BFF',
+        color: '#fff',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease',
+    },
+    buttonHover: {
+        backgroundColor: '#0056b3',
+    },
+    textContainer: {
+        textAlign: 'left',
+    },
+    text: {
+        margin: '5px 0',
+        fontSize: '1rem',
+        color: '#333',
+    },
+    separator: {
+        marginTop: '10px',
+        borderTop: '1px solid #ddd',
+    },
+    errorMessage: {
+        color: 'red',
+        fontSize: '1.2rem',
+    }
+};
 
 export default ReportList;
