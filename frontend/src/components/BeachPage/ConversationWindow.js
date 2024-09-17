@@ -21,7 +21,7 @@ class ConversationWindow extends React.Component {
 
     fetchMessages = () => {
         const { conversationWindow: name } = this.props;
-        axios.get('http://localhost:8000/beachSpecific-chat/')
+        axios.get('https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/')
             .then((res) => {
                 let data = res.data;
                 data = data.find(beachChat => beachChat.beach_name === name);
