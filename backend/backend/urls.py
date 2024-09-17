@@ -40,12 +40,11 @@ urlpatterns = [
     path('reports/', CommunityReportView.as_view()),  # List all community reports or create a new report
     path('reports/<int:pk>/', CommunityReportView.as_view()),  # Retrieve, update, or delete a specific community report by pk
 
-    # User Profile endpoints
-    path('user-profiles/', UserProfileView.as_view(), name='user-profiles'),  # List all user profiles or create a new profile
-
     # Admin Profile endpoints
     path('admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),  # List all admin profiles or create a new profile
 
     # Beach Specific Chat endpoints
     path('beachSpecific-chat/', BeachSpecificChatView.as_view(), name='beach-specific-chat'),  # List all beach-specific chats or create a new chat
+
+    path('admin_login/', AdminLoginView.as_view(), name='admin-login'),
 ]
