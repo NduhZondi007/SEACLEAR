@@ -11,6 +11,7 @@ import BeachList from './components/AdminPage/BeachList.js';
 import ReportList from './components/AdminPage/ReportList.js';
 import ViewReport from './components/AdminPage/ViewReport.js';
 import Map from './components/MapPage/Map.js';
+import AdminLogin from './components/AdminPage/AdminLoginPage.js';
 
 import { UserProvider } from './UserContext.js';
 import { WeatherProvider } from './WeatherContex.js';
@@ -29,6 +30,7 @@ export default function AppWrapper() {
             <Route path="/admin/updateBeach/:name" element={<UpdateBeach />} /> {/* Update Beach route */}
             <Route path="/admin/report" element={<ReportList />} /> {/* Report List route */}
             <Route path="/admin/report/:reportId" element={<ViewReport />} /> {/* View Report route */}
+            <Route path="/adminpageLogin/" element={<AdminLogin />} /> {/* View Report route */}
             <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
             <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
             <Route path="/map" element={<Map />} /> {/* View Map */}
