@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const createIconPath = () => {
-    return require(`./../../assets/images/mapIcon.png`);
+    return require(`./../../assets/images/adminIcon.png`);
 };
 
 const LoginIcon = () => {
