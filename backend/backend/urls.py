@@ -17,9 +17,11 @@ urlpatterns = [
     path('api/reports/', CommunityReportView.as_view()),  # List all community reports or create a new report
     path('api/reports/<int:pk>/', CommunityReportView.as_view()),  # Retrieve, update, or delete a specific community report by pk
 
-    path('api/user-profiles/', UserProfileView.as_view(), name='user-profiles'),  # List all user profiles or create a new profile
 
-    path('api/admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),  # List all admin profiles or create a new profile
-
+    # Beach Specific Chat endpoints
     path('api/beachSpecific-chat/', BeachSpecificChatView.as_view(), name='beach-specific-chat'),  # List all beach-specific chats or create a new chat
+
+    # Admin Profile endpoints
+    path('api/admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),  # List all admin profiles or create a new profile
+    path('api/adminLogin/', AdminLoginView.as_view(), name='admin-login'),
 ]

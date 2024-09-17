@@ -2,8 +2,9 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Beach, Weather, WaterQuality, CommunityReport, UserProfile, AdminProfile, BeachSpecificChat, Message
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, UserProfileSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
+from django.contrib.auth import authenticate, login
+from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
+from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
 
 class BeachView(APIView):
     # Handles GET, POST, and PUT requests for the Beach model
@@ -97,22 +98,6 @@ class CommunityReportView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserProfileView(APIView):
-    # Handles GET and POST requests for the UserProfile model
-    
-    def get(self, request):
-        # Retrieve and return a list of all user profiles
-        user_profiles = UserProfile.objects.all()
-        serializer = UserProfileSerializer(user_profiles, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        # Create a new user profile with the provided data
-        serializer = UserProfileSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AdminProfileView(APIView):
     # Handles GET and POST requests for the AdminProfile model
@@ -164,3 +149,33 @@ class MessageView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class AdminProfileView(APIView):
+    def get(self, request):
+        admin_profiles = AdminProfile.objects.all()
+        serializer = AdminProfileSerializer(admin_profiles, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = AdminProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AdminLoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            if AdminProfile.objects.filter(user=user).exists():
+                login(request, user)
+                admin_profile = AdminProfile.objects.get(user=user)
+                serializer = AdminProfileSerializer(admin_profile)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "User is not an admin"}, status=status.HTTP_403_FORBIDDEN)
+        else:
+            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)

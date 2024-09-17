@@ -7,6 +7,7 @@ import MessageBox from './MessageBox';  // Importing a MessageBox component for 
 import ConversationWindow from './ConversationWindow';  // Importing a ConversationWindow component to display messages
 import { useNavigate } from 'react-router-dom';  // Importing a hook for navigation
 import MapIcon from '../MapPage/MapIcon';
+import Navbar from '../navbar/Navbar';
 
 class Beach extends React.Component {
     state = {
@@ -51,6 +52,7 @@ class Beach extends React.Component {
         // Once details are loaded, render the information about the beach
         return (
             <div>
+                <Navbar/>
                 <header>
                     <hr />
                     {/* Display beach name and location */}
