@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './ViewReport.css'; // Import the CSS file
 
 class ViewReport extends React.Component {
     state = {
@@ -11,7 +12,8 @@ class ViewReport extends React.Component {
         problemType: '',
         status: '',
         additionalInfo: '',
-        urgency: ''
+        urgency: '',
+        error: null,
     };
 
     componentDidMount() {
@@ -54,7 +56,11 @@ class ViewReport extends React.Component {
             additionalInfo,
             urgency
         })
+        .then(() => {
+            // Handle successful update
+        })
         .catch(error => {
+            this.setState({ error: 'There was an error updating the report. Please try again.' });
             console.error("There was an error updating the report!", error);
         });
     }
@@ -65,132 +71,65 @@ class ViewReport extends React.Component {
     }
 
     render() {
-        const { user, reportType, beach, problemType, status, additionalInfo, urgency } = this.state;
+        const { user, reportType, beach, problemType, status, additionalInfo, urgency, error } = this.state;
     
         return (
-            <div style={styles.formContainer}>
+            <div className="formContainer">
+                {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
-                    <h3 style={styles.sectionTitle}>Report Details</h3>
+                    <h3 className="sectionTitle">Report Details</h3>
     
-                    <label style={styles.label}>
+                    <label className="label">
                         User
-                        <input id="user" type="text" value={user} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="user" type="text" value={user} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Beach Name
-                        <input id="beach" type="text" value={beach} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="beach" type="text" value={beach} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Report Type
-                        <input id="reportType" type="text" value={reportType} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="reportType" type="text" value={reportType} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Urgency
-                        <select id="urgency" value={urgency} onChange={this.handleInputChange} style={styles.select}>
+                        <select id="urgency" value={urgency} onChange={this.handleInputChange} className="select">
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Status
-                        <select id="status" value={status} onChange={this.handleInputChange} style={styles.select}>
+                        <select id="status" value={status} onChange={this.handleInputChange} className="select">
                             <option value="Pending">Pending</option>
                             <option value="Viewed">Viewed</option>
                             <option value="Resolved">Resolved</option>
                         </select>
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Problem Type
-                        <select id="problemType" value={problemType} onChange={this.handleInputChange} style={styles.select}>
+                        <select id="problemType" value={problemType} onChange={this.handleInputChange} className="select">
                             <option value="Pollution">Pollution</option>
                             <option value="Safety">Safety</option>
                             <option value="Other">Other</option>
                         </select>
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Additional Info
-                        <textarea id="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} style={styles.textarea} />
+                        <textarea id="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} className="textarea" />
                     </label>
     
-                    <button type="submit" style={styles.button}>Update Report</button>
+                    <button type="submit" className="button">Update Report</button>
                 </form>
             </div>
         );
     }
-    
 }
 
-const styles = {
-    formContainer: {
-      padding: '20px',
-      margin: '0 auto',
-      maxWidth: '600px',
-      textAlign: 'left',
-      backgroundColor: '#f0f8ff',  // Light background for distinction
-      borderRadius: '8px',
-      boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    },
-    sectionTitle: {
-      fontSize: '1.5rem',
-      marginBottom: '10px',
-      color: '#333',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '8px',
-      fontSize: '1rem',
-      fontWeight: '500',
-      color: '#555',
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      marginBottom: '15px',
-      fontSize: '1rem',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-      boxSizing: 'border-box',
-    },
-    select: {
-      width: '100%',
-      padding: '10px',
-      marginBottom: '15px',
-      fontSize: '1rem',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-    },
-    textarea: {
-      width: '100%',
-      height: '100px',
-      padding: '10px',
-      marginBottom: '15px',
-      fontSize: '1rem',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-      boxSizing: 'border-box',
-    },
-    button: {
-      padding: '10px 20px',
-      fontSize: '1rem',
-      backgroundColor: '#28a745',  // Green for success
-      color: '#fff',
-      borderRadius: '5px',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s ease',
-    },
-  };
-  
-  styles.button[':hover'] = {
-    backgroundColor: '#218838',
-  };
-   
-
-// Functional Component Wrapper to use useParams hook
 function ReportWithParams() {
-    const params = useParams();  // Hook to access URL parameters
-    return <ViewReport params={params}/>;  // Pass params as prop to ViewReport
+    const params = useParams();
+    return <ViewReport params={params} />;
 }
 
 export default ReportWithParams;
