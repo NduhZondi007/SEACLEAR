@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AdminLogin = () => {
@@ -6,6 +7,8 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [adminData, setAdminData] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -16,8 +19,7 @@ const AdminLogin = () => {
     .then(response => {
       if (response.status === 200) {
         setAdminData(response.data);  // Store admin data upon success
-        alert('Login successful!');
-        // Optionally, redirect to admin dashboard or perform other actions
+        navigate(`/adminpage/`);
       } else {
         setErrorMessage('Invalid credentials');
       }
