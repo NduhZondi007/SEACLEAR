@@ -1,3 +1,4 @@
+from venv import logger
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -98,23 +99,6 @@ class CommunityReportView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class AdminProfileView(APIView):
-    # Handles GET and POST requests for the AdminProfile model
-    
-    def get(self, request):
-        # Retrieve and return a list of all admin profiles
-        admin_profiles = AdminProfile.objects.all()
-        serializer = AdminProfileSerializer(admin_profiles, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        # Create a new admin profile with the provided data
-        serializer = AdminProfileSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class BeachSpecificChatView(APIView):
     # Handles GET and POST requests for the BeachSpecificChat model
