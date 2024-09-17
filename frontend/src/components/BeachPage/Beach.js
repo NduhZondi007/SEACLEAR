@@ -7,7 +7,7 @@ import MessageBox from './MessageBox';  // Importing a MessageBox component for 
 import ConversationWindow from './ConversationWindow';  // Importing a ConversationWindow component to display messages
 import { useNavigate } from 'react-router-dom';  // Importing a hook for navigation
 import MapIcon from '../MapPage/MapIcon';
-import Navbar from '../Navbar';
+import Navbar from '../navbar/Navbar';
 
 class Beach extends React.Component {
     state = {

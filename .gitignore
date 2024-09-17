@@ -30,4 +30,7 @@ yarn-error.log*
 /backend/app/migrations/__pycache__ 
 node_modules/
 
+env
 .vscode/
+backend/static/
+frontend/build/
