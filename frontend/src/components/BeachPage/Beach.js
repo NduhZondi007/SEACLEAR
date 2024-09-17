@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Weather from './Weather';  // Importing a Weather component
 import Amenities from './Amenities';  // Importing an Amenities component
 import MessageBox from './MessageBox';  // Importing a MessageBox component for sending messages
 import ConversationWindow from './ConversationWindow';  // Importing a ConversationWindow component to display messages
-import { useNavigate } from 'react-router-dom';  // Importing a hook for navigation
 import MapIcon from '../MapPage/MapIcon';
 import Navbar from '../navbar/Navbar';
 
@@ -15,25 +14,21 @@ class Beach extends React.Component {
         refreshConversation: false,  // Used to toggle refreshing of the ConversationWindow
     };
 
-    // Lifecycle method: This runs when the component is mounted to the DOM
     componentDidMount() {
-        // Fetching data from the backend API
         axios
             .get('http://localhost:8000/beaches')
             .then((res) => {
-                let data = res.data;  // Retrieve the data from the API response
-                // Find the beach that matches the name passed in the URL params
+                let data = res.data;
                 data = data.find(beach => beach.name === this.props.params.name);
                 this.setState({
-                    details: data,  // Update state with beach details
+                    details: data,
                 });
             })
             .catch((err) => {
-                console.error('There was an error fetching the data!', err);  // Log any errors during data fetching
+                console.error('There was an error fetching the data!', err);
             });
     }
 
-    // Function to toggle the refreshConversation state, forcing the ConversationWindow to refresh
     refreshConversation = () => {
         this.setState((prevState) => ({
             refreshConversation: !prevState.refreshConversation
@@ -41,53 +36,110 @@ class Beach extends React.Component {
     };
 
     render() {
-        const { details, refreshConversation } = this.state;  // Destructure state variables
-        const { navigate } = this.props;  // Destructure the navigate prop
+        const { details, refreshConversation } = this.state;
+        const { navigate } = this.props;
 
-        // Display loading message if beach details are not yet loaded
         if (!details) {
-            return <div>Loading beach details...</div>;
+            return <div style={styles.loading}>Loading beach details...</div>;
         }
 
-        // Once details are loaded, render the information about the beach
         return (
             <div>
                 <Navbar/>
-                <header>
-                    <hr />
-                    {/* Display beach name and location */}
-                    <p>Name: {details.name}</p>
-                    <p>Location: {details.location}</p>
-                    <p>Safety : {details.waterQuality.isSafe}</p>
+                <div style={styles.container}>
+                    <header style={styles.header}>
+                        <hr />
+                        <p style={styles.beachName}>Name: {details.name}</p>
+                        <p style={styles.location}>Location: {details.location}</p>
+                        <p style={styles.safety}>Safety: {details.waterQuality.isSafe ? 'Safe' : 'Unsafe'}</p>
 
-                    {/* Display weather details using the Weather component */}
-                    <Weather weather={details.weather} />
+                        <Weather weather={details.weather} />
+                        <Amenities amenities={details.amenities} />
 
-                    {/* Display the list of amenities using the Amenities component */}
-                    <Amenities amenities={details.amenities} />
+                        <h3 style={styles.sectionTitle}>Messages</h3>
+                        <ConversationWindow
+                            conversationWindow={details.name}
+                            key={refreshConversation}
+                        />
 
-                    <h3>Messages</h3>
-                    {/* Display conversation window, passing the beach name as prop and refreshing on state change */}
-                    <ConversationWindow
-                        conversationWindow={details.name}
-                        key={refreshConversation}  // The key forces the component to re-render when toggled
-                    />
+                        <MessageBox
+                            messageBox={details.name}
+                            refreshConversation={this.refreshConversation}
+                        />
 
-                    {/* Render the MessageBox component for sending messages */}
-                    <MessageBox
-                        messageBox={details.name}
-                        refreshConversation={this.refreshConversation}  // Pass down function to refresh the conversation window
-                    />
-
-                    {/* Button to navigate to the "Write Report" page */}
-                    <button onClick={() => navigate('/writeReport')}>Write Report</button>
-                    <MapIcon/>
-
-                </header>
+                        <button style={styles.button} onClick={() => navigate('/writeReport')}>
+                            Write Report
+                        </button>
+                        <MapIcon />
+                    </header>
+                </div>
             </div>
         );
     }
 }
+
+
+// Define inline styles
+const styles = {
+    container: {
+        padding: '20px',
+        textAlign: 'center',
+        backgroundColor: '#f4f4f9',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        maxWidth: '600px',
+        margin: '20px auto',
+    },
+    header: {
+        padding: '20px',
+        textAlign: 'left',
+        backgroundColor: '#fff',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    },
+    beachName: {
+        fontSize: '1.8rem',
+        fontWeight: 'bold',
+        color: '#007BFF',
+        marginBottom: '10px',
+    },
+    location: {
+        fontSize: '1.2rem',
+        color: '#6c757d',
+        marginBottom: '10px',
+    },
+    safety: {
+        fontSize: '1rem',
+        color: details => (details.waterQuality.isSafe ? '#28a745' : '#dc3545'),
+        marginBottom: '20px',
+    },
+    sectionTitle: {
+        fontSize: '1.5rem',
+        marginTop: '20px',
+        marginBottom: '10px',
+    },
+    button: {
+        padding: '10px 20px',
+        fontSize: '1rem',
+        cursor: 'pointer',
+        borderRadius: '5px',
+        border: 'none',
+        backgroundColor: '#007BFF',
+        color: '#fff',
+        transition: 'background-color 0.3s ease',
+    },
+    loading: {
+        textAlign: 'center',
+        fontSize: '1.5rem',
+        color: '#6c757d',
+        marginTop: '50px',
+    },
+};
+
+styles.button[':hover'] = {
+    backgroundColor: '#0056b3',
+};
+
 
 // A wrapper function to use hooks (useParams, useNavigate) in class-based components
 function BeachWithParamsAndNavigate(props) {
