@@ -66,57 +66,126 @@ class ViewReport extends React.Component {
 
     render() {
         const { user, reportType, beach, problemType, status, additionalInfo, urgency } = this.state;
-
+    
         return (
-            <div>
+            <div style={styles.formContainer}>
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Report Details</h3>
-                    <label>
+                    <h3 style={styles.sectionTitle}>Report Details</h3>
+    
+                    <label style={styles.label}>
                         User
-                        <input id="user" type="text" value={user} onChange={this.handleInputChange} />
+                        <input id="user" type="text" value={user} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Beach Name
-                        <input id="beach" type="text" value={beach} onChange={this.handleInputChange} />
+                        <input id="beach" type="text" value={beach} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Report Type
-                        <input id="reportType" type="text" value={reportType} onChange={this.handleInputChange} />
+                        <input id="reportType" type="text" value={reportType} onChange={this.handleInputChange} style={styles.input} />
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Urgency
-                        <select id="urgency" value={urgency} onChange={this.handleInputChange}>
+                        <select id="urgency" value={urgency} onChange={this.handleInputChange} style={styles.select}>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Status
-                        <select id="status" value={status} onChange={this.handleInputChange}>
+                        <select id="status" value={status} onChange={this.handleInputChange} style={styles.select}>
                             <option value="Pending">Pending</option>
                             <option value="Viewed">Viewed</option>
                             <option value="Resolved">Resolved</option>
                         </select>
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Problem Type
-                        <select id="problemType" value={problemType} onChange={this.handleInputChange}>
+                        <select id="problemType" value={problemType} onChange={this.handleInputChange} style={styles.select}>
                             <option value="Pollution">Pollution</option>
                             <option value="Safety">Safety</option>
                             <option value="Other">Other</option>
                         </select>
                     </label>
-                    <label>
+                    <label style={styles.label}>
                         Additional Info
-                        <textarea id="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} />
+                        <textarea id="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} style={styles.textarea} />
                     </label>
-                    <button type="submit">Update Report</button>
+    
+                    <button type="submit" style={styles.button}>Update Report</button>
                 </form>
             </div>
         );
     }
+    
 }
+
+const styles = {
+    formContainer: {
+      padding: '20px',
+      margin: '0 auto',
+      maxWidth: '600px',
+      textAlign: 'left',
+      backgroundColor: '#f0f8ff',  // Light background for distinction
+      borderRadius: '8px',
+      boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    },
+    sectionTitle: {
+      fontSize: '1.5rem',
+      marginBottom: '10px',
+      color: '#333',
+    },
+    label: {
+      display: 'block',
+      marginBottom: '8px',
+      fontSize: '1rem',
+      fontWeight: '500',
+      color: '#555',
+    },
+    input: {
+      width: '100%',
+      padding: '10px',
+      marginBottom: '15px',
+      fontSize: '1rem',
+      borderRadius: '5px',
+      border: '1px solid #ddd',
+      boxSizing: 'border-box',
+    },
+    select: {
+      width: '100%',
+      padding: '10px',
+      marginBottom: '15px',
+      fontSize: '1rem',
+      borderRadius: '5px',
+      border: '1px solid #ddd',
+    },
+    textarea: {
+      width: '100%',
+      height: '100px',
+      padding: '10px',
+      marginBottom: '15px',
+      fontSize: '1rem',
+      borderRadius: '5px',
+      border: '1px solid #ddd',
+      boxSizing: 'border-box',
+    },
+    button: {
+      padding: '10px 20px',
+      fontSize: '1rem',
+      backgroundColor: '#28a745',  // Green for success
+      color: '#fff',
+      borderRadius: '5px',
+      border: 'none',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease',
+    },
+  };
+  
+  styles.button[':hover'] = {
+    backgroundColor: '#218838',
+  };
+   
 
 // Functional Component Wrapper to use useParams hook
 function ReportWithParams() {
