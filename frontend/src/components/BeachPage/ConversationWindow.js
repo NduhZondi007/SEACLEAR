@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
+import { UserContext } from '../../UserContext';
 
 class ConversationWindow extends React.Component {
     state = {
         details: null,  // Holds the chat details for a specific beach, including messages
     };
+
+    static contextType = UserContext;  // Declare the contextType to access UserContext in class components
 
     // Lifecycle method: fetches messages when the component is first mounted
     componentDidMount() {
@@ -39,12 +42,13 @@ class ConversationWindow extends React.Component {
     // Render method to display the component UI
     render() {
         const { details } = this.state;  // Destructure the details from state
-    
+        const { username } = this.context;  // Access the username from UserContext
+
         // Display a loading message if the chat details or messages are not yet loaded
         if (!details || !details.messages) { 
             return <div>Loading Messages details...</div>;
         }
-    
+
         return (
             <div>
                 <header>
@@ -54,6 +58,10 @@ class ConversationWindow extends React.Component {
                         details.messages.map((message, index) => (
                             <div key={index}>
                                 <strong>{message.sender}:</strong> {message.content}
+                                {/* If the sender matches the current user and username is defined, append the message */}
+                                {username && message.sender === username && (
+                                    <span> (You)</span>
+                                )}
                             </div>
                         ))
                     ) : (
