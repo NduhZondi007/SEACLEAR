@@ -3,6 +3,7 @@ import './Navbar.css'; // Import custom CSS if needed
 import { IoClose, IoMenu } from "react-icons/io5";
 import LoginIcon from '../AdminPage/LoginIcon';
 
+
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 

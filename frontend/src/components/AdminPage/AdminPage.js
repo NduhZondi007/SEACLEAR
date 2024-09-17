@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook from react-router-dom for navigation
-import Navbar from '../Navbar';
+import Navbar from '../navbar/Navbar';
 
 function AdminPage() {
   // Create a navigate function using the useNavigate hook to programmatically navigate between routes

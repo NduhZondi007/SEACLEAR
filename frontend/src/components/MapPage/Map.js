@@ -6,7 +6,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { Icon } from "leaflet";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import Navbar from '../Navbar';
+import Navbar from '../navbar/Navbar';
 
 // Function to create custom icons dynamically based on safety status
 const createIcon = (safetyStatus) => {
