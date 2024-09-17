@@ -22,7 +22,7 @@ class ConversationWindow extends React.Component {
     // Function to fetch messages from the backend API
     fetchMessages = () => {
         const { conversationWindow: name } = this.props;  // Extract the beach name from props
-        axios.get('http://localhost:8000/beachSpecific-chat/')  // Make an API request to get beach-specific chats
+        axios.get('https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/')  // Make an API request to get beach-specific chats
             .then((res) => {
                 let data = res.data;  // Get the response data
                 // Find the chat specific to the current beach (based on beach name)
