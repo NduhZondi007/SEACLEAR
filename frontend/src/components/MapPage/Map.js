@@ -66,7 +66,7 @@ const Map = () => {
             />
             <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
                 {details.map((marker, index) => {
-                    const safetyStatus = marker.waterQuality.isSafe.replace(" ", '');
+                    const safetyStatus = marker.waterQuality.isSafe.replace(" ", '').replace("M", "m"); // sometimes it files Medium insted of medium.png
                     const icon = createIcon(safetyStatus);
 
                     return (
