@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './AddBeach.css'; // Import the CSS file
 
 class AddBeach extends React.Component {
   // Initial state includes fields for beach name, location, amenities, weather, and water quality
@@ -123,48 +124,48 @@ class AddBeach extends React.Component {
     const { name, location, amenities, weather, waterQuality } = this.state;
   
     return (
-      <div style={styles.formContainer}>
+      <div className="form-container">
         <form onSubmit={this.handleSubmit}>
-          <h3 style={styles.sectionTitle}>Beach Details</h3>
-          <label style={styles.label}>
+          <h3 className="section-title">Beach Details</h3>
+          <label className="label">
             Name
-            <input id="name" type="text" value={name} onChange={this.handleInputChange} style={styles.input} />
+            <input id="name" type="text" value={name} onChange={this.handleInputChange} className="input" />
           </label>
-          <label style={styles.label}>
+          <label className="label">
             Location
-            <input id="location" type="text" value={location} onChange={this.handleInputChange} style={styles.input} />
+            <input id="location" type="text" value={location} onChange={this.handleInputChange} className="input" />
           </label>
   
-          <h3 style={styles.sectionTitle}>Amenities</h3>
+          <h3 className="section-title">Amenities</h3>
           {Object.keys(amenities).map(amenity => (
-            <label key={amenity} style={styles.checkboxLabel}>
+            <label key={amenity} className="checkbox-label">
               <input
                 type="checkbox"
                 id={amenity}
                 checked={amenities[amenity]}
                 onChange={this.handleInputChange}
-                style={styles.checkbox}
+                className="checkbox"
               />
               {amenity}
             </label>
           ))}
   
-          <h3 style={styles.sectionTitle}>Weather</h3>
-          <label style={styles.label}>
+          <h3 className="section-title">Weather</h3>
+          <label className="label">
             Temp
-            <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} style={styles.input} />
+            <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} className="input" />
           </label>
-          <label style={styles.label}>
+          <label className="label">
             Wind Speed
-            <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} style={styles.input} />
+            <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} className="input" />
           </label>
-          <label style={styles.label}>
+          <label className="label">
             Humidity
-            <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} style={styles.input} />
+            <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} className="input" />
           </label>
-          <label style={styles.label}>
+          <label className="label">
             Forecast
-            <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} style={styles.select}>
+            <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} className="select">
               <option value="Sunny">Sunny</option>
               <option value="Cloudy">Cloudy</option>
               <option value="Overcast">Overcast</option>
@@ -175,89 +176,25 @@ class AddBeach extends React.Component {
             </select>
           </label>
   
-          <h3 style={styles.sectionTitle}>Water Quality</h3>
-          <label style={styles.label}>
+          <h3 className="section-title">Water Quality</h3>
+          <label className="label">
             pH Level
-            <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} style={styles.input} />
+            <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} className="input" />
           </label>
-          <label style={styles.label}>
+          <label className="label">
             Pollution Level
-            <input id="pollutionLevel" type="text" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} style={styles.input} />
+            <input id="pollutionLevel" type="text" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} className="input" />
           </label>
-          <label style={styles.label}>
+          <label className="label">
             Is Safe
-            <input id="isSafe" type="text" value={waterQuality.isSafe} onChange={this.handleInputChange} style={styles.input} />
+            <input id="isSafe" type="text" value={waterQuality.isSafe} onChange={this.handleInputChange} className="input" />
           </label>
   
-          <button type="submit" style={styles.button}>Add Beach</button>
+          <button type="submit" className="button">Add Beach</button>
         </form>
       </div>
     );
   }  
 }
-
-const styles = {
-  formContainer: {
-    padding: '20px',
-    margin: '0 auto',
-    maxWidth: '600px',
-    textAlign: 'left',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '8px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-  },
-  sectionTitle: {
-    fontSize: '1.5rem',
-    marginBottom: '10px',
-    color: '#333',
-  },
-  label: {
-    display: 'block',
-    marginBottom: '8px',
-    fontSize: '1rem',
-    fontWeight: '500',
-    color: '#555',
-  },
-  input: {
-    width: '100%',
-    padding: '10px',
-    marginBottom: '15px',
-    fontSize: '1rem',
-    borderRadius: '5px',
-    border: '1px solid #ddd',
-    boxSizing: 'border-box',
-  },
-  checkboxLabel: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '10px',
-  },
-  checkbox: {
-    marginRight: '8px',
-  },
-  select: {
-    width: '100%',
-    padding: '10px',
-    marginBottom: '15px',
-    fontSize: '1rem',
-    borderRadius: '5px',
-    border: '1px solid #ddd',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '1rem',
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    borderRadius: '5px',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-  },
-};
-
-styles.button[':hover'] = {
-  backgroundColor: '#0056b3',
-};
-
 
 export default AddBeach;

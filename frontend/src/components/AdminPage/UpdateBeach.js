@@ -1,14 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './UpdateBeach.css'; // Import the CSS file
 
 class UpdateBeach extends React.Component {
     state = {
         id: 0,
         name: '',
         location: '',
-        latitude: '',  // Added latitude field
-        longitude: '', // Added longitude field
+        latitude: '',
+        longitude: '',
         amenities: {
             Restaurants: false,
             Parking: false,
@@ -25,7 +26,8 @@ class UpdateBeach extends React.Component {
             phLevel: '',
             pollutionLevel: '',
             isSafe: ''
-        }
+        },
+        error: null,
     };
 
     componentDidMount() {
@@ -39,8 +41,8 @@ class UpdateBeach extends React.Component {
                     id: data.id,
                     name: data.name,
                     location: data.location,
-                    latitude: data.latitude,  // Set the latitude from the fetched data
-                    longitude: data.longitude, // Set the longitude from the fetched data
+                    latitude: data.latitude,
+                    longitude: data.longitude,
                     weather: data.weather,
                     waterQuality: data.waterQuality
                 });
@@ -89,8 +91,8 @@ class UpdateBeach extends React.Component {
         axios.put(`https://seaclear-8.cs.uct.ac.za/api/beaches/${id}/`, {
             name,
             location,
-            latitude,  // Include latitude in the PUT request
-            longitude, // Include longitude in the PUT request
+            latitude,
+            longitude,
             amenities: selectedAmenities,
             weather: {
                 temperature: weather.temperature,
@@ -104,65 +106,70 @@ class UpdateBeach extends React.Component {
                 isSafe: waterQuality.isSafe
             }
         })
+        .then(() => {
+            // Handle successful update
+        })
         .catch(error => {
+            this.setState({ error: 'There was an error updating the beach. Please try again.' });
             console.error("There was an error updating the beach!", error);
         });
     }
 
     render() {
-        const { name, location, latitude, longitude, amenities, weather, waterQuality } = this.state;
+        const { name, location, latitude, longitude, amenities, weather, waterQuality, error } = this.state;
     
         return (
-            <div style={styles.formContainer}>
+            <div className="formContainer">
+                {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
-                    <h3 style={styles.sectionTitle}>Beach Details</h3>
-                    <label style={styles.label}>
+                    <h3 className="sectionTitle">Beach Details</h3>
+                    <label className="label">
                         Name
-                        <input id="name" type="text" value={name} readOnly style={styles.input} />
+                        <input id="name" type="text" value={name} readOnly className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Location
-                        <input id="location" type="text" value={location} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="location" type="text" value={location} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Latitude
-                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Longitude
-                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} className="input" />
                     </label>
     
-                    <h3 style={styles.sectionTitle}>Amenities</h3>
+                    <h3 className="sectionTitle">Amenities</h3>
                     {Object.keys(amenities).map(amenity => (
-                        <label key={amenity} style={styles.checkboxLabel}>
+                        <label key={amenity} className="checkboxLabel">
                             <input
                                 type="checkbox"
                                 id={amenity}
                                 checked={amenities[amenity]}
                                 onChange={this.handleInputChange}
-                                style={styles.checkbox}
+                                className="checkbox"
                             />
                             {amenity}
                         </label>
                     ))}
     
-                    <h3 style={styles.sectionTitle}>Weather</h3>
-                    <label style={styles.label}>
+                    <h3 className="sectionTitle">Weather</h3>
+                    <label className="label">
                         Temp
-                        <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Wind Speed
-                        <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Humidity
-                        <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Forecast
-                        <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} style={styles.select}>
+                        <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} className="select">
                             <option value="Sunny">Sunny</option>
                             <option value="Cloudy">Cloudy</option>
                             <option value="Overcast">Overcast</option>
@@ -173,99 +180,34 @@ class UpdateBeach extends React.Component {
                         </select>
                     </label>
     
-                    <h3 style={styles.sectionTitle}>Water Quality</h3>
-                    <label style={styles.label}>
+                    <h3 className="sectionTitle">Water Quality</h3>
+                    <label className="label">
                         pH Level
-                        <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} style={styles.input} />
+                        <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Pollution
-                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} style={styles.select}>
+                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} className="select">
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
                         </select>
                     </label>
-                    <label style={styles.label}>
+                    <label className="label">
                         Risk
-                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange} style={styles.select}>
+                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange} className="select">
                             <option value="Safe">Safe</option>
                             <option value="Medium">Medium</option>
                             <option value="Not Safe">Not Safe</option>
                         </select>
                     </label>
     
-                    <button type="submit" style={styles.button}>Update Beach</button>
+                    <button type="submit" className="button">Update Beach</button>
                 </form>
             </div>
         );
     }
-    
 }
-
-const styles = {
-    formContainer: {
-      padding: '20px',
-      margin: '0 auto',
-      maxWidth: '600px',
-      textAlign: 'left',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    },
-    sectionTitle: {
-      fontSize: '1.5rem',
-      marginBottom: '10px',
-      color: '#333',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '8px',
-      fontSize: '1rem',
-      fontWeight: '500',
-      color: '#555',
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      marginBottom: '15px',
-      fontSize: '1rem',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-      boxSizing: 'border-box',
-    },
-    select: {
-      width: '100%',
-      padding: '10px',
-      marginBottom: '15px',
-      fontSize: '1rem',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-    },
-    checkboxLabel: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '10px',
-    },
-    checkbox: {
-      marginRight: '8px',
-    },
-    button: {
-      padding: '10px 20px',
-      fontSize: '1rem',
-      backgroundColor: '#007BFF',
-      color: '#fff',
-      borderRadius: '5px',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s ease',
-    },
-  };
-  
-  styles.button[':hover'] = {
-    backgroundColor: '#0056b3',
-  };
-  
 
 function UpdateBeachWithParams() {
     const params = useParams();
