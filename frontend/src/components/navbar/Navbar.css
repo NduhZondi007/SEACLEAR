@@ -25,6 +25,16 @@
     width: 40px;
 }
 
+.navbar-brand:hover, .navbar-brand img:hover{
+    transform: scale(1.2);
+    color: gold;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+
 .navbar-nav {
     display: flex;
     gap: 30px;
@@ -39,7 +49,7 @@
 
 .nav-link:hover {
     transform: scale(1.3);
-    color: royalblue;
+    color: gold;
 }
 
 /* Mobile Menu Icon */
@@ -96,7 +106,7 @@ header.masthead {
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .navbar-nav {
         display: none;
     }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../Navbar/Navbar';
 import './AdminLoginPage.css'; // Import the CSS file
 
 const AdminLogin = () => {
@@ -34,7 +35,8 @@ const AdminLogin = () => {
     });
   };
 
-  return (
+  return (<>
+    <Navbar/>
     <div className="form-container">
       <h2 className="title">Admin Login</h2>
       <form onSubmit={handleLogin}>
@@ -68,6 +70,7 @@ const AdminLogin = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
