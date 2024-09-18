@@ -14,7 +14,7 @@ const Navbar = () => {
     return (
         <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
             <div className="container">
-                <Link className="navbar-brand" href="home">
+                <Link className="navbar-brand" to="/">
                     <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
                     SEACLEAR
                 </Link>
@@ -26,22 +26,25 @@ const Navbar = () => {
                         <li className="nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="#contact">Submit Report</Link></li>
                         <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
-                    </ul>
-                    
-                </div>
 
-                <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
+                    </ul>
+                    <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
                     <div className={`hamburger ${isMenuOpen ? "open" : ""}`}>
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
                 </button>
+                    
+                    
+                </div>
+
+                
             </div>
 
             {/* Mobile Menu Overlay */}
             {isMenuOpen && (
-                <div className="mobile-menu">
+                <div className="mobile-menu mobile-nav">
                     <button className="mobile-menu-icon active nav-link " onClick={toggleMenu}>
                         {isMenuOpen ? <IoClose size={32} color="white" /> : <IoMenu size={32} color="white" />}
                     </button>

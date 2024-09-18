@@ -4,13 +4,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+
     background-color: midnightblue;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 10000;
     /* Always on top */
+}
+
+.container{
+    display: flex;
+    justify-content:space-between;
 }
 
 .navbar-brand {
@@ -20,6 +25,11 @@
     display: flex;
     align-items: center;
     gap: 7px;
+    transition:0.3s ease-in-out;
+    -webkit-transition:0.3s ease-in-out;
+    -moz-transition:0.3s ease-in-out;
+    -ms-transition:0.3s ease-in-out;
+    -o-transition:0.3s ease-in-out;
 }
 
 .navbar-brand img {
@@ -54,18 +64,18 @@
     color: gold;
 }
 
-.nav-btn{
+.nav-btn {
     width: 120px;
     height: 50px;
     background-color: royalblue;
-    color: #ffffff;/*Textcolor*/
-    font-size: 16px;/*Fontsizeforthebutton*/
-    font-weight: bold;/*Makethetextbold*/
-    border: none;/*Removeborder*/
-    border-radius: 8px;/*Roundedcorners*/
-    cursor: pointer;/*Changecursortopointeronhover*/
-    transition: background-color 0.3s ease, transform 0.3s ease;/*Smoothtransitionforbackgroundandtransform*/
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     -webkit-transition: background-color 0.3s ease, transform 0.3s ease;
     -moz-transition: background-color 0.3s ease, transform 0.3s ease;
     -ms-transition: background-color 0.3s ease, transform 0.3s ease;
@@ -74,22 +84,19 @@
 
 .nav-btn:hover {
     background-color: gold;
-    color: whitesmoke;
+    color: midnightblue;
     transform: scale(1.3);
-    /*Slightlyincreasethesizeonhover*/box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    /*Addabiggershadowonhover*/-webkit-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
     -moz-transform: scale(1.3);
     -ms-transform: scale(1.3);
     -o-transform: scale(1.3);
     -webkit-transform: scale(1.3);
 }
 
-
 .nav-btn:active {
-    transform: scale(0.98); /* Scale down the button when clicked */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+    transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 /* Mobile Menu Icon */
 .mobile-menu-icon {
@@ -154,6 +161,7 @@ header.masthead {
     width: 28px;
     height: 20px;
     cursor: pointer;
+    justify-self: flex-end;
 }
 
 .hamburger span {
@@ -164,38 +172,47 @@ header.masthead {
     transition: all 0.3s ease;
 }
 
-.hamburger span:nth-child(1), span:nth-child(3){
+.hamburger span:nth-child(1),
+span:nth-child(3) {
     width: 16px;
 }
 
-.hamburger span:nth-child(3){
+.hamburger span:nth-child(3) {
     align-self: flex-end;
+}
+
+.mobile-menu-icon {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 30%; /* This is needed to place it precisely */
+    right: 5%; /* Ensures the button is 5% from the right side */
 }
 
 /* Media Queries */
 @media (max-width: 1150px) {
+    .navbar-brand {
+        margin-right: 20px;
+    }
+    
     .navbar-nav {
         display: none;
         background-color: midnightblue;
-        
     }
 
-
-    .mobile-nav-item {}
-
     .mobile-menu-icon {
-        display: block;
+        display: flex;
+        justify-self: flex-end;
         color: white;
         transition: ease-in-out 0.3s;
-        -webkit-transition: ease-in-out 0.3s;
-        -moz-transition: ease-in-out 0.3s;
-        -ms-transition: ease-in-out 0.3s;
-        -o-transition: ease-in-out 0.3s;
+        right: 5%; /* Ensures the button stays 5% from the right on mobile */
+        position: absolute; /* Needed for proper placement */
     }
 
     .mobile-menu-icon:hover {
         color: gold;
-        background-color: goldl;
         transform: scale(1.5);
         -webkit-transform: scale(1.5);
         -moz-transform: scale(1.5);
@@ -203,9 +220,9 @@ header.masthead {
         -o-transform: scale(1.5);
     }
 
-    .mobile-menu-icon.active:hover {
+    .mobile-menu-icon.active:hover{
         background-color: red;
     }
 
-
 }
+

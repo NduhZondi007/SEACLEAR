@@ -35,42 +35,44 @@ const AdminLogin = () => {
     });
   };
 
-  return (<>
-    <Navbar/>
-    <div className="form-container">
-      <h2 className="title">Admin Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label className="label">Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="input"
-          />
-        </div>
-        <div>
-          <label className="label">Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="input"
-          />
-        </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button type="submit" className="button">Login</button>
-      </form>
-      {adminData && (
-        <div>
-          <h3>Admin Info</h3>
-          <p>Username: {adminData.user.username}</p>
-        </div>
-      )}
+  return (
+    <div className="admin-body">
+      <Navbar />
+      <div className="form-container">
+        <h2 className="title">Admin Login</h2>
+        <form onSubmit={handleLogin}>
+          <div>
+            <input
+              type="text"
+              placeholder='Enter admin username'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="input"
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder='Enter password'
+
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="input"
+            />
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button type="submit" className="button">Login</button>
+        </form>
+        {adminData && (
+          <div className="admin-info">
+            <h3>Admin Info</h3>
+            <p>Username: {adminData.user.username}</p>
+          </div>
+        )}
+      </div>
     </div>
-    </>
   );
 };
 
