@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
 from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
 
@@ -155,6 +155,7 @@ class AdminLoginView(APIView):
         
         if user is not None:
             if AdminProfile.objects.filter(user=user).exists():
+                login(request, user)
                 admin_profile = AdminProfile.objects.get(user=user)
                 serializer = AdminProfileSerializer(admin_profile)
                 return Response(serializer.data, status=status.HTTP_200_OK)
@@ -162,3 +163,8 @@ class AdminLoginView(APIView):
                 return Response({"error": "User is not an admin"}, status=status.HTTP_403_FORBIDDEN)
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+class AdminLogoutView(APIView):
+    def post(self, request):
+        logout(request)
+        return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)

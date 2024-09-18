@@ -24,4 +24,5 @@ urlpatterns = [
     # Admin Profile endpoints
     path('api/admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),  # List all admin profiles or create a new profile
     path('api/adminLogin/', AdminLoginView.as_view(), name='admin-login'),
+    path('api/adminLogout/', AdminLogoutView.as_view(), name='admin-logout'),
 ]
