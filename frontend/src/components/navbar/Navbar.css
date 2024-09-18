@@ -9,11 +9,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    height: 60px;
-<<<<<<< HEAD:frontend/src/components/Navbar.css
     z-index: 10000; /* Always on top */
-=======
->>>>>>> 0b76e0e5b38944688a32512c4938ecfa6d6fa9cf:frontend/src/components/navbar/Navbar.css
 }
 
 .navbar-brand {
