@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './AddBeach.css'; // Import the CSS file
 
 class AddBeach extends React.Component {
   // Initial state includes fields for beach name, location, amenities, weather, and water quality
@@ -121,49 +122,50 @@ class AddBeach extends React.Component {
 
   render() {
     const { name, location, amenities, weather, waterQuality } = this.state;
-
+  
     return (
-      <div>
+      <div className="form-container">
         <form onSubmit={this.handleSubmit}>
-          <h3>Beach Details</h3>
-          <label>
+          <h3 className="section-title">Beach Details</h3>
+          <label className="label">
             Name
-            <input id="name" type="text" value={name} onChange={this.handleInputChange} />
+            <input id="name" type="text" value={name} onChange={this.handleInputChange} className="input" />
           </label>
-          <label>
+          <label className="label">
             Location
-            <input id="location" type="text" value={location} onChange={this.handleInputChange} />
+            <input id="location" type="text" value={location} onChange={this.handleInputChange} className="input" />
           </label>
-
-          <h3>Amenities</h3>
+  
+          <h3 className="section-title">Amenities</h3>
           {Object.keys(amenities).map(amenity => (
-            <label key={amenity}>
+            <label key={amenity} className="checkbox-label">
               <input
                 type="checkbox"
                 id={amenity}
                 checked={amenities[amenity]}
                 onChange={this.handleInputChange}
+                className="checkbox"
               />
               {amenity}
             </label>
           ))}
-
-          <h3>Weather</h3>
-          <label>
+  
+          <h3 className="section-title">Weather</h3>
+          <label className="label">
             Temp
-            <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} />
+            <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} className="input" />
           </label>
-          <label>
+          <label className="label">
             Wind Speed
-            <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} />
+            <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} className="input" />
           </label>
-          <label>
+          <label className="label">
             Humidity
-            <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} />
+            <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} className="input" />
           </label>
-          <label>
+          <label className="label">
             Forecast
-            <select id="forecast" value={weather.forecast} onChange={this.handleInputChange}>
+            <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} className="select">
               <option value="Sunny">Sunny</option>
               <option value="Cloudy">Cloudy</option>
               <option value="Overcast">Overcast</option>
@@ -173,26 +175,26 @@ class AddBeach extends React.Component {
               <option value="Hail">Hail</option>
             </select>
           </label>
-
-          <h3>Water Quality</h3>
-          <label>
+  
+          <h3 className="section-title">Water Quality</h3>
+          <label className="label">
             pH Level
-            <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} />
+            <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} className="input" />
           </label>
-          <label>
+          <label className="label">
             Pollution Level
-            <input id="pollutionLevel" type="text" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} />
+            <input id="pollutionLevel" type="text" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} className="input" />
           </label>
-          <label>
+          <label className="label">
             Is Safe
-            <input id="isSafe" type="text" value={waterQuality.isSafe} onChange={this.handleInputChange} />
+            <input id="isSafe" type="text" value={waterQuality.isSafe} onChange={this.handleInputChange} className="input" />
           </label>
-
-          <button type="submit">Add Beach</button>
+  
+          <button type="submit" className="button">Add Beach</button>
         </form>
       </div>
     );
-  }
+  }  
 }
 
 export default AddBeach;

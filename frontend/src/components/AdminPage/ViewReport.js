@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './ViewReport.css'; // Import the CSS file
 
 class ViewReport extends React.Component {
     state = {
@@ -11,7 +12,8 @@ class ViewReport extends React.Component {
         problemType: '',
         status: '',
         additionalInfo: '',
-        urgency: ''
+        urgency: '',
+        error: null,
     };
 
     componentDidMount() {
@@ -54,7 +56,11 @@ class ViewReport extends React.Component {
             additionalInfo,
             urgency
         })
+        .then(() => {
+            // Handle successful update
+        })
         .catch(error => {
+            this.setState({ error: 'There was an error updating the report. Please try again.' });
             console.error("There was an error updating the report!", error);
         });
     }
@@ -65,63 +71,65 @@ class ViewReport extends React.Component {
     }
 
     render() {
-        const { user, reportType, beach, problemType, status, additionalInfo, urgency } = this.state;
-
+        const { user, reportType, beach, problemType, status, additionalInfo, urgency, error } = this.state;
+    
         return (
-            <div>
+            <div className="formContainer">
+                {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Report Details</h3>
-                    <label>
+                    <h3 className="sectionTitle">Report Details</h3>
+    
+                    <label className="label">
                         User
-                        <input id="user" type="text" value={user} onChange={this.handleInputChange} />
+                        <input id="user" type="text" value={user} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Beach Name
-                        <input id="beach" type="text" value={beach} onChange={this.handleInputChange} />
+                        <input id="beach" type="text" value={beach} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Report Type
-                        <input id="reportType" type="text" value={reportType} onChange={this.handleInputChange} />
+                        <input id="reportType" type="text" value={reportType} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Urgency
-                        <select id="urgency" value={urgency} onChange={this.handleInputChange}>
+                        <select id="urgency" value={urgency} onChange={this.handleInputChange} className="select">
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
                     </label>
-                    <label>
+                    <label className="label">
                         Status
-                        <select id="status" value={status} onChange={this.handleInputChange}>
+                        <select id="status" value={status} onChange={this.handleInputChange} className="select">
                             <option value="Pending">Pending</option>
                             <option value="Viewed">Viewed</option>
                             <option value="Resolved">Resolved</option>
                         </select>
                     </label>
-                    <label>
+                    <label className="label">
                         Problem Type
-                        <select id="problemType" value={problemType} onChange={this.handleInputChange}>
+                        <select id="problemType" value={problemType} onChange={this.handleInputChange} className="select">
                             <option value="Pollution">Pollution</option>
                             <option value="Safety">Safety</option>
                             <option value="Other">Other</option>
                         </select>
                     </label>
-                    <label>
+                    <label className="label">
                         Additional Info
-                        <textarea id="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} />
+                        <textarea id="additionalInfo" value={additionalInfo} onChange={this.handleInputChange} className="textarea" />
                     </label>
-                    <button type="submit">Update Report</button>
+    
+                    <button type="submit" className="button">Update Report</button>
                 </form>
             </div>
         );
     }
 }
 
-// Functional Component Wrapper to use useParams hook
 function ReportWithParams() {
-    const params = useParams();  // Hook to access URL parameters
-    return <ViewReport params={params}/>;  // Pass params as prop to ViewReport
+    const params = useParams();
+    return <ViewReport params={params} />;
 }
 
 export default ReportWithParams;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './AdminLoginPage.css'; // Import the CSS file
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -34,29 +35,31 @@ const AdminLogin = () => {
   };
 
   return (
-    <div>
-      <h2>Admin Login</h2>
+    <div className="form-container">
+      <h2 className="title">Admin Login</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label>Username:</label>
+          <label className="label">Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className="input"
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label className="label">Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="input"
           />
         </div>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <button type="submit">Login</button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <button type="submit" className="button">Login</button>
       </form>
       {adminData && (
         <div>

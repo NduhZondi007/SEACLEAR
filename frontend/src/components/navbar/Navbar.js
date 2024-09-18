@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import './Navbar.css'; // Import custom CSS if needed
 import { IoClose, IoMenu } from "react-icons/io5";
-<<<<<<< HEAD:frontend/src/components/Navbar.js
 import { Link } from 'react-router-dom';
-=======
 import LoginIcon from '../AdminPage/LoginIcon';
 
->>>>>>> 0b76e0e5b38944688a32512c4938ecfa6d6fa9cf:frontend/src/components/navbar/Navbar.js
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,7 +15,7 @@ const Navbar = () => {
     return (
         <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
             <div className="container">
-                <Link className="navbar-brand" to="/">
+                <Link className="navbar-brand" href="home">
                     <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
                     SEACLEAR
                 </Link>

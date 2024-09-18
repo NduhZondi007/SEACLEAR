@@ -29,22 +29,60 @@ const BeachList = () => {
     }
 
     return (
-        <div>
-            {/* Map over the list of beach details and create a button for each beach */}
-            {details.map((output, id) => (
-                <div key={id}> {/* Use 'id' as the key for each beach element */}
-                    <button onClick={() => handleBeachClick(output.name)}> {/* Button that navigates to the update page when clicked */}
-                        <div>
-                            {/* Display beach name and location */}
-                            <p>Name: {output.name}</p>
-                            <p>Location: {output.location}</p>
-                            <hr /> {/* Horizontal line separator between beach details */}
-                        </div>
-                    </button>
+        <div style={styles.container}>
+          {/* Map over the list of beach details and create a button for each beach */}
+          {details.map((output, id) => (
+            <div key={id}>
+              <button
+                style={styles.button}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.button.backgroundColor}
+                onClick={() => handleBeachClick(output.name)}
+              >
+                <div>
+                  <p style={styles.beachDetails}>Name: {output.name}</p>
+                  <p style={styles.beachDetails}>Location: {output.location}</p>
+                  <hr style={styles.separator} />
                 </div>
-            ))}
+              </button>
+            </div>
+          ))}
         </div>
-    );
+      );
+      
 }
 
+const styles = {
+    container: {
+      padding: '20px',
+      maxWidth: '800px',
+      margin: '0 auto',
+      textAlign: 'center',
+    },
+    button: {
+      width: '100%',
+      padding: '15px',
+      margin: '10px 0',
+      borderRadius: '10px',
+      border: 'none',
+      backgroundColor: '#007BFF',
+      color: '#fff',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease',
+    },
+    buttonHover: {
+      backgroundColor: '#0056b3',
+    },
+    beachDetails: {
+      textAlign: 'left',
+      fontSize: '1.2rem',
+      color: '#333',
+      margin: '0',
+    },
+    separator: {
+      margin: '10px 0',
+      borderTop: '1px solid #ddd',
+    },
+  };
+  
 export default BeachList;

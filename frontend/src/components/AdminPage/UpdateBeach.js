@@ -1,14 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './UpdateBeach.css'; // Import the CSS file
 
 class UpdateBeach extends React.Component {
     state = {
         id: 0,
         name: '',
         location: '',
-        latitude: '',  // Added latitude field
-        longitude: '', // Added longitude field
+        latitude: '',
+        longitude: '',
         amenities: {
             Restaurants: false,
             Parking: false,
@@ -25,7 +26,8 @@ class UpdateBeach extends React.Component {
             phLevel: '',
             pollutionLevel: '',
             isSafe: ''
-        }
+        },
+        error: null,
     };
 
     componentDidMount() {
@@ -39,8 +41,8 @@ class UpdateBeach extends React.Component {
                     id: data.id,
                     name: data.name,
                     location: data.location,
-                    latitude: data.latitude,  // Set the latitude from the fetched data
-                    longitude: data.longitude, // Set the longitude from the fetched data
+                    latitude: data.latitude,
+                    longitude: data.longitude,
                     weather: data.weather,
                     waterQuality: data.waterQuality
                 });
@@ -89,8 +91,8 @@ class UpdateBeach extends React.Component {
         axios.put(`http://127.0.0.1:8000/beaches/${id}/`, {
             name,
             location,
-            latitude,  // Include latitude in the PUT request
-            longitude, // Include longitude in the PUT request
+            latitude,
+            longitude,
             amenities: selectedAmenities,
             weather: {
                 temperature: weather.temperature,
@@ -104,66 +106,70 @@ class UpdateBeach extends React.Component {
                 isSafe: waterQuality.isSafe
             }
         })
+        .then(() => {
+            // Handle successful update
+        })
         .catch(error => {
+            this.setState({ error: 'There was an error updating the beach. Please try again.' });
             console.error("There was an error updating the beach!", error);
         });
     }
 
     render() {
-        const { name, location, latitude, longitude, amenities, weather, waterQuality } = this.state;
-
+        const { name, location, latitude, longitude, amenities, weather, waterQuality, error } = this.state;
+    
         return (
-            <div>
+            <div className="formContainer">
+                {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Beach Details</h3>
-                    <label>
+                    <h3 className="sectionTitle">Beach Details</h3>
+                    <label className="label">
                         Name
-                        <input id="name" type="text" value={name} readOnly />
+                        <input id="name" type="text" value={name} readOnly className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Location
-                        <input id="location" type="text" value={location} onChange={this.handleInputChange} />
+                        <input id="location" type="text" value={location} onChange={this.handleInputChange} className="input" />
                     </label>
-                    {/* Input field for updating the latitude */}
-                    <label>
+                    <label className="label">
                         Latitude
-                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} />
+                        <input id="latitude" type="number" step="0.0001" value={latitude} onChange={this.handleInputChange} className="input" />
                     </label>
-                    {/* Input field for updating the longitude */}
-                    <label>
+                    <label className="label">
                         Longitude
-                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} />
+                        <input id="longitude" type="number" step="0.0001" value={longitude} onChange={this.handleInputChange} className="input" />
                     </label>
-
-                    <h3>Amenities</h3>
+    
+                    <h3 className="sectionTitle">Amenities</h3>
                     {Object.keys(amenities).map(amenity => (
-                        <label key={amenity}>
+                        <label key={amenity} className="checkboxLabel">
                             <input
                                 type="checkbox"
                                 id={amenity}
                                 checked={amenities[amenity]}
                                 onChange={this.handleInputChange}
+                                className="checkbox"
                             />
                             {amenity}
                         </label>
                     ))}
-
-                    <h3>Weather</h3>
-                    <label>
+    
+                    <h3 className="sectionTitle">Weather</h3>
+                    <label className="label">
                         Temp
-                        <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} />
+                        <input id="temperature" type="number" value={weather.temperature} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Wind Speed
-                        <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} />
+                        <input id="windSpeed" type="number" value={weather.windSpeed} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Humidity
-                        <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} />
+                        <input id="humidity" type="number" value={weather.humidity} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Forecast
-                        <select id="forecast" value={weather.forecast} onChange={this.handleInputChange}>
+                        <select id="forecast" value={weather.forecast} onChange={this.handleInputChange} className="select">
                             <option value="Sunny">Sunny</option>
                             <option value="Cloudy">Cloudy</option>
                             <option value="Overcast">Overcast</option>
@@ -173,30 +179,30 @@ class UpdateBeach extends React.Component {
                             <option value="Hail">Hail</option>
                         </select>
                     </label>
-
-                    <h3>Water Quality</h3>
-                    <label>
+    
+                    <h3 className="sectionTitle">Water Quality</h3>
+                    <label className="label">
                         pH Level
-                        <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} />
+                        <input id="phLevel" type="number" value={waterQuality.phLevel} onChange={this.handleInputChange} className="input" />
                     </label>
-                    <label>
+                    <label className="label">
                         Pollution
-                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange}>
+                        <select id="pollutionLevel" value={waterQuality.pollutionLevel} onChange={this.handleInputChange} className="select">
                             <option value="High">High</option>
-                            <option value="medium">Medium</option>
+                            <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
                         </select>
                     </label>
-                    <label>
+                    <label className="label">
                         Risk
-                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange}>
+                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange} className="select">
                             <option value="Safe">Safe</option>
-                            <option value="medium">Medium</option>
+                            <option value="Medium">Medium</option>
                             <option value="Not Safe">Not Safe</option>
                         </select>
                     </label>
-
-                    <button type="submit">Update Beach</button>
+    
+                    <button type="submit" className="button">Update Beach</button>
                 </form>
             </div>
         );
