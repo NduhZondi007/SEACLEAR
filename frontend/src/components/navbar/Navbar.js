@@ -38,10 +38,9 @@ const Navbar = () => {
             {isMenuOpen && (
                 <div className="mobile-menu">
                     <ul className="mobile-nav-links">
-                        <li className="mobile-nav-item"><a href="#about" onClick={toggleMenu}>About</a></li>
-                        <li className="mobile-nav-item"><a href="#services" onClick={toggleMenu}>Beach Finder</a></li>
-                        <li className="mobile-nav-item"><a href="#portfolio" onClick={toggleMenu}>Forum</a></li>
-                        <li className="mobile-nav-item"><a href="#contact" onClick={toggleMenu}>Contact</a></li>
+                    <li className="mobile-nav-item"><Link className="nav-link" to="/Home">Home</Link></li>
+                        <li className="mobile-nav-item"><Link className="nav-link" to="#About">About</Link></li>
+                        <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
                     </ul>
                 </div>
             )}
