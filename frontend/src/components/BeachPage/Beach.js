@@ -6,7 +6,7 @@ import Amenities from './Amenities';  // Importing an Amenities component
 import MessageBox from './MessageBox';  // Importing a MessageBox component for sending messages
 import ConversationWindow from './ConversationWindow';  // Importing a ConversationWindow component to display messages
 import MapIcon from '../MapPage/MapIcon';
-import Navbar from '../navbar/Navbar';
+import Navbar from '../Navbar/Navbar';
 
 class Beach extends React.Component {
     state = {
@@ -45,7 +45,7 @@ class Beach extends React.Component {
 
         return (
             <div>
-                <Navbar/>
+                <Navbar />
                 <div style={styles.container}>
                     <header style={styles.header}>
                         <hr />
