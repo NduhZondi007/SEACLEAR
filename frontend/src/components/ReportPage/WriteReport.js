@@ -58,8 +58,6 @@ const WriteReport = () => {
         }
     
         axios.post(`https://seaclear-8.cs.uct.ac.za/api/reports/`, {
-
-        axios.post(`http://127.0.0.1:8000/reports/`, {
             user: finalUsername,
             reportType,
             beach,

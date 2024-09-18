@@ -34,3 +34,4 @@ env
 .vscode/
 backend/static/
 frontend/build/
+frontend/build

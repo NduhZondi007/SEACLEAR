@@ -155,7 +155,6 @@ class AdminLoginView(APIView):
         
         if user is not None:
             if AdminProfile.objects.filter(user=user).exists():
-                login(request, user)
                 admin_profile = AdminProfile.objects.get(user=user)
                 serializer = AdminProfileSerializer(admin_profile)
                 return Response(serializer.data, status=status.HTTP_200_OK)
