@@ -45,21 +45,23 @@ class ConversationWindow extends React.Component {
         return (
             <div style={styles.container}>
                 <header style={styles.header}>
-                    {details.messages.length > 0 ? (
-                        details.messages.map((message, index) => (
-                            <div
-                                key={index}
-                                style={message.sender === username ? styles.userMessage : styles.otherMessage}
-                            >
-                                <strong>{message.sender}:</strong> {message.content}
-                                {username && message.sender === username && (
-                                    <span style={styles.youTag}> (You)</span>
-                                )}
-                            </div>
-                        ))
-                    ) : (
-                        <p>No messages yet.</p>
-                    )}
+                    <div style={styles.messageList}>
+                        {details.messages.length > 0 ? (
+                            details.messages.map((message, index) => (
+                                <div
+                                    key={index}
+                                    style={message.sender === username ? styles.userMessage : styles.otherMessage}
+                                >
+                                    <strong>{message.sender}:</strong> {message.content}
+                                    {username && message.sender === username && (
+                                        <span style={styles.youTag}> (You)</span>
+                                    )}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No messages yet.</p>
+                        )}
+                    </div>
                 </header>
             </div>
         );
@@ -76,6 +78,11 @@ const styles = {
     header: {
         paddingBottom: '10px',
         borderBottom: '1px solid #ccc',
+    },
+    messageList: {
+        maxHeight: '400px',
+        overflowY: 'auto',
+        paddingRight: '10px',
     },
     userMessage: {
         backgroundColor: '#daf1da',
