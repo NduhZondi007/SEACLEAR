@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
-import Navbar from '../navbar/Navbar';
+import Navbar from '../Navbar/Navbar';
 
 const WriteReport = () => {
     const { username, setUsername } = useContext(UserContext);
@@ -20,7 +20,7 @@ const WriteReport = () => {
             axios
                 .get('http://localhost:8000/beaches')
                 .then((res) => {
-                    setBeaches(res.data); 
+                    setBeaches(res.data);
                 })
                 .catch((err) => {
                     console.error('There was an error fetching the data!', err);
@@ -35,20 +35,20 @@ const WriteReport = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-    
+
         let { usernameInput, reportType, beach, problemType, additionalInfo, urgency } = details;
         const finalUsername = username || usernameInput;
-    
+
         if (!finalUsername) {
             alert('Please provide a username.');
             return;
         }
-    
+
         if (!reportType || (reportType === 'Beach Specific' && !beach) || !problemType || !additionalInfo || !urgency) {
             alert('Please fill out all fields before submitting.');
             return;
         }
-    
+
         if (!username) {
             setUsername(usernameInput);
         }
@@ -56,7 +56,7 @@ const WriteReport = () => {
         if (reportType === 'General') {
             beach = "General";
         }
-    
+
         axios.post(`http://127.0.0.1:8000/reports/`, {
             user: finalUsername,
             reportType,
@@ -65,25 +65,25 @@ const WriteReport = () => {
             additionalInfo,
             urgency
         })
-        .then((response) => {
-            alert('Report successfully submitted!');
-            setDetails({
-                usernameInput: '',
-                reportType: '',
-                beach: '',
-                problemType: '',
-                additionalInfo: '',
-                urgency: ''
+            .then((response) => {
+                alert('Report successfully submitted!');
+                setDetails({
+                    usernameInput: '',
+                    reportType: '',
+                    beach: '',
+                    problemType: '',
+                    additionalInfo: '',
+                    urgency: ''
+                });
+            })
+            .catch((error) => {
+                console.error('There was an error updating the report!', error);
             });
-        })
-        .catch((error) => {
-            console.error('There was an error updating the report!', error);
-        });
     };
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <div style={styles.container}>
                 <form onSubmit={handleSubmit} style={styles.form}>
                     <h3 style={styles.heading}>Report Details</h3>

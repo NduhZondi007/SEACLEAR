@@ -6,7 +6,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { Icon } from "leaflet";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import Navbar from '../navbar/Navbar';
+import Navbar from '../Navbar/Navbar';
 
 // Function to create custom icons dynamically based on safety status
 const createIcon = (safetyStatus) => {
@@ -45,7 +45,7 @@ const Map = () => {
                 console.error('There was an error fetching the data!', err);
             });
     }, []); // Empty dependency array to run once on mount
-    
+
     const handleMarkerClick = (name) => {
         navigate(`/beach/${name}`); // Navigate to the update page for the selected beach using its name as a URL parameter
     }
@@ -59,24 +59,24 @@ const Map = () => {
 
     return (
         <>
-        <Navbar/>
-        <MapContainer id="mapCanvas" center={[firstLocation.latitude, firstLocation.longitude]} zoom={9}>
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
-                {details.map((marker, index) => {
-                    const safetyStatus = marker.waterQuality.isSafe.replace(" ", '').replace("M", "m"); // sometimes it files Medium insted of medium.png
-                    const icon = createIcon(safetyStatus);
+            <Navbar />
+            <MapContainer id="mapCanvas" center={[firstLocation.latitude, firstLocation.longitude]} zoom={9}>
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
+                    {details.map((marker, index) => {
+                        const safetyStatus = marker.waterQuality.isSafe.replace(" ", '').replace("M", "m"); // sometimes it files Medium insted of medium.png
+                        const icon = createIcon(safetyStatus);
 
-                    return (
-                        <Marker key={index} position={[marker.latitude, marker.longitude]} icon={icon}>
-                            <Popup>Visit <button onClick={() => handleMarkerClick(marker.name)}>{marker.name}</button></Popup>
-                        </Marker>
-                    );
-                })}
-            </MarkerClusterGroup>
-        </MapContainer>
+                        return (
+                            <Marker key={index} position={[marker.latitude, marker.longitude]} icon={icon}>
+                                <Popup>Visit <button onClick={() => handleMarkerClick(marker.name)}>{marker.name}</button></Popup>
+                            </Marker>
+                        );
+                    })}
+                </MarkerClusterGroup>
+            </MapContainer>
         </>
     );
 };
