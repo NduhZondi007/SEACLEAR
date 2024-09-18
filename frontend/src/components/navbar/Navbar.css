@@ -9,7 +9,8 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10000; /* Always on top */
+    z-index: 10000;
+    /* Always on top */
 }
 
 .navbar-brand {
@@ -25,7 +26,8 @@
     width: 40px;
 }
 
-.navbar-brand:hover, .navbar-brand img:hover{
+.navbar-brand:hover,
+.navbar-brand img:hover {
     transform: scale(1.2);
     color: gold;
     -webkit-transform: scale(1.2);
@@ -51,6 +53,43 @@
     transform: scale(1.3);
     color: gold;
 }
+
+.nav-btn{
+    width: 120px;
+    height: 50px;
+    background-color: royalblue;
+    color: #ffffff;/*Textcolor*/
+    font-size: 16px;/*Fontsizeforthebutton*/
+    font-weight: bold;/*Makethetextbold*/
+    border: none;/*Removeborder*/
+    border-radius: 8px;/*Roundedcorners*/
+    cursor: pointer;/*Changecursortopointeronhover*/
+    transition: background-color 0.3s ease, transform 0.3s ease;/*Smoothtransitionforbackgroundandtransform*/
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+    -webkit-transition: background-color 0.3s ease, transform 0.3s ease;
+    -moz-transition: background-color 0.3s ease, transform 0.3s ease;
+    -ms-transition: background-color 0.3s ease, transform 0.3s ease;
+    -o-transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: gold;
+    color: whitesmoke;
+    transform: scale(1.3);
+    /*Slightlyincreasethesizeonhover*/box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    /*Addabiggershadowonhover*/-webkit-transform: scale(1.5);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    -webkit-transform: scale(1.3);
+}
+
+
+.nav-btn:active {
+    transform: scale(0.98); /* Scale down the button when clicked */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
 
 /* Mobile Menu Icon */
 .mobile-menu-icon {
@@ -78,7 +117,8 @@ header.masthead {
     height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-    z-index: 200; /* Ensures mobile menu overlays everything */
+    z-index: 200;
+    /* Ensures mobile menu overlays everything */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,16 +142,70 @@ header.masthead {
 }
 
 .mobile-nav-item a:hover {
-    color: royalblue;
+    color: gold;
+
+
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    background-color: white;
+    height: 3px;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.hamburger span:nth-child(1), span:nth-child(3){
+    width: 16px;
+}
+
+.hamburger span:nth-child(3){
+    align-self: flex-end;
 }
 
 /* Media Queries */
 @media (max-width: 1150px) {
     .navbar-nav {
         display: none;
+        background-color: midnightblue;
+        
     }
+
+
+    .mobile-nav-item {}
 
     .mobile-menu-icon {
         display: block;
+        color: white;
+        transition: ease-in-out 0.3s;
+        -webkit-transition: ease-in-out 0.3s;
+        -moz-transition: ease-in-out 0.3s;
+        -ms-transition: ease-in-out 0.3s;
+        -o-transition: ease-in-out 0.3s;
     }
+
+    .mobile-menu-icon:hover {
+        color: gold;
+        background-color: goldl;
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+    }
+
+    .mobile-menu-icon.active:hover {
+        background-color: red;
+    }
+
+
 }

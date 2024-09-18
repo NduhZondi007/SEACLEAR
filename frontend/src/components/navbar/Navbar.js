@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Navbar.css'; // Import custom CSS if needed
 import { IoClose, IoMenu } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-import LoginIcon from '../AdminPage/LoginIcon';
 
 
 const Navbar = () => {
@@ -26,25 +25,34 @@ const Navbar = () => {
                         <li className="nav-item"><Link className="nav-link" to="#About">About</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="#contact">Submit Report</Link></li>
+                        <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
                     </ul>
+                    
                 </div>
 
-                <button className="mobile-menu-icon" onClick={toggleMenu}>
-                    {isMenuOpen ? <IoClose size={28} color="white" /> : <IoMenu size={28} color="white" />}
+                <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
+                    <div className={`hamburger ${isMenuOpen ? "open" : ""}`}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </button>
             </div>
 
             {/* Mobile Menu Overlay */}
             {isMenuOpen && (
                 <div className="mobile-menu">
+                    <button className="mobile-menu-icon active nav-link " onClick={toggleMenu}>
+                        {isMenuOpen ? <IoClose size={32} color="white" /> : <IoMenu size={32} color="white" />}
+                    </button>
                     <ul className="mobile-nav-links">
-                    <li className="mobile-nav-item"><Link className="nav-link" to="/Home">Home</Link></li>
+                        <li className="mobile-nav-item"><Link className="nav-link" to="/">Home</Link></li>
                         <li className="mobile-nav-item"><Link className="nav-link" to="#About">About</Link></li>
                         <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
+                        <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
                     </ul>
                 </div>
             )}
-            <LoginIcon/>
         </nav>
     );
 };
