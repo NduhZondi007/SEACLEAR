@@ -15,7 +15,7 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/adminLogin/', {
+    axios.post('https://seaclear-8.cs.uct.ac.za/api/adminLogin/', {
       username,
       password
     })
@@ -49,7 +49,10 @@ const AdminLogin = () => {
               type="text"
               placeholder='Enter admin username'
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setErrorMessage('');
+              }}
               required
               className="input"
             />
@@ -60,7 +63,10 @@ const AdminLogin = () => {
               placeholder='Enter password'
 
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrorMessage('');
+              }}
               required
               className="input"
             />
