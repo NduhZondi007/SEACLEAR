@@ -23,24 +23,45 @@ function CsvUploader() {
 
           console.log('Formatted Data:', newFormattedData);
 
-          // Collect all beach names and values
-          const allBeachInfo = parsedData
-            .map(row => {
-              const firstElementValue = Object.values(row)[0]; // Get the value of the first element in the row
+          // Initialize variables
+          const allBeachInfo = [];
+          let skippedCount = 0;
+          let storedCount = 0;
+          let storing = false;
 
-              // Check if the first element starts with a number and a dot
-              const nameMatch = /^(\d+\.)/.exec(firstElementValue);
-              
-              if (nameMatch) {
+          for (const row of parsedData) {
+            const firstElementValue = Object.values(row)[0]; // Get the value of the first element in the row
+
+            // Check if the first element starts with a number and a dot
+            const nameMatch = /^(\d+\.)/.exec(firstElementValue);
+
+            if (nameMatch) {
+              const count = parseInt(nameMatch[1].slice(0, -1), 10); // Extract the count number
+
+              if (skippedCount < 11) {
+                // Skip the first 11 entries
+                skippedCount++;
+                continue;
+              }
+
+              // Start storing after skipping the first 11 entries
+              if (storedCount < 25) {
+                if (!storing) {
+                  storing = true; // Begin storing
+                }
+
                 const name = nameMatch[0]; // Extract the matching part
                 const value = firstElementValue.slice(name.length); // Extract the remaining value after the name
-                return { name, value }; // Return the object with name and value
+                allBeachInfo.push({ name, value });
+                storedCount++;
+              } else {
+                // Stop storing once 25 entries are collected
+                break;
               }
-              return null; // Return null if no match
-            })
-            .filter(info => info !== null); // Remove null entries
+            }
+          }
 
-          console.log('All Beach Info:', allBeachInfo);
+          console.log('Beach Info After Skipping Initial Entries:', allBeachInfo);
 
           setData(parsedData);
           setFormattedData(newFormattedData);
