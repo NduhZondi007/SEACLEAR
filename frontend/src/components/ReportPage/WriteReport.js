@@ -19,7 +19,7 @@ const WriteReport = () => {
     useEffect(() => {
         if (details.reportType === 'Beach Specific') {
             axios
-                .get('http://localhost:8000/beaches')
+                .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
                 .then((res) => {
                     setBeaches(res.data);
                 })
@@ -57,8 +57,8 @@ const WriteReport = () => {
         if (reportType === 'General') {
             beach = "General";
         }
-
-        axios.post(`http://127.0.0.1:8000/reports/`, {
+    
+        axios.post(`https://seaclear-8.cs.uct.ac.za/api/reports/`, {
             user: finalUsername,
             reportType,
             beach,

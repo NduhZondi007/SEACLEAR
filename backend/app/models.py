@@ -38,15 +38,11 @@ class WaterQuality(models.Model):
     def save(self, *args, **kwargs):
         # Determine safety status based on pH level
         if self.phLevel > 185:
-            self.isSafe = 'Poor'
-        elif self.phLevel < 185:
-            self.isSafe = 'Sufficient'
-        elif self.phLevel < 200:
-            self.isSafe = 'Good'
-        elif self.phLevel < 100:
-            self.isSafe = 'Excellent'
+            self.isSafe = 'NotSafe'
+        elif self.phLevel > 100:
+            self.isSafe = 'medium'
         else:
-            self.isSafe = 'Unknown'  # Fallback case
+            self.isSafe = 'Safe'
 
         super().save(*args, **kwargs)
 
@@ -112,3 +108,11 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message by {self.sender}"
+
+class EducationalContent(models.Model):
+    title = models.CharField(max_length=255)  # Title of the educational content
+    description = models.TextField()  # Description or body of the content
+    #created_at = models.DateTimeField(auto_now_add=True)  # Date the content was created
+
+    def __str__(self):
+        return self.title
