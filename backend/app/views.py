@@ -134,6 +134,18 @@ class MessageView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    def put(self, request, pk):
+        try:
+            message = Message.objects.get(pk=pk)
+        except Message.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        message.likeCount += 1
+        message.save()
+
+        serializer = MessageSerializer(message)
+        return Response(serializer.data)
+    
 class AdminProfileView(APIView):
     def get(self, request):
         admin_profiles = AdminProfile.objects.all()

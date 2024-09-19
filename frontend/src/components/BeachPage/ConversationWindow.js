@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
+import likeIcon from './../../assets/images/likeIcon.png';  // Import the like icon
 
 class ConversationWindow extends React.Component {
     state = {
@@ -34,6 +35,18 @@ class ConversationWindow extends React.Component {
             });
     };
 
+    handleLike = (messageId) => {
+        // Assuming the API endpoint is something like 'beachSpecific-chat/:messageId/like/'
+        axios.put(`http://localhost:8000/beachSpecific-chat/${messageId}/like/`)
+            .then(() => {
+                // Re-fetch the messages to update the like count in the UI
+                this.fetchMessages();
+            })
+            .catch((err) => {
+                console.error('There was an error liking the message!', err);
+            });
+    };
+
     render() {
         const { details } = this.state;
         const { username } = this.context;  // Access the username from UserContext
@@ -56,6 +69,15 @@ class ConversationWindow extends React.Component {
                                     {username && message.sender === username && (
                                         <span style={styles.youTag}> (You)</span>
                                     )}
+                                    <div style={styles.likeContainer}>
+                                        <img
+                                            src={likeIcon}
+                                            alt="Like"
+                                            style={styles.likeIcon}
+                                            onClick={() => this.handleLike(message.id)}  // Like button
+                                        />
+                                        <span>{message.likeCount} likes</span>  {/* Display like count */}
+                                    </div>
                                 </div>
                             ))
                         ) : (
@@ -108,6 +130,17 @@ const styles = {
         fontStyle: 'italic',
         color: '#555',
         marginLeft: '5px',
+    },
+    likeContainer: {
+        marginTop: '5px',
+        display: 'flex',
+        alignItems: 'center',
+    },
+    likeIcon: {
+        width: '20px',
+        height: '20px',
+        cursor: 'pointer',
+        marginRight: '5px',
     },
     loading: {
         textAlign: 'center',
