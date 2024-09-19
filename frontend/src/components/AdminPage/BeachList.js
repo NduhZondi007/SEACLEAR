@@ -45,6 +45,7 @@ const BeachList = () => {
                   <hr style={styles.separator} />
                 </div>
               </button>
+              <button onClick={() => navigate(`/admin/uploadCsv/`)}>Add Dynamically</button>
             </div>
           ))}
         </div>

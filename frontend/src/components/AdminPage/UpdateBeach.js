@@ -103,7 +103,6 @@ class UpdateBeach extends React.Component {
             waterQuality: {
                 phLevel: waterQuality.phLevel,
                 pollutionLevel: waterQuality.pollutionLevel,
-                isSafe: waterQuality.isSafe
             }
         })
         .then(() => {
@@ -191,14 +190,6 @@ class UpdateBeach extends React.Component {
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
-                        </select>
-                    </label>
-                    <label className="label">
-                        Risk
-                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange} className="select">
-                            <option value="Safe">Safe</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Not Safe">Not Safe</option>
                         </select>
                     </label>
     
