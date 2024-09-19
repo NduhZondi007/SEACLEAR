@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const TrendingBeaches = ({ searchQuery }) => {
-    const sliderRef = useRef(null);
+    const itemsRef = useRef(null); // Reference for the items container
     const [details, setDetails] = useState([]);
     const navigate = useNavigate();
 
@@ -14,70 +14,107 @@ const TrendingBeaches = ({ searchQuery }) => {
     let scrollLeft;
 
     useEffect(() => {
-        axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/beaches') // Send a GET request to the API to retrieve beach details
+        // Fetch beach details from API
+        axios.get('http://localhost:8000/beaches')
             .then((res) => {
                 setDetails(res.data);
             })
             .catch((err) => {
                 console.error('Error fetching the data!', err);
             });
+
+        const items = itemsRef.current;
+
+        // Mouse event handlers
+        const handleMouseDown = (e) => {
+            isDown = true;
+            items.classList.add('active');
+            startX = e.pageX - items.offsetLeft;
+            scrollLeft = items.scrollLeft;
+        };
+
+        const handleMouseLeave = () => {
+            isDown = false;
+            items.classList.remove('active');
+        };
+
+        const handleMouseUp = () => {
+            isDown = false;
+            items.classList.remove('active');
+        };
+
+        const handleMouseMove = (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - items.offsetLeft;
+            const walk = (startX - x) * 3; // Scroll right to left
+            items.scrollLeft = scrollLeft + walk;
+        };
+
+        // Touch event handlers for mobile devices
+        const handleTouchStart = (e) => {
+            isDown = true;
+            items.classList.add('active');
+            startX = e.touches[0].pageX - items.offsetLeft;
+            scrollLeft = items.scrollLeft;
+        };
+
+        const handleTouchEnd = () => {
+            isDown = false;
+            items.classList.remove('active');
+        };
+
+        const handleTouchMove = (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - items.offsetLeft;
+            const walk = (startX - x) * 3; // Scroll right to left
+            items.scrollLeft = scrollLeft + walk;
+        };
+
+        // Adding mouse event listeners
+        items.addEventListener('mousedown', handleMouseDown);
+        items.addEventListener('mouseleave', handleMouseLeave);
+        items.addEventListener('mouseup', handleMouseUp);
+        items.addEventListener('mousemove', handleMouseMove);
+
+        // Adding touch event listeners
+        items.addEventListener('touchstart', handleTouchStart);
+        items.addEventListener('touchend', handleTouchEnd);
+        items.addEventListener('touchmove', handleTouchMove);
+
+        // Clean up the event listeners on component unmount
+        return () => {
+            items.removeEventListener('mousedown', handleMouseDown);
+            items.removeEventListener('mouseleave', handleMouseLeave);
+            items.removeEventListener('mouseup', handleMouseUp);
+            items.removeEventListener('mousemove', handleMouseMove);
+
+            items.removeEventListener('touchstart', handleTouchStart);
+            items.removeEventListener('touchend', handleTouchEnd);
+            items.removeEventListener('touchmove', handleTouchMove);
+        };
     }, []);
 
     const filteredBeaches = details.filter(beach =>
         beach.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Event handlers for dragging
-    const handleMouseDown = (e) => {
-        isDown = true;
-        sliderRef.current.classList.add('active');
-        startX = e.pageX - sliderRef.current.offsetLeft;
-        scrollLeft = sliderRef.current.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-        isDown = false;
-        sliderRef.current.classList.remove('active');
-    };
-
-    const handleMouseUp = () => {
-        isDown = false;
-        sliderRef.current.classList.remove('active');
-    };
-
-    const handleMouseMove = (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - sliderRef.current.offsetLeft;
-        const walk = (x - startX) * 3; // 3x scroll speed
-        sliderRef.current.scrollLeft = scrollLeft - walk;
-    };
-
     return (
         <div className="grid-container">
-            <main className="grid-item main">
-                <div
-                    ref={sliderRef}
-                    className="items"
-                    onMouseDown={handleMouseDown}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseUp={handleMouseUp}
-                    onMouseMove={handleMouseMove}
-                >
-                    {filteredBeaches.map((beach, id) => (
-                        <div key={id} className={`item item${id + 1}`}>
-                            <button onClick={() => navigate(`/beach/${beach.name}`)}>
-                                <div>
-                                    <p>Name: {beach.name}</p>
-                                    <p>Location: {beach.location}</p>
-                                    <hr />
-                                </div>
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            </main>
+            <div
+                ref={itemsRef} // Assign the ref to the items container
+                className="items"
+            >
+                {filteredBeaches.map((beach, id) => (
+                    <div key={id} className="item">
+                        
+                        <p>{beach.name}</p>
+                        <button onClick={() => navigate(`/beach/${beach.name}`)}>
+                            Explore {beach.name}
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

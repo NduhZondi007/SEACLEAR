@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
 import './AdminLoginPage.css'; // Import the CSS file
+import Footer from '../Footer/Footer';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -18,26 +19,28 @@ const AdminLogin = () => {
       username,
       password
     })
-    .then(response => {
-      if (response.status === 200) {
-        setAdminData(response.data);  // Store admin data upon success
-        navigate(`/adminpage/`);
-      } else {
-        setErrorMessage('Invalid credentials');
-      }
-    })
-    .catch(error => {
-      if (error.response && error.response.status === 401) {
-        setErrorMessage('Invalid credentials');
-      } else {
-        setErrorMessage('An error occurred while logging in');
-      }
-    });
+      .then(response => {
+        if (response.status === 200) {
+          setAdminData(response.data);  // Store admin data upon success
+          navigate(`/adminpage/`);
+        } else {
+          setErrorMessage('Invalid credentials');
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 401) {
+          setErrorMessage('Invalid credentials');
+        } else {
+          setErrorMessage('An error occurred while logging in');
+        }
+      });
   };
 
   return (
+  <>
+  <Navbar />
     <div className="admin-body">
-      <Navbar />
+      
       <div className="form-container">
         <h2 className="title">Admin Login</h2>
         <form onSubmit={handleLogin}>
@@ -78,8 +81,10 @@ const AdminLogin = () => {
           </div>
         )}
       </div>
+      
     </div>
-  );
+    <Footer/>
+  </>);
 };
 
 export default AdminLogin;

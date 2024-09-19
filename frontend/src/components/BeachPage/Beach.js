@@ -6,6 +6,8 @@ import Amenities from './Amenities';  // Importing an Amenities component
 import MapIcon from '../MapPage/MapIcon';
 import Navbar from '../Navbar/Navbar';
 import Chat from './Chat';  // Importing the Chat component
+import "./Beach.css";
+import Footer from '../Footer/Footer';
 
 class Beach extends React.Component {
     state = {
@@ -36,87 +38,54 @@ class Beach extends React.Component {
         }
 
         return (
-            <div>
+            <>
                 <Navbar />
-                <div style={styles.container}>
-                    <header style={styles.header}>
-                        <hr />
-                        <p style={styles.beachName}>Name: {details.name}</p>
-                        <p style={styles.location}>Location: {details.location}</p>
-                        <p style={styles.safety}>Safety: {details.waterQuality.isSafe ? 'Safe' : 'Unsafe'}</p>
+                <div className="dashboard-container">
+                    <div className="beach-info-container">
+                        <div className="beach-header">
+                            <p className="beach-name">Name: {details.name}</p>
+                            <p className="beach-location">Location: {details.location}</p>
+                            <p className="beach-safety">
+                                {details.waterQuality.isSafe ? (
+                                    <span className="safe">Safe to swim🟢</span>
+                                ) : details.waterQuality.isPartiallySafe ? (
+                                    <span className="partially-safe">Partially Safe to swim🟡</span>
+                                ) : (
+                                    <span className="unsafe">Unsafe to Swim🔴</span>
+                                )}
+                            </p>
+                        </div>
 
-                        <Weather weather={details.weather} />
-                        <Amenities amenities={details.amenities} />
+                        <div className="side-container">
+                            <Weather weather={details.weather} />
+                            <Amenities amenities={details.amenities} />
+                            
+                        </div>
+                    </div>
+                    <Chat beachName={details.name} />
 
-                        <button style={styles.button} onClick={() => navigate('/writeReport')}>
-                            Write Report
-                        </button>
-                        <MapIcon />
+                    {/* Side section for chat, weather, and amenities */}
 
-                        {/* Use Chat component instead of individual MessageBox and ConversationWindow */}
-                        <Chat beachName={details.name} />
-                    </header>
                 </div>
-            </div>
+                <Footer />
+
+            </>
+
         );
     }
 }
 
 // Define inline styles
 const styles = {
-    container: {
-        padding: '20px',
-        textAlign: 'center',
-        backgroundColor: '#f4f4f9',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        maxWidth: '600px',
-        margin: '20px auto',
-    },
-    header: {
-        padding: '20px',
-        textAlign: 'left',
-        backgroundColor: '#fff',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    },
-    beachName: {
-        fontSize: '1.8rem',
-        fontWeight: 'bold',
-        color: '#007BFF',
-        marginBottom: '10px',
-    },
+
     location: {
         fontSize: '1.2rem',
         color: '#6c757d',
         marginBottom: '10px',
     },
-    safety: {
-        fontSize: '1rem',
-        color: details => (details.waterQuality.isSafe ? '#28a745' : '#dc3545'),
-        marginBottom: '20px',
-    },
-    button: {
-        padding: '10px 20px',
-        fontSize: '1rem',
-        cursor: 'pointer',
-        borderRadius: '5px',
-        border: 'none',
-        backgroundColor: '#007BFF',
-        color: '#fff',
-        transition: 'background-color 0.3s ease',
-    },
-    loading: {
-        textAlign: 'center',
-        fontSize: '1.5rem',
-        color: '#6c757d',
-        marginTop: '50px',
-    },
+
 };
 
-styles.button[':hover'] = {
-    backgroundColor: '#0056b3',
-};
 
 // A wrapper function to use hooks (useParams, useNavigate) in class-based components
 function BeachWithParamsAndNavigate(props) {

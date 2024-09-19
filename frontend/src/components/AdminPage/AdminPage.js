@@ -4,6 +4,7 @@ import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import './AdminPage.css'; // Import the CSS file
+import Footer from '../Footer/Footer';
 
 const AdminPage = () => {
   // Initialize the navigate function
@@ -35,6 +36,7 @@ const AdminPage = () => {
   }, []);
 
   return (
+    <>
     <div>
       <Navbar />
 
@@ -59,8 +61,10 @@ const AdminPage = () => {
           <button className="button" onClick={handleLogout}>Logout</button>
         </div>
       </main>
+     
     </div>
-
+   <Footer/>
+    </>
   );
 };
 

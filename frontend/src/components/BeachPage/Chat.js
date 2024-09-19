@@ -6,7 +6,7 @@ import chatIcon from './../../assets/images/chatIcon.png';  // Import the chat i
 class Chat extends React.Component {
     state = {
         refreshConversation: false,
-        showChat: false,  // State to track whether the chat is displayed
+        showChat: true,  // State to track whether the chat is displayed
     };
 
     // Function to toggle chat visibility
