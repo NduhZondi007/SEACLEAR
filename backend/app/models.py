@@ -33,7 +33,22 @@ class WaterQuality(models.Model):
     # Represents the water quality at a beach
     phLevel = models.FloatField()  # pH level of the water
     pollutionLevel = models.CharField(max_length=50)  # Level of pollution in the water
-    isSafe = models.CharField(max_length=50)  # Safety status of the water
+    isSafe = models.CharField(max_length=50, blank=True, editable=False)  # Safety status of the water
+
+    def save(self, *args, **kwargs):
+        # Determine safety status based on pH level
+        if self.phLevel > 185:
+            self.isSafe = 'Poor'
+        elif self.phLevel < 185:
+            self.isSafe = 'Sufficient'
+        elif self.phLevel < 200:
+            self.isSafe = 'Good'
+        elif self.phLevel < 100:
+            self.isSafe = 'Excellent'
+        else:
+            self.isSafe = 'Unknown'  # Fallback case
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"pH: {self.phLevel}, Pollution: {self.pollutionLevel}, Safe: {self.isSafe}"
