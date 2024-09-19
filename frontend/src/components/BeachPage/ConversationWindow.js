@@ -37,7 +37,7 @@ class ConversationWindow extends React.Component {
 
     handleLike = (messageId) => {
         // Assuming the API endpoint is something like 'beachSpecific-chat/:messageId/like/'
-        axios.put(`http://localhost:8000/beachSpecific-chat/${messageId}/like/`)
+        axios.put(`https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/${messageId}/like/`)
             .then(() => {
                 // Re-fetch the messages to update the like count in the UI
                 this.fetchMessages();
