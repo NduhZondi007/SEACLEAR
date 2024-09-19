@@ -46,7 +46,7 @@ function CsvUploader() {
               }
 
               // Start storing after skipping the first 11 entries
-              if (storedCount < 25) {
+              if (storedCount < 59) {
                 if (!storing) {
                   storing = true; // Begin storing
                 }
@@ -56,11 +56,23 @@ function CsvUploader() {
                 // Extract the count from the last index of the current row
                 let enterococciCount = row[Object.keys(row).pop()]; 
 
-                if (!enterococciCount || enterococciCount.trim() === '') {
+                // Remove > or < and set count to 0 if it contains *
+                if (enterococciCount && enterococciCount.includes('*')) {
+                  enterococciCount = 0;
+                } else if (enterococciCount && (enterococciCount.includes('>') || enterococciCount.includes('<'))) {
+                  enterococciCount = enterococciCount.replace(/>|</g, ''); // Remove > and < characters
+                } else if (!enterococciCount || enterococciCount.trim() === '') {
                   // If the last index is empty, look at the next row
                   if (i + 1 < parsedData.length) {
                     const nextRow = parsedData[i + 1];
                     enterococciCount = nextRow[Object.keys(nextRow).pop()];
+
+                    // Replace * with 0 and remove > or < characters in the next row as well
+                    if (enterococciCount && enterococciCount.includes('*')) {
+                      enterococciCount = 0;
+                    } else if (enterococciCount && (enterococciCount.includes('>') || enterococciCount.includes('<'))) {
+                      enterococciCount = enterococciCount.replace(/>|</g, ''); // Remove > and < characters
+                    }
                   }
                 }
 
@@ -69,7 +81,7 @@ function CsvUploader() {
                 allBeachInfo.push({ name: beachName, enterococciCount });
                 storedCount++;
               } else {
-                // Stop storing once 25 entries are collected
+                // Stop storing once 59 entries are collected
                 break;
               }
             }
