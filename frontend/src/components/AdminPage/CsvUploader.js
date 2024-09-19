@@ -14,16 +14,9 @@ function CsvUploader() {
         skipEmptyLines: true,
         complete: (results) => {
           const parsedData = results.data;
-          console.log('Parsed CSV Data:', parsedData);
-
-          // Convert each row (object) into a comma-separated string
           const newFormattedData = parsedData.map(row =>
             Object.values(row).join(',')
           );
-
-          console.log('Formatted Data:', newFormattedData);
-
-          // Initialize variables
           const allBeachInfo = [];
           let skippedCount = 0;
           let storedCount = 0;
@@ -107,12 +100,6 @@ function CsvUploader() {
         accept=".csv"
         onChange={handleFileUpload}
       />
-      <h2>Original Data:</h2>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-      <h2>Formatted Data:</h2>
-      <pre>{JSON.stringify(formattedData, null, 2)}</pre>
-      <h2>Beach Info:</h2>
-      <pre>{JSON.stringify(beachInfo, null, 2)}</pre>
     </div>
   );
 }
