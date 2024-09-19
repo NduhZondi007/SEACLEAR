@@ -2,12 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './AdminPage.css'; // Import the CSS file
+import Footer from '../Footer/Footer';
 
 const AdminPage = () => {
   // Initialize the navigate function
   const navigate = useNavigate();
 
   return (
+    <>
     <div>
       <Navbar />
 
@@ -31,7 +33,10 @@ const AdminPage = () => {
           </button>
         </div>
       </main>
+     
     </div>
+   <Footer/>
+    </>
   );
 };
 

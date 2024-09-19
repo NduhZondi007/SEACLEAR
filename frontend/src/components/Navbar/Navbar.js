@@ -23,9 +23,9 @@ const Navbar = () => {
                     <ul className="navbar-nav">
                         <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="#About">About</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="#contact">Submit Report</Link></li>
-                        <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
+                        <li className="nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
+                        <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Admin Login</button>
 
                     </ul>
                     <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
@@ -51,8 +51,9 @@ const Navbar = () => {
                     <ul className="mobile-nav-links">
                         <li className="mobile-nav-item"><Link className="nav-link" to="/">Home</Link></li>
                         <li className="mobile-nav-item"><Link className="nav-link" to="#About">About</Link></li>
-                        <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Beach Finder</Link></li>
-                        <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
+                        <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
+                        <li className="mobile-nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
+                        <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Admin Login</button>
                     </ul>
                 </div>
             )}

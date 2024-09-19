@@ -1,0 +1,80 @@
+/* Adjust layout for desktop */
+.dashboard-container {
+   
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Beach Information on the left */
+.beach-info-container {
+    margin-top:40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: none; /* Remove heavy shadows for minimalism */
+}
+
+/* Chat and other components on the right */
+.side-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Make sure these sections are styled simply */
+.weather-container, .amenities-container, .chat-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: none; /* Less shadow for minimalism */
+    text-align: left; /* Left-align the text for a more formal look */
+}
+
+/* Beach Header */
+.beach-header {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Typography */
+.beach-name {
+    font-size: 2rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.beach-location, .beach-safety {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.safe {
+    color: #28a745;
+}
+
+.unsafe {
+    color: #dc3545;
+}
+
+.partially-safe {
+    color: #ffc107;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .side-container {
+        flex-direction: column;
+    }
+}
