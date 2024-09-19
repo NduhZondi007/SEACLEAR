@@ -1,5 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -27,6 +27,12 @@ const AdminPage = () => {
       console.error("Logout error:", error);
     });
   };
+
+  useEffect(() => {
+    return () => {
+      handleLogout();
+    };
+  }, []);
 
   return (
     <div>
