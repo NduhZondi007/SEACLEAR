@@ -36,7 +36,7 @@ function CsvUploader() {
             const firstElementValue = Object.values(row)[0]; // Get the value of the first element in the row
 
             // Check if the first element starts with a number and a dot
-            const nameMatch = /^(\d+\.)/.exec(firstElementValue);
+            const nameMatch = /^(\d+\.)/.exec(firstElementValue); 
 
             if (nameMatch) {
 
