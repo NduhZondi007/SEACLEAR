@@ -8,8 +8,14 @@ class WeatherSerializer(serializers.ModelSerializer):
         model = Weather
         fields = ['temperature', 'windSpeed', 'humidity', 'seaLevel', 'forecast']
 
-class WaterQualitySerializer(serializers.ModelSerializer):
-    # Serializer for the WaterQuality model
+class WaterQualityCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WaterQuality
+        fields = ['phLevel', 'pollutionLevel']  # Exclude 'isSafe' from input
+
+class WaterQualityOutputSerializer(serializers.ModelSerializer):
+    isSafe = serializers.CharField()  # Include 'isSafe' in the output
+
     class Meta:
         model = WaterQuality
         fields = ['phLevel', 'pollutionLevel', 'isSafe']
@@ -17,11 +23,11 @@ class WaterQualitySerializer(serializers.ModelSerializer):
 class BeachSerializer(serializers.ModelSerializer):
     # Serializer for the Beach model
     weather = WeatherSerializer()  # Nested serializer for Weather
-    waterQuality = WaterQualitySerializer()  # Nested serializer for WaterQuality
+    waterQuality = WaterQualityCreateUpdateSerializer()  # Use CreateUpdateSerializer for nested WaterQuality
 
     class Meta:
         model = Beach
-        fields = ['id', 'name', 'location', 'latitude', 'longitude','amenities', 'weather', 'waterQuality']  # Fields to be included in the serialized output
+        fields = ['id', 'name', 'location', 'latitude', 'longitude', 'amenities', 'weather', 'waterQuality']  # Fields to be included in the serialized output
 
     def create(self, validated_data):
         # Override create method to handle nested Weather and WaterQuality
@@ -41,7 +47,9 @@ class BeachSerializer(serializers.ModelSerializer):
         if weather_data:
             weather = instance.weather
             if weather:
-                Weather.objects.filter(pk=weather.pk).update(**weather_data)
+                for attr, value in weather_data.items():
+                    setattr(weather, attr, value)
+                weather.save()
             else:
                 weather = Weather.objects.create(**weather_data)
                 instance.weather = weather
@@ -50,7 +58,9 @@ class BeachSerializer(serializers.ModelSerializer):
         if water_quality_data:
             water_quality = instance.waterQuality
             if water_quality:
-                WaterQuality.objects.filter(pk=water_quality.pk).update(**water_quality_data)
+                for attr, value in water_quality_data.items():
+                    setattr(water_quality, attr, value)
+                water_quality.save()
             else:
                 water_quality = WaterQuality.objects.create(**water_quality_data)
                 instance.waterQuality = water_quality
@@ -63,6 +73,13 @@ class BeachSerializer(serializers.ModelSerializer):
         
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        # Customize the representation of the instance to include the 'isSafe' field in the nested WaterQuality
+        representation = super().to_representation(instance)
+        water_quality_serializer = WaterQualityOutputSerializer(instance.waterQuality)
+        representation['waterQuality'] = water_quality_serializer.data
+        return representation
 
 class CommunityReportSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
+import axios from 'axios';
 
 function CsvUploader() {
   const [data, setData] = useState([]);
   const [formattedData, setFormattedData] = useState([]);
   const [beachInfo, setBeachInfo] = useState([]);
+  const [beaches, setBeaches] = useState([]);
+
+  // Fetch existing beaches from the backend
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/beaches/')
+      .then((res) => {
+        setBeaches(res.data);
+      })
+      .catch((err) => {
+        console.error('Error fetching beaches:', err);
+      });
+  }, []);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -14,7 +28,7 @@ function CsvUploader() {
         skipEmptyLines: true,
         complete: (results) => {
           const parsedData = results.data;
-          const newFormattedData = parsedData.map(row =>
+          const newFormattedData = parsedData.map((row) =>
             Object.values(row).join(',')
           );
           const allBeachInfo = [];
@@ -47,7 +61,7 @@ function CsvUploader() {
                 const beachName = firstElementValue.slice(nameMatch[0].length).trim(); // Extract the beach name
 
                 // Extract the count from the last index of the current row
-                let enterococciCount = row[Object.keys(row).pop()]; 
+                let enterococciCount = row[Object.keys(row).pop()];
 
                 // Remove > or < and set count to 0 if it contains *
                 if (enterococciCount && enterococciCount.includes('*')) {
@@ -82,6 +96,32 @@ function CsvUploader() {
 
           console.log('Beach Info After Processing CSV:', allBeachInfo);
 
+          // Update beaches with the new phLevel (enterococciCount)
+          allBeachInfo.forEach((beachCsv) => {
+            const matchingBeach = beaches.find(
+              (beach) => beach.name === beachCsv.name
+            );
+            if (matchingBeach) {
+              const updatedBeach = {
+                ...matchingBeach,
+                waterQuality: {
+                  ...matchingBeach.waterQuality,
+                  phLevel: beachCsv.enterococciCount,
+                },
+              };
+
+              // Send PUT request to update the beach
+              axios
+                .put(`http://localhost:8000/beaches/${matchingBeach.id}/`, updatedBeach)
+                .then((response) => {
+                  console.log(`Updated ${matchingBeach.name} successfully!`, response.data);
+                })
+                .catch((error) => {
+                  console.error(`Error updating ${matchingBeach.name}:`, error);
+                });
+            }
+          });
+
           setData(parsedData);
           setFormattedData(newFormattedData);
           setBeachInfo(allBeachInfo);
@@ -95,11 +135,7 @@ function CsvUploader() {
 
   return (
     <div>
-      <input
-        type="file"
-        accept=".csv"
-        onChange={handleFileUpload}
-      />
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
     </div>
   );
 }

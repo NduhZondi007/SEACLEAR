@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
 from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
+from .serializer import BeachSerializer, WeatherSerializer, WaterQualityCreateUpdateSerializer, WaterQualityOutputSerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
 
 class BeachView(APIView):
     # Handles GET, POST, and PUT requests for the Beach model
@@ -59,12 +59,12 @@ class WaterQualityView(APIView):
     def get(self, request):
         # Retrieve and return a list of all water quality records
         water_quality = WaterQuality.objects.all()
-        serializer = WaterQualitySerializer(water_quality, many=True)
+        serializer = WaterQualityOutputSerializer(water_quality, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         # Create a new water quality record with the provided data
-        serializer = WaterQualitySerializer(data=request.data)
+        serializer = WaterQualityCreateUpdateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

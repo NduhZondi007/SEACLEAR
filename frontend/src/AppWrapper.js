@@ -15,6 +15,7 @@ import AdminLogin from './components/AdminPage/AdminLoginPage.js';
 
 import { UserProvider } from './UserContext.js';
 import { WeatherProvider } from './WeatherContex.js';
+import CsvUploader from './components/AdminPage/CsvUploader.js';
 
 // Main entry point for routing
 export default function AppWrapper() {
@@ -29,6 +30,7 @@ export default function AppWrapper() {
             <Route path="/admin/updateBeach" element={<BeachList />} /> {/* Beach List route */}
             <Route path="/admin/updateBeach/:name" element={<UpdateBeach />} /> {/* Update Beach route */}
             <Route path="/admin/report" element={<ReportList />} /> {/* Report List route */}
+            <Route path="/admin/uploadCsv/" element={<CsvUploader />} /> {/* Report List route */}
             <Route path="/admin/report/:reportId" element={<ViewReport />} /> {/* View Report route */}
             <Route path="/adminpageLogin/" element={<AdminLogin />} /> {/* View Report route */}
             <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}

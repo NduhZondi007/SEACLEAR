@@ -7,7 +7,6 @@ import MapIcon from '../MapPage/MapIcon';
 import Footer from '../Footer/Footer';
 import './SearchBar.css'; // Create this CSS file for custom styles
 import Chat from '../BeachPage/Chat';
-import CsvUploader from '../AdminPage/CsvUploader';
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +17,27 @@ const HomePage = () => {
 
   return (
     <>
-      <CsvUploader/>
+      <Navbar />
+      <HeroSection />
+      <div className="search-container">
+        <div className="search-box">
+          <input 
+            type="text" 
+            className="search-input" 
+            placeholder="Search for a beach..." 
+            value={searchQuery} 
+            onChange={(e) => handleSearch(e.target.value)} 
+          />
+          <button className="search-button">
+            <i className="fas fa-search"></i> {/* FontAwesome search icon */}
+          </button>
+        </div>
+      </div>
+      <TrendingBeaches searchQuery={searchQuery} />
+      <CountUpSection />
+      <MapIcon />
+      <Chat/>
+      <Footer/>
     </>
   );
 };
