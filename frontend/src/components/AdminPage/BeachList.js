@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for making API requests
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
+import CsvUploader from './CsvUploader';
 
 const BeachList = () => {
   // State to store the list of beach details fetched from the API
@@ -33,7 +35,7 @@ const BeachList = () => {
     <div>
       <Navbar />
       <div style={styles.containercontainer}>
-        <button onClick={() => navigate(`/admin/uploadCsv/`)}>Add Dynamically</button>
+        <CsvUploader/>
         <div style={styles.container}>
           {/* Map over the list of beach details and create a button for each beach */}
           {details.map((output, id) => (
@@ -53,12 +55,10 @@ const BeachList = () => {
             </div>
           ))}
         </div>
-
+        <Footer/>
       </div>
-
     </div>
   );
-
 }
 
 const styles = {
@@ -82,8 +82,19 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
   },
+  uploadButton: {
+    width: '10%',
+    padding: '10px',
+    margin: '10px auto',
+    borderRadius: '10px',
+    border: 'none',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+  },
   buttonHover: {
-    backgroundColor: '#0056b3',
+    backgroundColor: '#FFD300',
   },
   beachDetails: {
     textAlign: 'left',
