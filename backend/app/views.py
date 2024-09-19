@@ -3,15 +3,9 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-<<<<<<< HEAD
-from django.contrib.auth import authenticate, login
-from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message, EducationalContent
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer,EducationalContentSerializer
-=======
 from django.contrib.auth import authenticate, login, logout
 from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
 from .serializer import BeachSerializer, WeatherSerializer, WaterQualityCreateUpdateSerializer, WaterQualityOutputSerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
->>>>>>> eb5f03e32e28e369370d6424ef6c1273f4a7ac56
 
 class BeachView(APIView):
     # Handles GET, POST, and PUT requests for the Beach model
@@ -190,16 +184,7 @@ class AdminLoginView(APIView):
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
         
-<<<<<<< HEAD
-
-class EducationalContentList(APIView):
-    def get(self, request):
-        content = EducationalContent.objects.all()
-        serializer = EducationalContentSerializer(content, many=True)
-        return Response(serializer.data)
-=======
 class AdminLogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
->>>>>>> eb5f03e32e28e369370d6424ef6c1273f4a7ac56
