@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
-            <div className="container">
+            <div className="container" id='nav'>
                 <Link className="navbar-brand" to="/">
                     <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
                     SEACLEAR
