@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
+from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message,EducationalContent
 
 class WeatherSerializer(serializers.ModelSerializer):
     # Serializer for the Weather model
@@ -130,3 +130,8 @@ class AdminProfileSerializer(serializers.ModelSerializer):
         user = UserSerializer.create(UserSerializer(), validated_data=user_data)
         admin_profile, created = AdminProfile.objects.get_or_create(user=user)
         return admin_profile
+    
+class EducationalContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EducationalContent
+        fields = '__all__'
