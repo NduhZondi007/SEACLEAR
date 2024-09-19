@@ -26,14 +26,10 @@ const AdminPage = () => {
     })
     .catch(error => {
       console.error("Logout error:", error);
+      navigate('/'); 
     });
   };
 
-  useEffect(() => {
-    return () => {
-      handleLogout();
-    };
-  }, []);
 
   return (
     <>
