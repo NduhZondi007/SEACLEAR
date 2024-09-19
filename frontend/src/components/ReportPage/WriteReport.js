@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
 import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
 
 const WriteReport = () => {
     const { username, setUsername } = useContext(UserContext);
@@ -177,6 +178,7 @@ const WriteReport = () => {
                     <button type="submit" style={styles.button}>Submit Report</button>
                 </form>
             </div>
+            <Footer/>
 
         </div>
     );

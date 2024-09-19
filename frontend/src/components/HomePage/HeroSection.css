@@ -84,7 +84,7 @@
 }
 
 .masthead .btn-primary:hover {
-    background-color: royalblue;
+    background-color: goldenrod;
     color: whitesmoke;
     transform: scale(1.3);
     /*Slightlyincreasethesizeonhover*/box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
