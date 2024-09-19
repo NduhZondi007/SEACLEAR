@@ -12,7 +12,7 @@ const BeachList = () => {
     // useEffect hook to fetch the list of beaches from the API when the component mounts
     useEffect(() => {
         axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/beaches') // Send a GET request to the API to retrieve beach details
+            .get('http://localhost:8000//beaches') // Send a GET request to the API to retrieve beach details
             .then((res) => {
                 const data = res.data; // Store the retrieved data in a variable
                 setDetails(data); // Update the state with the fetched data
