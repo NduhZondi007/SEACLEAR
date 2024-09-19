@@ -33,7 +33,18 @@ class WaterQuality(models.Model):
     # Represents the water quality at a beach
     phLevel = models.FloatField()  # pH level of the water
     pollutionLevel = models.CharField(max_length=50)  # Level of pollution in the water
-    isSafe = models.CharField(max_length=50)  # Safety status of the water
+    isSafe = models.CharField(max_length=50, blank=True, editable=False)  # Safety status of the water
+
+    def save(self, *args, **kwargs):
+        # Determine safety status based on pH level
+        if self.phLevel > 185:
+            self.isSafe = 'NotSafe'
+        elif self.phLevel > 100:
+            self.isSafe = 'medium'
+        else:
+            self.isSafe = 'Safe'
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"pH: {self.phLevel}, Pollution: {self.pollutionLevel}, Safe: {self.isSafe}"
@@ -92,6 +103,8 @@ class Message(models.Model):
     # Represents a message in a chat
     sender = models.CharField(max_length=100)  # Sender of the message
     content = models.TextField()  # Content of the message
+    likeCount = models.IntegerField(default=0)
+    likedBy = models.JSONField(default=list)  # Store user identifiers who liked the message
 
     def __str__(self):
         return f"Message by {self.sender}"

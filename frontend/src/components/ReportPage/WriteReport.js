@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
 import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
 
 const WriteReport = () => {
     const { username, setUsername } = useContext(UserContext);
@@ -18,7 +19,7 @@ const WriteReport = () => {
     useEffect(() => {
         if (details.reportType === 'Beach Specific') {
             axios
-                .get('http://localhost:8000/beaches')
+                .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
                 .then((res) => {
                     setBeaches(res.data);
                 })
@@ -56,8 +57,8 @@ const WriteReport = () => {
         if (reportType === 'General') {
             beach = "General";
         }
-
-        axios.post(`http://127.0.0.1:8000/reports/`, {
+    
+        axios.post(`https://seaclear-8.cs.uct.ac.za/api/reports/`, {
             user: finalUsername,
             reportType,
             beach,
@@ -177,6 +178,7 @@ const WriteReport = () => {
                     <button type="submit" style={styles.button}>Submit Report</button>
                 </form>
             </div>
+            <Footer/>
 
         </div>
     );

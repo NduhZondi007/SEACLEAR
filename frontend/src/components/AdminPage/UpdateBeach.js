@@ -33,7 +33,7 @@ class UpdateBeach extends React.Component {
     componentDidMount() {
         const { name } = this.props.params;
         axios
-            .get('http://localhost:8000/beaches')
+            .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
             .then((res) => {
                 let data = res.data;
                 data = data.find(beach => beach.name === name);
@@ -88,7 +88,7 @@ class UpdateBeach extends React.Component {
 
         const selectedAmenities = Object.keys(amenities).filter(amenity => amenities[amenity]);
 
-        axios.put(`http://127.0.0.1:8000/beaches/${id}/`, {
+        axios.put(`https://seaclear-8.cs.uct.ac.za/api/beaches/${id}/`, {
             name,
             location,
             latitude,
@@ -103,7 +103,6 @@ class UpdateBeach extends React.Component {
             waterQuality: {
                 phLevel: waterQuality.phLevel,
                 pollutionLevel: waterQuality.pollutionLevel,
-                isSafe: waterQuality.isSafe
             }
         })
         .then(() => {
@@ -191,14 +190,6 @@ class UpdateBeach extends React.Component {
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
-                        </select>
-                    </label>
-                    <label className="label">
-                        Risk
-                        <select id="isSafe" value={waterQuality.isSafe} onChange={this.handleInputChange} className="select">
-                            <option value="Safe">Safe</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Not Safe">Not Safe</option>
                         </select>
                     </label>
     

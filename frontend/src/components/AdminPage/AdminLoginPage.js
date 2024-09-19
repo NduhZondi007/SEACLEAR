@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
 import './AdminLoginPage.css'; // Import the CSS file
+import Footer from '../Footer/Footer';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -14,30 +15,32 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/adminLogin/', {
+    axios.post('https://seaclear-8.cs.uct.ac.za/api/adminLogin/', {
       username,
       password
     })
-    .then(response => {
-      if (response.status === 200) {
-        setAdminData(response.data);  // Store admin data upon success
-        navigate(`/adminpage/`);
-      } else {
-        setErrorMessage('Invalid credentials');
-      }
-    })
-    .catch(error => {
-      if (error.response && error.response.status === 401) {
-        setErrorMessage('Invalid credentials');
-      } else {
-        setErrorMessage('An error occurred while logging in');
-      }
-    });
+      .then(response => {
+        if (response.status === 200) {
+          setAdminData(response.data);  // Store admin data upon success
+          navigate(`/adminpage/`);
+        } else {
+          setErrorMessage('Invalid credentials');
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 401) {
+          setErrorMessage('Invalid credentials');
+        } else {
+          setErrorMessage('An error occurred while logging in');
+        }
+      });
   };
 
   return (
+  <>
+  <Navbar />
     <div className="admin-body">
-      <Navbar />
+      
       <div className="form-container">
         <h2 className="title">Admin Login</h2>
         <form onSubmit={handleLogin}>
@@ -46,7 +49,10 @@ const AdminLogin = () => {
               type="text"
               placeholder='Enter admin username'
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setErrorMessage('');
+              }}
               required
               className="input"
             />
@@ -57,7 +63,10 @@ const AdminLogin = () => {
               placeholder='Enter password'
 
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrorMessage('');
+              }}
               required
               className="input"
             />
@@ -72,8 +81,10 @@ const AdminLogin = () => {
           </div>
         )}
       </div>
+      
     </div>
-  );
+    <Footer/>
+  </>);
 };
 
 export default AdminLogin;

@@ -1,0 +1,47 @@
+/* Footer container styling */
+.footer {
+    background-color: midnightblue;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+}
+
+/* Footer text styling */
+.footer-text {
+    color: #f1f1f1; 
+    font-size: 16px; 
+    margin: 10px 0;
+    line-height: 1.6; 
+}
+
+/* Footer link styling */
+.footer-link {
+    color: #f4b400; /* Gold tone for a premium touch */
+    text-decoration: none; /* No underline */
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.footer-link:hover {
+    color: #ffffff; 
+}
+
+.footer-brand{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.subphrase{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+footer-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
