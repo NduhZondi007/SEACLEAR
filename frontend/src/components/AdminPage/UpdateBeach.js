@@ -122,7 +122,7 @@ class UpdateBeach extends React.Component {
             <div>
             <Navbar/>
             <div id="ContainerContainer">
-            <div className="formContainer">
+            <div className="formContainerr">
                 {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
                     <h3 className="sectionTitle">Beach Details</h3>

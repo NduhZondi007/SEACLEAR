@@ -3,9 +3,7 @@ import Papa from 'papaparse';
 import axios from 'axios';
 
 function CsvUploader() {
-  const [data, setData] = useState([]);
-  const [formattedData, setFormattedData] = useState([]);
-  const [beachInfo, setBeachInfo] = useState([]);
+
   const [beaches, setBeaches] = useState([]);
 
   // Fetch existing beaches from the backend
@@ -28,9 +26,6 @@ function CsvUploader() {
         skipEmptyLines: true,
         complete: (results) => {
           const parsedData = results.data;
-          const newFormattedData = parsedData.map((row) =>
-            Object.values(row).join(',')
-          );
           const allBeachInfo = [];
           let skippedCount = 0;
           let storedCount = 0;
@@ -44,7 +39,6 @@ function CsvUploader() {
             const nameMatch = /^(\d+\.)/.exec(firstElementValue);
 
             if (nameMatch) {
-              const count = parseInt(nameMatch[1].slice(0, -1), 10); // Extract the count number
 
               if (skippedCount < 11) {
                 // Skip the first 11 entries
@@ -122,9 +116,7 @@ function CsvUploader() {
             }
           });
 
-          setData(parsedData);
-          setFormattedData(newFormattedData);
-          setBeachInfo(allBeachInfo);
+          alert("Beaches Updated");
         },
         error: (error) => {
           console.error('Error parsing CSV:', error);
@@ -135,9 +127,33 @@ function CsvUploader() {
 
   return (
     <div>
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      <input
+        type="file"
+        accept=".csv"
+        onChange={handleFileUpload}
+        style={styles.button} // Applying the same button style as the other buttons
+        onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+        onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.button.backgroundColor}
+      />
     </div>
   );
 }
+
+const styles = {
+  button: {
+    width: '20%',
+    padding: '15px',
+    margin: '10px 0',
+    borderRadius: '10px',
+    border: 'none',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+  },
+  buttonHover: {
+    backgroundColor: '#FFD300',
+  },
+};
 
 export default CsvUploader;
