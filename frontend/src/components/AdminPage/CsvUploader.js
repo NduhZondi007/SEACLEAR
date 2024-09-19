@@ -11,7 +11,7 @@ function CsvUploader() {
   // Fetch existing beaches from the backend
   useEffect(() => {
     axios
-      .get('https://seaclear-8.cs.uct.ac.za/api/beaches/')
+      .get('http://localhost:8000/beaches/')
       .then((res) => {
         setBeaches(res.data);
       })
@@ -112,7 +112,7 @@ function CsvUploader() {
 
               // Send PUT request to update the beach
               axios
-                .put(`https://seaclear-8.cs.uct.ac.za/api/beaches/${matchingBeach.id}/`, updatedBeach)
+                .put(`http://localhost:8000/beaches/${matchingBeach.id}/`, updatedBeach)
                 .then((response) => {
                   console.log(`Updated ${matchingBeach.name} successfully!`, response.data);
                 })

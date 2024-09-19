@@ -12,7 +12,7 @@ const ReportList = () => {
     // Fetch the list of reports from the API
     useEffect(() => {
         axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/reports/')
+            .get('http://localhost:8000/reports/')
             .then((res) => {
                 setDetails(res.data);
             })

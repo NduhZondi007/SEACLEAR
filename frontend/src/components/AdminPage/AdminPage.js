@@ -13,7 +13,7 @@ const AdminPage = () => {
   const handleLogout = () => {
     const csrfToken = Cookies.get('csrftoken');  // Retrieve CSRF token
   
-    axios.post('https://seaclear-8.cs.uct.ac.za/api/adminLogout/', {}, {
+    axios.post('http://localhost:8000/adminLogout/', {}, {
       headers: {
         'X-CSRFToken': csrfToken,  // Include CSRF token
       },

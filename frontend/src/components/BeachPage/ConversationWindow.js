@@ -24,7 +24,7 @@ class ConversationWindow extends React.Component {
 
     fetchMessages = () => {
         const { conversationWindow: name } = this.props;
-        axios.get('https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/')
+        axios.get('http://localhost:8000/beachSpecific-chat/')
             .then((res) => {
                 let data = res.data;
                 data = data.find(beachChat => beachChat.beach_name === name);
@@ -46,7 +46,7 @@ class ConversationWindow extends React.Component {
         if (!username) {
             this.setState({ usernameTextArea: true });  // Show the modal if no username is set
         } else {
-            axios.put(`https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/${messageId}/like/`, {
+            axios.put(`http://localhost:8000/beachSpecific-chat/${messageId}/like/`, {
                 username: username
             })
             .then(() => {
