@@ -29,7 +29,8 @@ function CsvUploader() {
           let storedCount = 0;
           let storing = false;
 
-          for (const row of parsedData) {
+          for (let i = 0; i < parsedData.length; i++) {
+            const row = parsedData[i];
             const firstElementValue = Object.values(row)[0]; // Get the value of the first element in the row
 
             // Check if the first element starts with a number and a dot
@@ -50,9 +51,22 @@ function CsvUploader() {
                   storing = true; // Begin storing
                 }
 
-                const name = nameMatch[0]; // Extract the matching part
-                const value = firstElementValue.slice(name.length); // Extract the remaining value after the name
-                allBeachInfo.push({ name, value });
+                const beachName = firstElementValue.slice(nameMatch[0].length).trim(); // Extract the beach name
+
+                // Extract the count from the last index of the current row
+                let enterococciCount = row[Object.keys(row).pop()]; 
+
+                if (!enterococciCount || enterococciCount.trim() === '') {
+                  // If the last index is empty, look at the next row
+                  if (i + 1 < parsedData.length) {
+                    const nextRow = parsedData[i + 1];
+                    enterococciCount = nextRow[Object.keys(nextRow).pop()];
+                  }
+                }
+
+                enterococciCount = enterococciCount ? parseInt(enterococciCount, 10) : 0;
+
+                allBeachInfo.push({ name: beachName, enterococciCount });
                 storedCount++;
               } else {
                 // Stop storing once 25 entries are collected
@@ -61,7 +75,7 @@ function CsvUploader() {
             }
           }
 
-          console.log('Beach Info After Skipping Initial Entries:', allBeachInfo);
+          console.log('Beach Info After Processing CSV:', allBeachInfo);
 
           setData(parsedData);
           setFormattedData(newFormattedData);
