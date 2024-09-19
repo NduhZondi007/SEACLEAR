@@ -134,24 +134,25 @@ class MessageView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class MessageView(APIView):
     def put(self, request, pk):
         try:
             message = Message.objects.get(pk=pk)
         except Message.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        user_id = request.META.get('REMOTE_ADDR')  # Using IP address as user identifier
+        username = request.data.get('username')  # Get the username from the request data
+        if not username:
+            return Response({'error': 'Username not provided'}, status=status.HTTP_400_BAD_REQUEST)
+
         likedBy = message.likedBy
 
-        if user_id not in likedBy:
+        if username not in likedBy:
             message.likeCount += 1
-            likedBy.append(user_id)
+            likedBy.append(username)
             message.likedBy = likedBy
             message.save()
             return Response({'likeCount': message.likeCount})
 
-        print(user_id)
         return Response({'error': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
     
 class AdminProfileView(APIView):
