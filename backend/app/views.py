@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
-from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
+from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message, EducationalContent
+from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer,EducationalContentSerializer
 
 class BeachView(APIView):
     # Handles GET, POST, and PUT requests for the Beach model
@@ -162,3 +162,10 @@ class AdminLoginView(APIView):
                 return Response({"error": "User is not an admin"}, status=status.HTTP_403_FORBIDDEN)
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+
+class EducationalContentList(APIView):
+    def get(self, request):
+        content = EducationalContent.objects.all()
+        serializer = EducationalContentSerializer(content, many=True)
+        return Response(serializer.data)

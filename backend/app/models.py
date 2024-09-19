@@ -95,3 +95,11 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message by {self.sender}"
+
+class EducationalContent(models.Model):
+    title = models.CharField(max_length=255)  # Title of the educational content
+    description = models.TextField()  # Description or body of the content
+    #created_at = models.DateTimeField(auto_now_add=True)  # Date the content was created
+
+    def __str__(self):
+        return self.title
