@@ -12,7 +12,8 @@ import ReportList from './components/AdminPage/ReportList.js';
 import ViewReport from './components/AdminPage/ViewReport.js';
 import Map from './components/MapPage/Map.js';
 import AdminLogin from './components/AdminPage/AdminLoginPage.js';
-import EducationalContent from './components/EducationalContent';
+import EducationalContent from './components/EducationalContent/EducationalContent.js';
+
 
 import { UserProvider } from './UserContext.js';
 import { WeatherProvider } from './WeatherContex.js';

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 import Navbar from '../Navbar/Navbar';
 import HeroSection from './HeroSection';
 import CountUpSection from './CountUpSection';
@@ -34,6 +35,14 @@ const HomePage = () => {
       </div>
       <TrendingBeaches searchQuery={searchQuery} />
       <CountUpSection />
+      
+      {/* "About Us" Button Linking to Educational Content */}
+      <div className="about-us-button-container">
+        <Link to="/educational-content">
+          <button>About Us</button>
+        </Link>
+      </div>
+
       <MapIcon />
       <Footer/>
     </>

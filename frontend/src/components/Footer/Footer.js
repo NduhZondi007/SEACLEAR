@@ -22,10 +22,6 @@ const Footer = () => {
         <footer style={footerStyle}>
             <p><strong>SeaClear Project</strong> | Providing real-time water quality information for local beaches in Cape Town.</p>
             <p>Powered by data from the City of Cape Town.</p>
-            <p>Contact: <a href="mailto:mdensmore@cs.uct.ac.za" style={linkStyle}>Melissa Densmore (Supervisor)</a></p>
-            <p>
-                Team Lead: Ndumiso Zondi | Architect: Mnqobi | Communicator: Ntandoyenkosi Masimula
-            </p>
             <p>© 2024 SeaClear. All rights reserved.</p>
         </footer>
     );
