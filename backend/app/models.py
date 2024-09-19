@@ -93,6 +93,7 @@ class Message(models.Model):
     sender = models.CharField(max_length=100)  # Sender of the message
     content = models.TextField()  # Content of the message
     likeCount = models.IntegerField(default=0)
+    likedBy = models.JSONField(default=list)  # Store user identifiers who liked the message
 
     def __str__(self):
         return f"Message by {self.sender}"
