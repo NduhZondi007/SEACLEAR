@@ -40,7 +40,7 @@ const Map = () => {
 
     useEffect(() => {
         axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
+            .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;
                 console.log("data", data);

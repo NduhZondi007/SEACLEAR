@@ -20,7 +20,7 @@ class ViewReport extends React.Component {
         const { reportId } = this.props.params;
 
         axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/reports')
+            .get('http://localhost:8000/reports')
             .then((res) => {
                 let data = res.data;
                 data = data.find(report => report.id === parseInt(reportId));

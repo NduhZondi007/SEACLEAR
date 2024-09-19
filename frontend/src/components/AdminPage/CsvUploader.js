@@ -11,7 +11,7 @@ function CsvUploader() {
   // Fetch existing beaches from the backend
   useEffect(() => {
     axios
-      .get('https://seaclear-8.cs.uct.ac.za/api/beaches/')
+      .get('http://localhost:8000/beaches/')
       .then((res) => {
         setBeaches(res.data);
       })

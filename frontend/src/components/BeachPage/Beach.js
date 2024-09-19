@@ -16,7 +16,7 @@ class Beach extends React.Component {
 
     componentDidMount() {
         axios
-            .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
+            .get('http://localhost:8000/beaches')
             .then((res) => {
                 let data = res.data;
                 data = data.find(beach => beach.name === this.props.params.name);

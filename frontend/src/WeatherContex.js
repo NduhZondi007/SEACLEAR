@@ -14,7 +14,7 @@ export const WeatherProvider = ({ children }) => {
   useEffect(() => {
     const fetchAndUpdateBeaches = () => {
       axios
-        .get('https://seaclear-8.cs.uct.ac.za/api/beaches')
+        .get('http://localhost:8000/beaches')
         .then((res) => {
           const beaches = res.data;
           setBeaches(beaches);
