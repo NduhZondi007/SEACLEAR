@@ -1,6 +1,6 @@
 .formContainer {
     padding: 20px;
-    margin: 0 auto;
+    margin-top: 100px;
     max-width: 600px;
     text-align: left;
     background-color: #f9f9f9;
@@ -8,6 +8,10 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
+  #ContainerContainer{
+    margin-top: 100px;
+  }
+
   .sectionTitle {
     font-size: 1.5rem;
     margin-bottom: 10px;

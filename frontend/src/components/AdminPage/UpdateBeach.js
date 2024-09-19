@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './UpdateBeach.css'; // Import the CSS file
+import Navbar from '../Navbar/Navbar';
 
 class UpdateBeach extends React.Component {
     state = {
@@ -118,6 +119,9 @@ class UpdateBeach extends React.Component {
         const { name, location, latitude, longitude, amenities, weather, waterQuality, error } = this.state;
     
         return (
+            <div>
+            <Navbar/>
+            <div id="ContainerContainer">
             <div className="formContainer">
                 {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
@@ -195,6 +199,8 @@ class UpdateBeach extends React.Component {
     
                     <button type="submit" className="button">Update Beach</button>
                 </form>
+            </div>
+            </div>
             </div>
         );
     }
