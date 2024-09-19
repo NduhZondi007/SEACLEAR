@@ -3,15 +3,13 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Weather from './Weather';  // Importing a Weather component
 import Amenities from './Amenities';  // Importing an Amenities component
-import MessageBox from './MessageBox';  // Importing a MessageBox component for sending messages
-import ConversationWindow from './ConversationWindow';  // Importing a ConversationWindow component to display messages
 import MapIcon from '../MapPage/MapIcon';
 import Navbar from '../Navbar/Navbar';
+import Chat from './Chat';  // Importing the Chat component
 
 class Beach extends React.Component {
     state = {
         details: null,  // To store beach details after fetching from the server
-        refreshConversation: false,  // Used to toggle refreshing of the ConversationWindow
     };
 
     componentDidMount() {
@@ -29,14 +27,8 @@ class Beach extends React.Component {
             });
     }
 
-    refreshConversation = () => {
-        this.setState((prevState) => ({
-            refreshConversation: !prevState.refreshConversation
-        }));
-    };
-
     render() {
-        const { details, refreshConversation } = this.state;
+        const { details } = this.state;
         const { navigate } = this.props;
 
         if (!details) {
@@ -56,28 +48,19 @@ class Beach extends React.Component {
                         <Weather weather={details.weather} />
                         <Amenities amenities={details.amenities} />
 
-                        <h3 style={styles.sectionTitle}>Messages</h3>
-                        <ConversationWindow
-                            conversationWindow={details.name}
-                            key={refreshConversation}
-                        />
-
-                        <MessageBox
-                            messageBox={details.name}
-                            refreshConversation={this.refreshConversation}
-                        />
-
                         <button style={styles.button} onClick={() => navigate('/writeReport')}>
                             Write Report
                         </button>
                         <MapIcon />
+
+                        {/* Use Chat component instead of individual MessageBox and ConversationWindow */}
+                        <Chat beachName={details.name} />
                     </header>
                 </div>
             </div>
         );
     }
 }
-
 
 // Define inline styles
 const styles = {
@@ -113,11 +96,6 @@ const styles = {
         color: details => (details.waterQuality.isSafe ? '#28a745' : '#dc3545'),
         marginBottom: '20px',
     },
-    sectionTitle: {
-        fontSize: '1.5rem',
-        marginTop: '20px',
-        marginBottom: '10px',
-    },
     button: {
         padding: '10px 20px',
         fontSize: '1rem',
@@ -140,7 +118,6 @@ styles.button[':hover'] = {
     backgroundColor: '#0056b3',
 };
 
-
 // A wrapper function to use hooks (useParams, useNavigate) in class-based components
 function BeachWithParamsAndNavigate(props) {
     const params = useParams();  // Hook to access URL parameters
@@ -148,4 +125,4 @@ function BeachWithParamsAndNavigate(props) {
     return <Beach {...props} params={params} navigate={navigate} />;  // Pass the hooks as props to the class-based component
 }
 
-export default BeachWithParamsAndNavigate;  // Export the component
+export default BeachWithParamsAndNavigate;

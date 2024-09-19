@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
 from .models import Beach, Weather, WaterQuality, CommunityReport, AdminProfile, BeachSpecificChat, Message
-from .serializer import BeachSerializer, WeatherSerializer, WaterQualitySerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
+from .serializer import BeachSerializer, WeatherSerializer, WaterQualityCreateUpdateSerializer, WaterQualityOutputSerializer, CommunityReportSerializer, AdminProfileSerializer, BeachSpecificChatSerializer, MessageSerializer
 
 class BeachView(APIView):
     # Handles GET, POST, and PUT requests for the Beach model
@@ -59,12 +59,12 @@ class WaterQualityView(APIView):
     def get(self, request):
         # Retrieve and return a list of all water quality records
         water_quality = WaterQuality.objects.all()
-        serializer = WaterQualitySerializer(water_quality, many=True)
+        serializer = WaterQualityOutputSerializer(water_quality, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         # Create a new water quality record with the provided data
-        serializer = WaterQualitySerializer(data=request.data)
+        serializer = WaterQualityCreateUpdateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -134,6 +134,26 @@ class MessageView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+class MessageView(APIView):
+    def put(self, request, pk):
+        try:
+            message = Message.objects.get(pk=pk)
+        except Message.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user_id = request.META.get('REMOTE_ADDR')  # Using IP address as user identifier
+        likedBy = message.likedBy
+
+        if user_id not in likedBy:
+            message.likeCount += 1
+            likedBy.append(user_id)
+            message.likedBy = likedBy
+            message.save()
+            return Response({'likeCount': message.likeCount})
+
+        print(user_id)
+        return Response({'error': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
+    
 class AdminProfileView(APIView):
     def get(self, request):
         admin_profiles = AdminProfile.objects.all()
@@ -155,7 +175,6 @@ class AdminLoginView(APIView):
         
         if user is not None:
             if AdminProfile.objects.filter(user=user).exists():
-                login(request, user)
                 admin_profile = AdminProfile.objects.get(user=user)
                 serializer = AdminProfileSerializer(admin_profile)
                 return Response(serializer.data, status=status.HTTP_200_OK)
