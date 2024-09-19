@@ -7,8 +7,6 @@ const TrendingBeaches = ({ searchQuery }) => {
     const itemsRef = useRef(null); // Reference for the items container
     const [details, setDetails] = useState([]);
     const navigate = useNavigate();
-
-    // Variables for dragging
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -16,82 +14,50 @@ const TrendingBeaches = ({ searchQuery }) => {
     useEffect(() => {
         // Fetch beach details from API
         axios.get('http://localhost:8000/beaches')
-            .then((res) => {
-                setDetails(res.data);
-            })
-            .catch((err) => {
-                console.error('Error fetching the data!', err);
-            });
+            .then((res) => setDetails(res.data))
+            .catch((err) => console.error('Error fetching the data!', err));
 
         const items = itemsRef.current;
 
-        // Mouse event handlers
-        const handleMouseDown = (e) => {
+        // Unified event handler for both mouse and touch events
+        const handleMoveStart = (e) => {
             isDown = true;
             items.classList.add('active');
-            startX = e.pageX - items.offsetLeft;
+            startX = (e.pageX || e.touches[0].pageX) - items.offsetLeft;
             scrollLeft = items.scrollLeft;
         };
 
-        const handleMouseLeave = () => {
+        const handleMoveEnd = () => {
             isDown = false;
             items.classList.remove('active');
         };
 
-        const handleMouseUp = () => {
-            isDown = false;
-            items.classList.remove('active');
-        };
-
-        const handleMouseMove = (e) => {
+        const handleMove = (e) => {
             if (!isDown) return;
             e.preventDefault();
-            const x = e.pageX - items.offsetLeft;
+            const x = (e.pageX || e.touches[0].pageX) - items.offsetLeft;
             const walk = (startX - x) * 3; // Scroll right to left
             items.scrollLeft = scrollLeft + walk;
         };
 
-        // Touch event handlers for mobile devices
-        const handleTouchStart = (e) => {
-            isDown = true;
-            items.classList.add('active');
-            startX = e.touches[0].pageX - items.offsetLeft;
-            scrollLeft = items.scrollLeft;
-        };
+        // Add event listeners for both mouse and touch events
+        items.addEventListener('mousedown', handleMoveStart);
+        items.addEventListener('mouseup', handleMoveEnd);
+        items.addEventListener('mousemove', handleMove);
+        items.addEventListener('mouseleave', handleMoveEnd);
+        items.addEventListener('touchstart', handleMoveStart);
+        items.addEventListener('touchend', handleMoveEnd);
+        items.addEventListener('touchmove', handleMove);
 
-        const handleTouchEnd = () => {
-            isDown = false;
-            items.classList.remove('active');
-        };
-
-        const handleTouchMove = (e) => {
-            if (!isDown) return;
-            const x = e.touches[0].pageX - items.offsetLeft;
-            const walk = (startX - x) * 3; // Scroll right to left
-            items.scrollLeft = scrollLeft + walk;
-        };
-
-        // Adding mouse event listeners
-        items.addEventListener('mousedown', handleMouseDown);
-        items.addEventListener('mouseleave', handleMouseLeave);
-        items.addEventListener('mouseup', handleMouseUp);
-        items.addEventListener('mousemove', handleMouseMove);
-
-        // Adding touch event listeners
-        items.addEventListener('touchstart', handleTouchStart);
-        items.addEventListener('touchend', handleTouchEnd);
-        items.addEventListener('touchmove', handleTouchMove);
-
-        // Clean up the event listeners on component unmount
+        // Clean up event listeners on component unmount
         return () => {
-            items.removeEventListener('mousedown', handleMouseDown);
-            items.removeEventListener('mouseleave', handleMouseLeave);
-            items.removeEventListener('mouseup', handleMouseUp);
-            items.removeEventListener('mousemove', handleMouseMove);
-
-            items.removeEventListener('touchstart', handleTouchStart);
-            items.removeEventListener('touchend', handleTouchEnd);
-            items.removeEventListener('touchmove', handleTouchMove);
+            items.removeEventListener('mousedown', handleMoveStart);
+            items.removeEventListener('mouseup', handleMoveEnd);
+            items.removeEventListener('mousemove', handleMove);
+            items.removeEventListener('mouseleave', handleMoveEnd);
+            items.removeEventListener('touchstart', handleMoveStart);
+            items.removeEventListener('touchend', handleMoveEnd);
+            items.removeEventListener('touchmove', handleMove);
         };
     }, []);
 
@@ -101,13 +67,9 @@ const TrendingBeaches = ({ searchQuery }) => {
 
     return (
         <div className="grid-container">
-            <div
-                ref={itemsRef} // Assign the ref to the items container
-                className="items"
-            >
+            <div ref={itemsRef} className="items">
                 {filteredBeaches.map((beach, id) => (
                     <div key={id} className="item">
-                        
                         <p>{beach.name}</p>
                         <button onClick={() => navigate(`/beach/${beach.name}`)}>
                             Explore {beach.name}
