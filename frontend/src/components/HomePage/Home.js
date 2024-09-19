@@ -6,6 +6,7 @@ import TrendingBeaches from './TrendingBeaches';
 import MapIcon from '../MapPage/MapIcon';
 import Footer from '../Footer/Footer';
 import './SearchBar.css'; // Create this CSS file for custom styles
+import Chat from '../BeachPage/Chat';
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,6 +36,7 @@ const HomePage = () => {
       <TrendingBeaches searchQuery={searchQuery} />
       <CountUpSection />
       <MapIcon />
+      <Chat/>
       <Footer/>
     </>
   );

@@ -73,7 +73,7 @@ class CommunityReportSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ['sender', 'content']
+        fields = ['id', 'sender', 'content', 'likeCount', 'likedBy']
 
 class BeachSpecificChatSerializer(serializers.ModelSerializer):
     messages = MessageSerializer(many=True)

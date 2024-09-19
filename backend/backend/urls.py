@@ -43,6 +43,7 @@ urlpatterns = [
 
     # Beach Specific Chat endpoints
     path('beachSpecific-chat/', BeachSpecificChatView.as_view(), name='beach-specific-chat'),  # List all beach-specific chats or create a new chat
+    path('beachSpecific-chat/<int:pk>/like/', MessageView.as_view(), name='message'),  # List all beach-specific chats or create a new chat
 
     # Admin Profile endpoints
     path('admin-profiles/', AdminProfileView.as_view(), name='admin-profiles'),  # List all admin profiles or create a new profile
