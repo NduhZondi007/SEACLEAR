@@ -23,7 +23,7 @@ class Chat extends React.Component {
     };
 
     render() {
-        const { beachName } = this.props;  // Access the beachName passed as prop
+        const { beachName = 'General' } = this.props;  // Access the beachName passed as prop
         const { refreshConversation, showChat } = this.state;
 
         return (
