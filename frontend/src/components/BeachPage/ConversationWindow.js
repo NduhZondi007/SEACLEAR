@@ -46,7 +46,7 @@ class ConversationWindow extends React.Component {
         if (!username) {
             this.setState({ usernameTextArea: true });  // Show the modal if no username is set
         } else {
-            axios.put(`https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/${messageId}/like/`, {
+            axios.put(`http://localhost:8000/beachSpecific-chat/${messageId}/like/`, {
                 username: username
             })
             .then(() => {

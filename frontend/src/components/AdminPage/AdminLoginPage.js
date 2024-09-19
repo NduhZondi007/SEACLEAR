@@ -15,7 +15,7 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000//adminLogin/', {
+    axios.post('http://localhost:8000/adminLogin/', {
       username,
       password
     })

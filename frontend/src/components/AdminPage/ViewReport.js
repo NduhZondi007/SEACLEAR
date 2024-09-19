@@ -47,7 +47,7 @@ class ViewReport extends React.Component {
 
         const { id, user, reportType, beach, problemType, status, additionalInfo, urgency } = this.state;
 
-        axios.put(`https://seaclear-8.cs.uct.ac.za/api/reports/${id}/`, {
+        axios.put(`http://localhost:8000/reports/${id}/`, {
             user,
             reportType,
             beach,

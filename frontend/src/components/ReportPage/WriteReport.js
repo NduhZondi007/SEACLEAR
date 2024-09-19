@@ -58,7 +58,7 @@ const WriteReport = () => {
             beach = "General";
         }
     
-        axios.post(`https://seaclear-8.cs.uct.ac.za/api/reports/`, {
+        axios.post(`http://localhost:8000/reports/`, {
             user: finalUsername,
             reportType,
             beach,

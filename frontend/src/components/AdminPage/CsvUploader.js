@@ -112,7 +112,7 @@ function CsvUploader() {
 
               // Send PUT request to update the beach
               axios
-                .put(`https://seaclear-8.cs.uct.ac.za/api/beaches/${matchingBeach.id}/`, updatedBeach)
+                .put(`http://localhost:8000/beaches/${matchingBeach.id}/`, updatedBeach)
                 .then((response) => {
                   console.log(`Updated ${matchingBeach.name} successfully!`, response.data);
                 })
