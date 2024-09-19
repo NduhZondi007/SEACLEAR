@@ -12,6 +12,8 @@ import ReportList from './components/AdminPage/ReportList.js';
 import ViewReport from './components/AdminPage/ViewReport.js';
 import Map from './components/MapPage/Map.js';
 import AdminLogin from './components/AdminPage/AdminLoginPage.js';
+import EducationalContent from './components/EducationalContent/EducationalContent.js';
+
 
 import { UserProvider } from './UserContext.js';
 import { WeatherProvider } from './WeatherContex.js';
@@ -36,6 +38,8 @@ export default function AppWrapper() {
             <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
             <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
             <Route path="/map" element={<Map />} /> {/* View Map */}
+            <Route path="/educational-content" element={<EducationalContent />} />
+
 
           </Routes>
         </Router>

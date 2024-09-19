@@ -65,7 +65,7 @@ class Beach extends React.Component {
                     <Chat beachName={details.name} />
 
                     {/* Side section for chat, weather, and amenities */}
-
+                    
                 </div>
                 <Footer />
 

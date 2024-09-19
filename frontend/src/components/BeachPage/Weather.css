@@ -1,0 +1,52 @@
+/* Container Styling */
+.weather-container {
+    padding: 30px;
+    background-color: #f0f4fa; /* Soft, luxurious pastel */
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for a luxurious feel */
+    max-width: 450px;
+    margin: 40px auto;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.weather-container:hover {
+    transform: scale(1.03); /* Subtle scale on hover */
+}
+
+/* Title Styling */
+.weather-title {
+    font-size: 2rem;
+    color: #35495e; /* Elegant deep blue */
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* List Styling */
+.weather-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.weather-list-item {
+    background-color: midnightblue; /* Luxurious blue for contrast */
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+.weather-list-item:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Loading Message Styling */
+.loading {
+    font-size: 1.5rem;
+    color: #6c757d;
+    text-align: center;
+}
