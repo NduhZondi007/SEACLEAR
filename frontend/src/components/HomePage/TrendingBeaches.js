@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import './TrendingBeaches.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Beach1 from "./../../assets/images/Beach1.jpg"
+
 
 const TrendingBeaches = ({ searchQuery }) => {
     const itemsRef = useRef(null); // Reference for the items container
@@ -70,6 +72,7 @@ const TrendingBeaches = ({ searchQuery }) => {
             <div ref={itemsRef} className="items">
                 {filteredBeaches.map((beach, id) => (
                     <div key={id} className="item">
+                        <img src={Beach1} alt="BeachImage" />
                         <p>{beach.name}</p>
                         <button onClick={() => navigate(`/beach/${beach.name}`)}>
                             Explore {beach.name}
