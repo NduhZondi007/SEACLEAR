@@ -20,7 +20,7 @@ class ViewReport extends React.Component {
         const { reportId } = this.props.params;
 
         axios
-            .get('http://localhost:8000/reports')
+            .get('https://seaclear-8.cs.uct.ac.za/api/reports')
             .then((res) => {
                 let data = res.data;
                 data = data.find(report => report.id === parseInt(reportId));
@@ -47,7 +47,7 @@ class ViewReport extends React.Component {
 
         const { id, user, reportType, beach, problemType, status, additionalInfo, urgency } = this.state;
 
-        axios.put(`http://localhost:8000/reports/${id}/`, {
+        axios.put(`https://seaclear-8.cs.uct.ac.za/api/reports/${id}/`, {
             user,
             reportType,
             beach,

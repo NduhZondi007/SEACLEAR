@@ -13,7 +13,7 @@ const TrendingBeaches = ({ searchQuery }) => {
 
     useEffect(() => {
         // Fetch beach details from API
-        axios.get('http://localhost:8000/beaches')
+        axios.get('https://seaclear-8.cs.uct.ac.za/api/beaches')
             .then((res) => setDetails(res.data))
             .catch((err) => console.error('Error fetching the data!', err));
 

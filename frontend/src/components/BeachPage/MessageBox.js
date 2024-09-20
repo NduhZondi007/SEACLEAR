@@ -38,7 +38,7 @@ const MessageBox = (props) => {
         if (message === "") {
             return;
         }
-        axios.post("http://localhost:8000/beachSpecific-chat/", {
+        axios.post("https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/", {
             "beach_name": name,
             "messages": [
                 {
