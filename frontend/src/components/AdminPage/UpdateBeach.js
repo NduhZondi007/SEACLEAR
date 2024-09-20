@@ -128,7 +128,7 @@ class UpdateBeach extends React.Component {
                     <h3 className="sectionTitle">Beach Details</h3>
                     <label className="label">
                         Name
-                        <input id="name" type="text" value={name} readOnly className="input" />
+                        <input id="name" type="text" value={name} onChange={this.handleInputChange} className="input" />
                     </label>
                     <label className="label">
                         Location
