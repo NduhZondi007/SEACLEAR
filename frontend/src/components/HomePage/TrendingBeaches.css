@@ -119,20 +119,20 @@
 /* Responsive Styles */
 @media screen and (max-width: 1024px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust for tablets */
+        grid-template-columns: repeat(auto-fill, minmax(100vw, 1fr)); /* Adjust for tablets */
     }
 }
 
 @media screen and (max-width: 768px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust for smaller screens */
+        grid-template-columns: repeat(auto-fill, minmax(100vw, 1fr)); /* Adjust for smaller screens */
     }
 
 }
 
 @media screen and (max-width: 480px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust for mobile */
+        grid-template-columns: repeat(auto-fill, minmax(100vw, 1fr)); /* Adjust for mobile */
     }
 
 

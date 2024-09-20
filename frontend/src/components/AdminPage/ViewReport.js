@@ -74,7 +74,7 @@ class ViewReport extends React.Component {
         const { user, reportType, beach, problemType, status, additionalInfo, urgency, error } = this.state;
     
         return (
-            <div className="formContainer">
+            <div className="form-container">
                 {error && <p className="errorMessage">{error}</p>}
                 <form onSubmit={this.handleSubmit}>
                     <h3 className="sectionTitle">Report Details</h3>
