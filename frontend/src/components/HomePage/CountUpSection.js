@@ -95,13 +95,13 @@ const CountUpSection = () => {
 
             <div className="c-container">
                 <i className="fa-solid fa-heart-pulse"></i>
-                <span className="num">{counts.livesSaved}</span>
+                <span className="num">{counts.livesSaved}+</span>
                 <span className="c-text">Lives Saved</span>
             </div>
 
             <div className="c-container">
                 <i className="fa-solid fa-list"></i>
-                <span className="num">{counts.menuItems}</span>
+                <span className="num">{counts.menuItems}+</span>
                 <span className="c-text">Reports Received</span>
             </div>
         </div>
