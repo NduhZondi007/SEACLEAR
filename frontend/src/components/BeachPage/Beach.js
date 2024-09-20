@@ -46,12 +46,12 @@ class Beach extends React.Component {
                             <p className="beach-name">{details.name}</p>
                             <p className="beach-location">Location: {details.location}</p>
                             <p className="beach-safety">
-                                {details.waterQuality.isSafe ? (
-                                    <span className="safe">Safe to swim🟢</span>
-                                ) : details.waterQuality.isPartiallySafe ? (
-                                    <span className="partially-safe">Partially Safe to swim🟡</span>
+                                {details.waterQuality.isSafe === "Safe" ? (
+                                    <span className="safe">Safe to swim 🟢</span>
+                                ) : details.waterQuality.isSafe === "medium" ? (
+                                    <span className="partially-safe">Partially Safe to swim 🟡</span>
                                 ) : (
-                                    <span className="unsafe">Unsafe to Swim🔴</span>
+                                    <span className="unsafe">Unsafe to Swim 🔴</span>
                                 )}
                             </p>
                         </div>
@@ -59,13 +59,13 @@ class Beach extends React.Component {
                         <div className="side-container">
                             <Weather weather={details.weather} />
                             <Amenities amenities={details.amenities} />
-                            
+
                         </div>
                     </div>
                     <Chat beachName={details.name} />
 
                     {/* Side section for chat, weather, and amenities */}
-                    
+
                 </div>
                 <Footer />
 
