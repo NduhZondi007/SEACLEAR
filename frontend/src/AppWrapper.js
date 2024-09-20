@@ -38,8 +38,7 @@ export default function AppWrapper() {
             <Route path="/beach/:name" element={<Beach />} /> {/* Beach detail route */}
             <Route path="/writeReport" element={<WriteReport />} /> {/* Write Report route */}
             <Route path="/map" element={<Map />} /> {/* View Map */}
-            <Route path="/educational-content" element={<EducationalContent />} />
-
+            <Route path="/EducationalContent" element={<EducationalContent />} />
 
           </Routes>
         </Router>

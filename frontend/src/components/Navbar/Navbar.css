@@ -15,7 +15,7 @@
 
 .container{
     display: flex;
-    justify-content:space-between;
+
 }
 
 .navbar-brand {
@@ -51,9 +51,12 @@
     display: flex;
     gap: 30px;
     list-style: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-link {
+    margin-top: 8.5px;
     color: white;
     text-decoration: none;
     transition: transform 0.3s ease, color 0.3s ease;
@@ -195,11 +198,13 @@ span:nth-child(3) {
 @media (max-width: 1150px) {
     .navbar-brand {
         margin-right: 20px;
+        align-self: flex-start;
     }
     
     .navbar-nav {
         display: none;
         background-color: midnightblue;
+        justify-content: space-between;
     }
 
     .mobile-menu-icon {
