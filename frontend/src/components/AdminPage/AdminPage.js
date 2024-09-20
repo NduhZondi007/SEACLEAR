@@ -59,7 +59,6 @@ const AdminPage = () => {
       </main>
      
     </div>
-   <Footer/>
     </>
   );
 };
