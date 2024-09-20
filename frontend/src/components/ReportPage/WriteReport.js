@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import './WriteReport.css';
 import { UserContext } from '../../UserContext';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -83,17 +84,17 @@ const WriteReport = () => {
     };
 
     return (
-        <div>
+        <div className="report-container">
             <Navbar />
-            <div style={styles.container}>
-                <form onSubmit={handleSubmit} style={styles.form}>
-                    <h3 style={styles.heading}>Report Details</h3>
+            <div className="report-form-container">
+                <form onSubmit={handleSubmit} className="report-form">
+                    <h3 className="report-heading">Report Details</h3>
 
                     {!username && (
-                        <label style={styles.label}>
+                        <label className="report-label">
                             Username
                             <input
-                                style={styles.input}
+                                className="report-input"
                                 name="usernameInput"
                                 type="text"
                                 value={details.usernameInput}
@@ -102,10 +103,10 @@ const WriteReport = () => {
                         </label>
                     )}
 
-                    <label style={styles.label}>
+                    <label className="report-label">
                         Report Type
                         <select
-                            style={styles.select}
+                            className="report-select"
                             name="reportType"
                             value={details.reportType}
                             onChange={handleInputChange}
@@ -117,10 +118,10 @@ const WriteReport = () => {
                     </label>
 
                     {details.reportType === 'Beach Specific' && (
-                        <label style={styles.label}>
+                        <label className="report-label">
                             Beach Name
                             <select
-                                style={styles.select}
+                                className="report-select"
                                 name="beach"
                                 value={details.beach}
                                 onChange={handleInputChange}
@@ -135,10 +136,10 @@ const WriteReport = () => {
                         </label>
                     )}
 
-                    <label style={styles.label}>
+                    <label className="report-label">
                         Urgency
                         <select
-                            style={styles.select}
+                            className="report-select"
                             name="urgency"
                             value={details.urgency}
                             onChange={handleInputChange}
@@ -150,10 +151,10 @@ const WriteReport = () => {
                         </select>
                     </label>
 
-                    <label style={styles.label}>
+                    <label className="report-label">
                         Problem Type
                         <select
-                            style={styles.select}
+                            className="report-select"
                             name="problemType"
                             value={details.problemType}
                             onChange={handleInputChange}
@@ -165,85 +166,22 @@ const WriteReport = () => {
                         </select>
                     </label>
 
-                    <label style={styles.label}>
+                    <label className="report-label">
                         Additional Info
                         <textarea
-                            style={styles.textarea}
+                            className="report-textarea"
                             name="additionalInfo"
                             value={details.additionalInfo}
                             onChange={handleInputChange}
                         />
                     </label>
 
-                    <button type="submit" style={styles.button}>Submit Report</button>
+                    <button type="submit" className="report-button">Submit Report</button>
                 </form>
             </div>
-
+            <Footer />
         </div>
     );
 };
 
 export default WriteReport;
-
-// Define inline styles
-const styles = {
-    container: {
-        maxWidth: '600px',
-        margin: '0 auto',
-        padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '15px',
-    },
-    heading: {
-        fontSize: '1.8rem',
-        color: '#333',
-        textAlign: 'center',
-    },
-    label: {
-        fontSize: '1rem',
-        color: '#555',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    input: {
-        padding: '10px',
-        fontSize: '1rem',
-        borderRadius: '5px',
-        border: '1px solid #ccc',
-        marginTop: '5px',
-    },
-    select: {
-        padding: '10px',
-        fontSize: '1rem',
-        borderRadius: '5px',
-        border: '1px solid #ccc',
-        marginTop: '5px',
-    },
-    textarea: {
-        padding: '10px',
-        fontSize: '1rem',
-        borderRadius: '5px',
-        border: '1px solid #ccc',
-        minHeight: '100px',
-        marginTop: '5px',
-    },
-    button: {
-        padding: '12px 20px',
-        fontSize: '1rem',
-        color: '#fff',
-        backgroundColor: '#007BFF',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    },
-    buttonHover: {
-        backgroundColor: '#0056b3',
-    },
-};
