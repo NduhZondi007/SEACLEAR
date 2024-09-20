@@ -1,8 +1,12 @@
 /* AdminPage.css */
 
-.container {
+.admin-container {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
     padding: 150px;
     text-align: center;
+
   }
   
   .title {

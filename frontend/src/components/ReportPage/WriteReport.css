@@ -4,7 +4,7 @@
   margin: 0 auto; /* Centers the container horizontally */
   padding: 20px; /* Adds padding inside the container */
   border-radius: 10px; /* Rounds the corners of the container */
-  background-color: #f7f7f7; /* Sets a light gray background color */
+  background-color: royalblue; /* Sets a light gray background color */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
 }
 
@@ -27,7 +27,7 @@
   width: 100%; /* Makes the form elements span the full width of the container */
   padding: 10px; /* Adds padding inside the elements */
   margin-top: 5px; /* Adds space above each element */
-  border: 1px solid #ddd; /* Adds a light gray border */
+  border: 1px solid royalblue; /* Adds a light gray border */
   border-radius: 5px; /* Rounds the corners of the elements */
 }
 
