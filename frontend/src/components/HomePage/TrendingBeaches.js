@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import './TrendingBeaches.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Beach1 from "./../../assets/images/Beach1.jpg"; // Example beach image
+
+// Import multiple beach images
+import Beach1 from "./../../assets/images/Beach1.jpg";
+import Beach2 from "./../../assets/images/Beach2.jpg";
+import Beach3 from "./../../assets/images/Beach3.jpg"; 
+import Beach4 from "./../../assets/images/Beach4.jpg";
 
 const TrendingBeaches = ({ searchQuery }) => {
     const itemsRef = useRef(null); // Reference for the items container
@@ -11,6 +16,15 @@ const TrendingBeaches = ({ searchQuery }) => {
     let isDown = false;
     let startX;
     let scrollLeft;
+
+    // Array of beach images
+    const beachImages = [Beach1, Beach2, Beach3, Beach4];
+
+    // Function to get a random image
+    const getRandomImage = () => {
+        const randomIndex = Math.floor(Math.random() * beachImages.length);
+        return beachImages[randomIndex];
+    };
 
     useEffect(() => {
         // Fetch beach details from API
@@ -72,7 +86,8 @@ const TrendingBeaches = ({ searchQuery }) => {
             <div ref={itemsRef} className="items">
                 {filteredBeaches.map((beach, id) => (
                     <div key={id} className="item">
-                        <img src={Beach1} alt="BeachImage" />
+                        {/* Random beach image */}
+                        <img src={getRandomImage()} alt="BeachImage" />
                         <p>{beach.name}</p>
                         
                         {/* Beach Safety Details */}
