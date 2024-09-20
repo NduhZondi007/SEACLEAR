@@ -1,4 +1,7 @@
 /* General Styles */
+
+
+
 .navbar {
     position: fixed;
     display: flex;
@@ -13,9 +16,8 @@
     /* Always on top */
 }
 
-.container{
-    display: flex;
-
+.nav-container{
+    display: none;
 }
 
 .navbar-brand {
@@ -196,6 +198,12 @@ span:nth-child(3) {
 
 /* Media Queries */
 @media (max-width: 1150px) {
+    .container{
+        display: none;
+    }
+    .nav-container{
+        display: flex;
+    }
     .navbar-brand {
         margin-right: 20px;
         align-self: flex-start;

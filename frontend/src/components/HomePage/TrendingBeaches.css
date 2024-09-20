@@ -27,7 +27,8 @@
         text-align: center;
         cursor: poi;
         transition: transform 0.3s, box-shadow 0.3s;
-   
+        min-height: 300px;
+
     }
 
     .item:hover {
@@ -91,16 +92,28 @@
 }
 
 .item img {
-    width: 80px; /* Smaller image size for a cleaner look */
-    height: auto;
+    width: 100px;
+    /*Smallerimagesizeforacleanerlook*/height: auto;
     margin-bottom: 10px;
-    border-radius: 50%; /* Circular image for a luxurious touch */
-    border: 2px solid #c5b358; /* Gold border around image */
+    border-radius: 100px;
+    /*Circularimageforaluxurioustouch*/border: 2px solid #c5b358;
+    /*Goldborderaroundimage*/-webkit-border-radius: 50%;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    -webkit-border-radius: 100px;
 }
 
 .item button:hover {
     background-color: goldenrod;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.no-highlight {
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 /* Responsive Styles */
