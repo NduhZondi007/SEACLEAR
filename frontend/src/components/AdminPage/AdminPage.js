@@ -36,7 +36,7 @@ const AdminPage = () => {
     <div>
       <Navbar />
 
-      <main className="container">
+      <main className="admin-container">
         <h1 className="title">Admin Page</h1>
 
         <div className="button-group">
