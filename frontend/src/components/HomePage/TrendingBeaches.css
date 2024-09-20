@@ -92,11 +92,11 @@
 }
 
 .item img {
-    width: 100px;
+    width: 90px;
     /*Smallerimagesizeforacleanerlook*/height: auto;
     margin-bottom: 10px;
     border-radius: 100px;
-    /*Circularimageforaluxurioustouch*/border: 2px solid #c5b358;
+    /*Circularimageforaluxurioustouch*/border: 2px solid midnightblue;
     /*Goldborderaroundimage*/-webkit-border-radius: 50%;
     -moz-border-radius: 100px;
     -ms-border-radius: 100px;

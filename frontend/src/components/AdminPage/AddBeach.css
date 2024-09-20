@@ -1,11 +1,12 @@
 /* AddBeach.css */
 
 .form-container {
+   display: flex;
     padding: 20px;
-    margin: 0 auto;
+    margin: auto auto;
     max-width: 600px;
     text-align: left;
-    background-color: #f9f9f9;
+    color: gold;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -13,7 +14,7 @@
   .section-title {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #333;
+    color: white;
   }
   
   .label {
@@ -42,6 +43,7 @@
   
   .checkbox {
     margin-right: 8px;
+    color: goldenrod;
   }
   
   .select {
