@@ -38,7 +38,7 @@ const CountUpSection = () => {
                 setHasAnimated(true);
 
                 // Fetch the real data for beaches monitored
-                axios.get('http://localhost:8000/beaches')
+                axios.get('https://seaclear-8.cs.uct.ac.za/api/beaches')
                     .then((res) => {
                         const numberOfBeaches = res.data.length; // Count the number of beaches
                         animateValue(0, numberOfBeaches, interval, "beachesMonitored");
@@ -49,7 +49,7 @@ const CountUpSection = () => {
                     });
 
                 // Fetch the real data for reports received
-                axios.get('http://localhost:8000/reports')
+                axios.get('https://seaclear-8.cs.uct.ac.za/api/reports')
                     .then((res) => {
                         const numberOfReports = res.data.length; // Count the number of reports
                         animateValue(0, numberOfReports, interval, "menuItems");
@@ -60,7 +60,7 @@ const CountUpSection = () => {
                     });
 
                 // Fetch unique senders and link to "Lives Saved"
-                axios.get('http://localhost:8000/beachSpecific-chat/')
+                axios.get('https://seaclear-8.cs.uct.ac.za/api/beachSpecific-chat/')
                     .then((res) => {
                         const messages = res.data.flatMap(beach => beach.messages);
                         const uniqueSenders = [...new Set(messages.map(msg => msg.sender))]; // Get unique senders
