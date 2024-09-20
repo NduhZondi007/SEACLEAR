@@ -1,5 +1,6 @@
 import React from 'react';
 import './HeroSection.css'; // Import custom CSS if needed
+import '../EducationalContent/EducationalContent'
 
 const HeroSection = () => {
     return (
@@ -15,7 +16,7 @@ const HeroSection = () => {
                     <h1 className="text-header"> Real-Time Water Quality Monitoring</h1>
                     <hr className="divider" />
                     <p className='hero-text'>We help you stay informed about beach water quality for safer seaside activities.</p>
-                    <button className="btn btn-primary btn-xl" onClick={() => window.location.href = '/Map'}>Explore Map</button>
+                    <button className="btn btn-primary btn-xl" onClick={() => window.location.href = './EducationalContent'}>Learn More</button>
                 </div>
             </div>
         </header>

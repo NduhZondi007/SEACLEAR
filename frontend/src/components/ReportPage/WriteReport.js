@@ -178,7 +178,6 @@ const WriteReport = () => {
                     <button type="submit" style={styles.button}>Submit Report</button>
                 </form>
             </div>
-            <Footer/>
 
         </div>
     );

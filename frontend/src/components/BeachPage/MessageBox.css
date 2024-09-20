@@ -1,96 +1,43 @@
-/* Chat Container Styling */
-.chat-container {
-    background-color: #f8f9fa;
-    border-radius: 15px;
-    padding: 30px;
-    min-width: 700px;
-    margin: 40px auto;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.chat-container:hover {
-    transform: scale(1.02);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* Chat Icon Button Styling */
-.icon-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
+/* MessageBox Container */
+.message-box-container {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 15px;
+    gap: 15px;
+    max-width: 700px;
     margin: 20px auto;
 }
 
-.chat-icon {
-    width: 60px;
-    height: 60px;
-    transition: transform 0.2s ease;
-}
-
-.icon-button:hover .chat-icon {
-    transform: scale(1.1);
-}
-
-/* Close Button Styling */
-.close-button {
-    display: block;
-    margin-left: auto;
-    padding: 10px 20px;
-    background-color: maroon;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.close-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-/* Message Styling */
-.message-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
+/* Input Field */
 .message-input {
-    width: 70%;
+    width: 75%;
     padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    border: 2px solid #ccc;
     outline: none;
-    font-size: 1.1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    background-color: #fafafa;
+    color: #333;
 }
 
 .message-input:focus {
     border-color: #007bff;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.2);
 }
 
-/* Send Button Styling */
+/* Send Button */
 .send-button {
     padding: 15px 25px;
     font-size: 1.2rem;
     background-color: #28a745;
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-left: 10px;
 }
 
 .send-button:hover {

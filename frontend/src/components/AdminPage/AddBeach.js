@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import './AddBeach.css'; // Import the CSS file
+import Navbar from '../Navbar/Navbar';
+
 
 class AddBeach extends React.Component {
   // Initial state includes fields for beach name, location, amenities, weather, and water quality
@@ -124,6 +126,8 @@ class AddBeach extends React.Component {
     const { name, location, amenities, weather, waterQuality } = this.state;
   
     return (
+      <>
+      <Navbar/>
       <div className="form-container">
         <form onSubmit={this.handleSubmit}>
           <h3 className="section-title">Beach Details</h3>
@@ -193,6 +197,8 @@ class AddBeach extends React.Component {
           <button type="submit" className="button">Add Beach</button>
         </form>
       </div>
+
+      </>
     );
   }  
 }

@@ -12,52 +12,68 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
-            <div className="container" id='nav'>
-                <Link className="navbar-brand" to="/">
-                    <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
-                    SEACLEAR
-                </Link>
+        <>
 
-                <div className={`navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarResponsive">
-                    <ul className="navbar-nav">
-                        <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="#About">About</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
-                        <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Admin Login</button>
+            <nav className={`navbar navbar-expand-lg navbar-light fixed-top py-3 ${isMenuOpen ? 'blur-background' : ''}`} id="mainNav">
 
-                    </ul>
-                    <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
-                    <div className={`hamburger ${isMenuOpen ? "open" : ""}`}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div className="container" id='nav'>
+
+                    <Link className="navbar-brand" to="/">
+                        <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
+                        SEACLEAR
+                    </Link>
+
+                    <div className={`navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarResponsive">
+                        <ul className="navbar-nav">
+                            <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                            <li className="nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
+                            <li className="nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
+                            <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
+                        </ul>
                     </div>
-                </button>
-                    
-                    
-                </div>
 
-                
-            </div>
-
-            {/* Mobile Menu Overlay */}
-            {isMenuOpen && (
-                <div className="mobile-menu mobile-nav">
-                    <button className="mobile-menu-icon active nav-link " onClick={toggleMenu}>
-                        {isMenuOpen ? <IoClose size={32} color="white" /> : <IoMenu size={32} color="white" />}
+                    <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
+                        <div className={`hamburger ${isMenuOpen ? "open" : ""}`}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </button>
-                    <ul className="mobile-nav-links">
-                        <li className="mobile-nav-item"><Link className="nav-link" to="/">Home</Link></li>
-                        <li className="mobile-nav-item"><Link className="nav-link" to="#About">About</Link></li>
-                        <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
-                        <li className="mobile-nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
-                        <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Admin Login</button>
-                    </ul>
+
+
                 </div>
-            )}
-        </nav>
+
+                <button className="mobile-menu-icon nav-item" onClick={toggleMenu}>
+                        <div className={`hamburger ${isMenuOpen ? "open" : ""}`}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                </button>
+
+                <div className='nav-container'>
+                    <Link className="navbar-brand" to="/">
+                        <img src="/images/seaclearlogo.png" alt="SeaClear Logo" />
+                        SEACLEAR
+                    </Link>
+                    {/* Mobile Menu Overlay */}
+                    {isMenuOpen && (
+                        <div className="mobile-menu mobile-nav">
+                            <button className="mobile-menu-icon active nav-link " onClick={toggleMenu}>
+                                {isMenuOpen ? <IoClose size={32} color="white" /> : <IoMenu size={32} color="white" />}
+                            </button>
+                            <ul className="mobile-nav-links">
+                                <li className="mobile-nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                                <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
+                                <li className="mobile-nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
+                                <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
+                            </ul>
+                        </div>
+
+                    )}
+                </div>
+            </nav>
+        </>
     );
 };
 

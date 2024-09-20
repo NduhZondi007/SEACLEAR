@@ -1,7 +1,6 @@
-.formContainerr {
-    
-    
-    padding: 20px;
+.form-container{
+
+    padding:300px;
     margin-top: 10px;
     max-width: 600px;
     text-align: left;
@@ -15,27 +14,13 @@
     margin-top: 56px;
     display: flex;
     justify-content: center;
-    
-
   }
 
-  .sectionTitle {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #555;
-  }
+
   
   .input,
   .select {
-    width: 100%;
+    width: 150px;
     padding: 10px;
     margin-bottom: 15px;
     font-size: 1rem;
@@ -69,6 +54,10 @@
     background-color: #0056b3;
   }
   
+  form .label{
+    color: white;
+  }
+
   .errorMessage {
     color: red;
     font-size: 1.2rem;
