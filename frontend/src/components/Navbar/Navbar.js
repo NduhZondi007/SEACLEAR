@@ -28,7 +28,7 @@ const Navbar = () => {
                             <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                             <li className="nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
                             <li className="nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
-                            <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Admin Login</button>
+                            <button className="nav-btn btn-primary btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
                         </ul>
                     </div>
 
@@ -66,7 +66,7 @@ const Navbar = () => {
                                 <li className="mobile-nav-item"><Link className="nav-link" to="/">Home</Link></li>
                                 <li className="mobile-nav-item"><Link className="nav-link" to="/Map">Map</Link></li>
                                 <li className="mobile-nav-item"><Link className="nav-link" to="/WriteReport">Submit Report</Link></li>
-                                <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Admin Login</button>
+                                <button className="nav-btn btn-xl nav-item " onClick={() => window.location.href = '/adminpageLogin/'}>Login</button>
                             </ul>
                         </div>
 
