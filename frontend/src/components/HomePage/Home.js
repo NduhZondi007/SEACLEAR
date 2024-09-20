@@ -38,13 +38,6 @@ const HomePage = () => {
       <CountUpSection />
       
       {/* "About Us" Button Linking to Educational Content */}
-      <div className="about-us-button-container">
-        <Link to="/educational-content">
-          <button>About Us</button>
-        </Link>
-      </div>
-
-      <MapIcon />
       <Chat/>
       <Footer/>
     </>
