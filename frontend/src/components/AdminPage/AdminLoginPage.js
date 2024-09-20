@@ -41,7 +41,7 @@ const AdminLogin = () => {
   <Navbar />
     <div className="admin-body">
       
-      <div className="form-container">
+      <div className="login-form-container">
         <h2 className="title">Admin Login</h2>
         <form onSubmit={handleLogin}>
           <div>
