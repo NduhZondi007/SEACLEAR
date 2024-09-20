@@ -43,7 +43,7 @@ class Beach extends React.Component {
                 <div className="dashboard-container">
                     <div className="beach-info-container">
                         <div className="beach-header">
-                            <p className="beach-name">Name: {details.name}</p>
+                            <p className="beach-name">{details.name}</p>
                             <p className="beach-location">Location: {details.location}</p>
                             <p className="beach-safety">
                                 {details.waterQuality.isSafe ? (
