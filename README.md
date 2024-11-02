@@ -56,7 +56,14 @@ Every project is different, so consider which of these sections apply to yours. 
 Choose a self-explaining name for your project.
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+SeaClear is a web-based project that delivers real-time water quality information for Cape Town beaches, enabling both locals and visitors to make informed decisions for safer beach activities. By leveraging data from the City of Cape Town, SeaClear classifies beach safety into five categories – Extremely Unsafe, Unsafe, Okay, Safe, and Extremely Safe – providing a user-friendly, mobile-friendly interface that reflects current conditions.
+
+Features
+Real-Time Updates: Continuously updated data on water quality from official sources.
+Safety Categories: A clear, color-coded rating system indicating beach safety.
+Accessible Design: A responsive design for easy access on any device.
+Purpose
+Developed to address concerns around water quality at local beaches, SeaClear empowers users to stay informed on the environmental health of Cape Town’s coastlines, promoting safety and environmental awareness in the community.
 
 ## Badges
 On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
